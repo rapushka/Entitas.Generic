@@ -1,29 +1,22 @@
-﻿using Entitas;
-using System.Diagnostics;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
-    public class Contexts
-    {
-        private static Contexts _Inst;
-        public static Contexts Inst => _Inst ??= new Contexts();
+	public class Contexts
+	{
+		private static Contexts _instance;
+		public static Contexts Instance => _instance ??= new Contexts();
 
-        public void Init<TS1, TS2>() where TS1 : IScope where TS2 : IScope
-        {
-            InitScope<TS1>();
-            InitScope<TS2>();
-        }
+		public void InitializeScope<TScope>()
+			where TScope : IScope
+		{
+			ComponentTypeManager<TScope>.AutoScan();
+			var context = new ScopeContext<TScope>(AERCFactories.SafeAERCFactory);
 
-        private void InitScope<TScope>() where TScope : IScope
-        {
-            ComponentTypeManager<TScope>.AutoScan();
-            var context = new ScopedCtx<TScope>(AERCFactories.SafeAERCFactory);
+			InitScopeObserver(context);
+		}
 
-            InitScopeObserver(context);
-        }
-
-        private void InitScopeObserver(Entitas.IContext context)
-        {
+		// ReSharper disable once UnusedParameter.Local - used in #if
+		private void InitScopeObserver(IContext context)
+		{
 #if UNITY_EDITOR
             if (UnityEngine.Application.isPlaying)
             {
@@ -31,6 +24,6 @@ namespace Entitas.Generic
                 UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
             }
 #endif
-        }
-    }
+		}
+	}
 }

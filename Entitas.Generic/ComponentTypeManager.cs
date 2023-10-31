@@ -2,67 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Entitas;
 
-// ReSharper disable StaticMemberInGenericType
 namespace Entitas.Generic
 {
-    /// <summary>
-    /// Component type manager: manages component types per scope
-    /// </summary>
-    /// <typeparam name="TScope">Scope</typeparam>
-    public static class ComponentTypeManager<TScope> where TScope : IScope
-    {
-        private static int _LastComponentIdx;
-        private static readonly List<Type> _ComponentIdxType = new();
+	public static class ComponentTypeManager<TScope> where TScope : IScope
+	{
+		private static readonly List<Type> _componentIdxTypes = new();
+		private static int _lastComponentIdx;
 
-        public static int TotalComponents => _ComponentIdxType.Count;
-        public static string[] ComponentNames { get; private set; }
-        public static Type[] ComponentTypes { get; private set; }
+		public static string[] ComponentNames { get; private set; }
 
-        public static void AutoScan()
-        {
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (var type in assembly.GetTypes())
-                {
-                    if (type.GetInterface(nameof(IComponent)) == null)
-                    {
-                        continue;
-                    }
+		public static Type[] ComponentTypes { get; private set; }
 
-                    if (type.GetCustomAttribute(typeof(TScope)) == null)
-                    {
-                        continue;
-                    }
+		public static int TotalComponents => _componentIdxTypes.Count;
 
-                    Register(type);
-                }
-            }
+		public static void AutoScan()
+		{
+			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				foreach (var type in assembly.GetTypes())
+				{
+					if (type.GetInterface(nameof(IComponent)) != null
+					    && type.GetCustomAttribute(typeof(TScope)) != null)
+						Register(type);
+				}
+			}
 
-            ComponentTypes = _ComponentIdxType.Select(x => x.GetGenericArguments()[1]).ToArray();
-            ComponentNames = ComponentTypes.Select(x => x.Name).ToArray();
-        }
+			ComponentTypes = _componentIdxTypes.Select(x => x.GetGenericArguments()[1]).ToArray();
+			ComponentNames = ComponentTypes.Select(x => x.Name).ToArray();
+		}
 
-        private static void Register(Type compType)
-        {
-            var componentType = typeof(ComponentIdx<,>);
-            var genericType = componentType.MakeGenericType(typeof(TScope), compType);
-            if (_ComponentIdxType.Contains(genericType))
-            {
-                return;
-            }
+		private static void Register(Type componentType)
+		{
+			var idxType = typeof(ComponentIdx<,>);
+			var genericType = idxType.MakeGenericType(typeof(TScope), componentType);
 
-            _ComponentIdxType.Add(genericType);
+			if (_componentIdxTypes.Contains(genericType))
+				return;
 
-            var fieldInfo = genericType.GetField("Id", BindingFlags.Static | BindingFlags.Public);
-            if (fieldInfo == null)
-            {
-                throw new Exception(string.Format("Type `{0}' does not contains `Id' field", genericType.Name));
-            }
+			_componentIdxTypes.Add(genericType);
 
-            fieldInfo.SetValue(null, _LastComponentIdx);
-            _LastComponentIdx++;
-        }
-    }
+			var fieldInfo = genericType.GetField("Id", BindingFlags.Static | BindingFlags.Public);
+
+			if (fieldInfo == null)
+				throw new Exception($"Type `{genericType.Name}' does not contains `Id' field");
+
+			fieldInfo.SetValue(null, _lastComponentIdx);
+			_lastComponentIdx++;
+		}
+	}
 }
