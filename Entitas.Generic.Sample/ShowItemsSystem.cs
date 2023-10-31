@@ -25,7 +25,7 @@ namespace Sample
 				var ownerId = item.Get<OwnerId>();
 				var owner = Id.Index.GetEntity(ownerId.Value);
 
-				Console.WriteLine($"item {item.Get<Name>().Value} belongs to {owner.Get<Name>().Value}");
+				Console.WriteLine($"item {item.GetName()} belongs to {owner.GetName()}");
 			}
 
 			Console.Write("\n---\n");
@@ -35,15 +35,20 @@ namespace Sample
 				var id = player.Get<Id>();
 				var items = OwnerId.Index.GetEntities(id.Value);
 
-				Console.WriteLine($"{player.Get<Name>().Value} has:");
+				Console.WriteLine($"{player.GetName()} has:");
 
 				foreach (var item in items)
-					Console.WriteLine($"\t{item.Get<Name>().Value}");
+					Console.WriteLine($"\t{item.GetName()}");
 
 				Console.WriteLine();
 			}
 
 			Console.Write("\n---\n");
 		}
+	}
+
+	public static class NameExtensions
+	{
+		public static string GetName(this Entity<GameScope> @this) => @this.Get<Name>().Value;
 	}
 }
