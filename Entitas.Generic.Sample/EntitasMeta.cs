@@ -8,9 +8,9 @@ namespace Sample
 
 	public class InputScope : Attribute, IScope { }
 
-	public static class GameCtx
+	public static class GameContext
 	{
-		public static ScopeContext<GameScope> Inst => ScopeContext<GameScope>.Instance;
+		public static ScopeContext<GameScope> Instance => ScopeContext<GameScope>.Instance;
 	}
 
 	public class GameMatchers

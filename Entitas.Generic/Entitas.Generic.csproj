@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>9.0</LangVersion>
     </PropertyGroup>
     <ItemGroup>
       <None Remove="Contexts.cs~RF2d35c35c.TMP" />
