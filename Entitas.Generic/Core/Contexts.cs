@@ -14,6 +14,10 @@
 			InitScopeObserver(context);
 		}
 
+		public ScopeContext<TScope> Get<TScope>()
+			where TScope : IScope
+			=> ScopeContext<TScope>.Instance;
+
 		// ReSharper disable once UnusedParameter.Local - used in #if
 		private void InitScopeObserver(IContext context)
 		{
