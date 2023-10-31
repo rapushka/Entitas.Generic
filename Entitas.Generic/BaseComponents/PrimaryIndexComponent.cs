@@ -4,7 +4,7 @@ namespace Entitas.Generic
 		where TScope : IScope
 		where TComponent : PrimaryIndexComponent<TScope, TComponent, TValue>, new()
 	{
-		public static PrimaryEntityIndex Index => (PrimaryEntityIndex)PrimaryEntityIndex.Instance;
+		public static PrimaryEntityIndex<TScope, TComponent, TValue> Index => PrimaryEntityIndex.Instance;
 
 		public class PrimaryEntityIndex : PrimaryEntityIndex<TScope, TComponent, TValue> { }
 	}
