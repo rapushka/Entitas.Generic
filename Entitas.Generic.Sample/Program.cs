@@ -1,56 +1,59 @@
-﻿using Entitas;
+﻿using System;
+using System.Threading.Tasks;
+using Entitas;
 using Entitas.Generic;
 
 namespace Sample
 {
-    [Game]
-    public class Player : IComponent
-    {
-        public int Id;
-        public string Name;
-    }
+	[GameScope]
+	public class Player : IComponent
+	{
+		public int Id;
+		public string Name;
+	}
 
-    public class SayHelloSystem : IExecuteSystem
-    {
-        public void Execute()
-        {
-            var group = GameCtx.Inst.GetGroup(GameMatchers.Get<Player>());
-            foreach (var item in group.GetEntities())
-            {
-                Console.WriteLine($"Hello {item.Get<Player>().Name}");
-            }
-        }
-    }
+	public class SayHelloSystem : IExecuteSystem
+	{
+		public void Execute()
+		{
+			var group = GameCtx.Inst.GetGroup(GameMatchers.Get<Player>());
+			foreach (var item in group.GetEntities())
+			{
+				Console.WriteLine($"Hello {item.Get<Player>().Name}");
+			}
+		}
+	}
 
-    public class Program
-    {
-        private static Systems m_Systems;
+	public class Program
+	{
+		private static Systems _systems;
 
-        public static void Main(string[] args)
-        {
-            GameLoop().GetAwaiter().GetResult();
-        }
+		public static void Main()
+		{
+			GameLoop().GetAwaiter().GetResult();
+		}
 
-        private async static Task GameLoop()
-        {
-            Contexts.Instance.InitializeScope<Game>();
-            Contexts.Instance.InitializeScope<InputScope>();
+		private static async Task GameLoop()
+		{
+			Contexts.Instance.InitializeScope<GameScope>();
+			Contexts.Instance.InitializeScope<InputScope>();
 
-            var jack = GameCtx.Inst.CreateEntity();
-            var player = jack.Add<Player>();
-            player.Id = 1;
-            player.Name = "Jack";
+			var jack = GameCtx.Inst.CreateEntity();
+			var player = jack.Add<Player>();
+			player.Id = 1;
+			player.Name = "Jack";
 
-            m_Systems = new Feature().Add(new SayHelloSystem());
-            
-            m_Systems.Initialize();
-            while (true)
-            {
-                m_Systems.Execute();
-                m_Systems.Cleanup();
+			_systems = new Feature().Add(new SayHelloSystem());
 
-                await Task.Delay(500);
-            }
-        }
-    }
+			_systems.Initialize();
+			while (true)
+			{
+				_systems.Execute();
+				_systems.Cleanup();
+
+				await Task.Delay(500);
+			}
+			// ReSharper disable once FunctionNeverReturns
+		}
+	}
 }

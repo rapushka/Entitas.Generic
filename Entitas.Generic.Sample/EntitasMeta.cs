@@ -1,36 +1,28 @@
-﻿using Entitas;
+﻿using System;
+using Entitas;
 using Entitas.Generic;
-using System;
 
 namespace Sample
 {
-    public class Game : Attribute, IScope
-    {
-    }
-    public class InputScope : Attribute, IScope
-    {
-    }
+	public class GameScope : Attribute, IScope { }
 
-    public static class GameCtx
-    {
-        public static ScopeContext<Game> Inst => ScopeContext<Game>.Instance;
-    }
+	public class InputScope : Attribute, IScope { }
 
-    public class GameMatchers
-    {
-        public static IMatcher<Entity<Game>> Get<TComponent>() where TComponent : IComponent, new()
-        {
-            return Matchers.Get<Game, TComponent>();
-        }
+	public static class GameCtx
+	{
+		public static ScopeContext<GameScope> Inst => ScopeContext<GameScope>.Instance;
+	}
 
-        public static IAllOfMatcher<Entity<Game>> AllOf(params IMatcher<Entity<Game>>[] matchers)
-        {
-            return Matchers.AllOf(matchers);
-        }
+	public class GameMatchers
+	{
+		public static IMatcher<Entity<GameScope>> Get<TComponent>()
+			where TComponent : IComponent, new()
+			=> Matchers.Get<GameScope, TComponent>();
 
-        public static IAnyOfMatcher<Entity<Game>> AnyOf(params IMatcher<Entity<Game>>[] matchers)
-        {
-            return Matchers.AnyOf(matchers);
-        }
-    }
+		public static IAllOfMatcher<Entity<GameScope>> AllOf(params IMatcher<Entity<GameScope>>[] matchers)
+			=> Matchers.AllOf(matchers);
+
+		public static IAnyOfMatcher<Entity<GameScope>> AnyOf(params IMatcher<Entity<GameScope>>[] matchers)
+			=> Matchers.AnyOf(matchers);
+	}
 }

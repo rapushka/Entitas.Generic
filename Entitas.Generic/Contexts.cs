@@ -14,6 +14,7 @@
 			InitScopeObserver(context);
 		}
 
+		// ReSharper disable once UnusedParameter.Local - used in #if
 		private void InitScopeObserver(IContext context)
 		{
 #if UNITY_EDITOR
