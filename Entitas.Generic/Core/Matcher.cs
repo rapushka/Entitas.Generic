@@ -12,8 +12,8 @@
 			{
 				if (_cached == null)
 				{
-					var matcher = (Matcher<Entity<TScope>>)Matcher<Entity<TScope>>
-						.AllOf(ComponentIdx<TScope, TComponent>.Id);
+					var matcher = (Entitas.Matcher<Entity<TScope>>)Entitas.Matcher<Entity<TScope>>
+					                                                      .AllOf(ComponentIdx<TScope, TComponent>.Id);
 					matcher.componentNames = ComponentTypeManager<TScope>.ComponentNames;
 					_cached = matcher;
 				}
@@ -32,10 +32,10 @@
 
 		public static IAllOfMatcher<Entity<TScope>> AllOf<TScope>(params IMatcher<Entity<TScope>>[] matchers)
 			where TScope : IScope
-			=> Matcher<Entity<TScope>>.AllOf(matchers);
+			=> Entitas.Matcher<Entity<TScope>>.AllOf(matchers);
 
 		public static IAnyOfMatcher<Entity<TScope>> AnyOf<TScope>(params IMatcher<Entity<TScope>>[] matchers)
 			where TScope : IScope
-			=> Matcher<Entity<TScope>>.AnyOf(matchers);
+			=> Entitas.Matcher<Entity<TScope>>.AnyOf(matchers);
 	}
 }
