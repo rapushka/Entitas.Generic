@@ -6,10 +6,7 @@
 		public TComponent Add<TComponent>()
 			where TComponent : IComponent, new()
 		{
-			var index = ComponentIdx<TScope, TComponent>.Id;
-			var component = CreateComponent<TComponent>(index);
-			AddComponent(index, component);
-
+			Add(Create<TComponent>());
 			return Get<TComponent>();
 		}
 
@@ -37,7 +34,6 @@
 			where TComponent : IComponent, new()
 		{
 			RemoveComponent(ComponentIdx<TScope, TComponent>.Id);
-
 			return this;
 		}
 
