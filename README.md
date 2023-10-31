@@ -1,4 +1,7 @@
 ## Waht is this?
+Based on [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) (as you can see for yourself. _.)
+with my preferences for working with Entitas
+
 Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and I make API more simple. Work perfectly with Native Entitas VisualDebug
 
 > If you use Unity 2022.2 or more, Entitas VisualDebug may have BUG, see this: [sschmid/Entitas#1067 (comment)](https://github.com/sschmid/Entitas/issues/1067#issuecomment-1623734894)
@@ -38,4 +41,12 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 
 ## TODO:
 
-- [ ] Create and init Entity Index by code generator.
+- [ ] EntityIndex
+- [ ] PrimaryEntityIndex
+- [ ] EventAttribute
+- [ ] CleanupAttribute
+
+### Maybe:
+- [ ] EntitytBehaviour
+- [ ] ComponentBehaviour
+- [ ] ComponentID
