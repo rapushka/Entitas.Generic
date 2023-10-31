@@ -1,7 +1,7 @@
 using System;
 using Entitas;
 using Entitas.Generic;
-using static Sample.GameMatchers;
+using static Sample.Matcher<Sample.GameScope>;
 
 namespace Sample
 {
