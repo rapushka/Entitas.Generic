@@ -30,14 +30,15 @@ namespace Sample
 
 			_systems.Initialize();
 
-			while (true)
+			for (var i = 0; i < 5; i++)
 			{
 				_systems.Execute();
 				_systems.Cleanup();
 
-				await Task.Delay(500);
+				await Task.Delay(50);
 			}
-			// ReSharper disable once FunctionNeverReturns
+
+			_systems.TearDown();
 		}
 	}
 }
