@@ -1,6 +1,7 @@
 using System;
 using Entitas;
 using Entitas.Generic;
+using static Sample.GameMatchers;
 
 namespace Sample
 {
@@ -10,8 +11,7 @@ namespace Sample
 
 		public SayHelloSystem(Contexts contexts)
 		{
-			_players = contexts.Get<GameScope>()
-			                   .GetGroup(GameMatchers.AllOf(GameMatchers.Get<Id>(), GameMatchers.Get<Name>()));
+			_players = contexts.Get<GameScope>().GetGroup(Get<Player>());
 		}
 
 		public void Execute()

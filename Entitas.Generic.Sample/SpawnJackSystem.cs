@@ -15,6 +15,7 @@ namespace Sample
 		public void Initialize()
 		{
 			var jack = _contexts.Get<GameScope>().CreateEntity();
+			jack.Add<Player>();
 			jack.Add<Id>().Value = 1;
 			jack.Add<Name>().Value = "Jack";
 		}
