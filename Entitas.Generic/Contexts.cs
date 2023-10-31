@@ -1,7 +1,4 @@
-﻿using Entitas;
-using System.Diagnostics;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
     public class Contexts
     {

@@ -1,10 +1,6 @@
 ﻿namespace Entitas.Generic
 {
-    /// <summary>
-    /// Generic Entity
-    /// </summary>
-    /// <typeparam name="TScope">Scope of entity</typeparam>
-    public class Entity<TScope> : Entitas.Entity where TScope : IScope
+    public class Entity<TScope> : Entity where TScope : IScope
     {
         public TComponent Add<TComponent>() where TComponent : IComponent, new()
         {

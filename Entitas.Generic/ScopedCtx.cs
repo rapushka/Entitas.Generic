@@ -1,12 +1,5 @@
-﻿using System;
-using Entitas;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
-    /// <summary>
-    /// Context for given scope
-    /// </summary>
-    /// <typeparam name="TScope"></typeparam>
     public class ScopedCtx<TScope> : Context<Entity<TScope>> where TScope : IScope
     {
         public static ScopedCtx<TScope> Inst { get; private set; }

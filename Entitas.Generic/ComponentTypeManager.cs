@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Entitas;
+﻿using System.Reflection;
 
 // ReSharper disable StaticMemberInGenericType
 namespace Entitas.Generic
 {
-    /// <summary>
-    /// Component type manager: manages component types per scope
-    /// </summary>
-    /// <typeparam name="TScope">Scope</typeparam>
     public static class ComponentTypeManager<TScope> where TScope : IScope
     {
         private static int _LastComponentIdx;

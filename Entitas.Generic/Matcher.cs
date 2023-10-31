@@ -1,6 +1,4 @@
-﻿using Entitas;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
     public class Matcher<TScope, TComponent> where TScope : IScope where TComponent : IComponent, new()
     {

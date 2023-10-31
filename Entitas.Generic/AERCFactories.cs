@@ -1,7 +1,4 @@
-﻿using System;
-using Entitas;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
     public class AERCFactories
     {
