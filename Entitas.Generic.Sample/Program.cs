@@ -17,8 +17,11 @@ namespace Sample
 			contexts.InitializeScope<GameScope>();
 			contexts.InitializeScope<InputScope>();
 
+			Id.Index.Initialize();
+
 			_systems = new Feature()
 			           .Add(new SpawnJackSystem(contexts))
+			           .Add(new FindJackSystem(contexts))
 			           .Add(new SayHelloSystem(contexts))
 				;
 

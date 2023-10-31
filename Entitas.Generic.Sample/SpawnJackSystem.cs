@@ -12,14 +12,19 @@ namespace Sample
 			_contexts = contexts;
 		}
 
+		private Entity<GameScope> NewEntity => _contexts.Get<GameScope>().CreateEntity();
+
 		public void Initialize()
 		{
-			_contexts
-				.Get<GameScope>()
-				.CreateEntity()
+			NewEntity
 				.Is<Player>(true)
-				.Add<Id, int>(1)
+				.Add<Id, int>(Constants.JackId)
 				.Add<Name, string>("Jack");
+
+			NewEntity
+				.Is<Item>(true)
+				// .Add<AttachedTo, int>(Constants.JackId)
+				;
 		}
 	}
 }
