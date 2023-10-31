@@ -13,7 +13,7 @@ namespace Entitas.Generic
 
 		private static ScopeContext<TScope> Context => Contexts.Instance.Get<TScope>();
 
-		public PrimaryEntityIndex<TScope, TComponent, TValue> Initialize()
+		public void Initialize()
 		{
 			Context.AddEntityIndex
 			(
@@ -24,14 +24,13 @@ namespace Entitas.Generic
 					(_, c) => ((TComponent)c).Value
 				)
 			);
-
-			return this;
 		}
+
+		public TComponent Get(TValue value) => GetEntity(value).Get<TComponent>();
+
+		public bool HasEntity(TValue value) => GetEntity(value) is not null;
 
 		public Entity<TScope> GetEntity(TValue value)
 			=> ((PrimaryEntityIndex<Entity<TScope>, TValue>)Context.GetEntityIndex(Name)).GetEntity(value);
-
-		public bool HasEntity(TValue value)
-			=> GetEntity(value) is not null;
 	}
 }
