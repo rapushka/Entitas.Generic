@@ -17,7 +17,7 @@ namespace Sample
 		public void Execute()
 		{
 			foreach (var entity in _players.GetEntities())
-				Console.WriteLine($"Hello {entity.Get<Name>().Value}!");
+				Console.WriteLine($"Hello {entity.Get<Name, string>()}!");
 		}
 	}
 }

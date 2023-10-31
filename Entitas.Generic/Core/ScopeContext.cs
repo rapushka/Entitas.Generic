@@ -30,8 +30,7 @@ namespace Entitas.Generic
 			if (GetUniqueComponent<TComponent>() != null)
 				throw new Exception($"Unique Component {typeof(TComponent).Name} already exist");
 
-			var entity = CreateEntity();
-			return entity.Add<TComponent>();
+			return CreateEntity().Add<TComponent>().Get<TComponent>();
 		}
 
 		public Entity<TScope> GetEntity<TComponent>()
