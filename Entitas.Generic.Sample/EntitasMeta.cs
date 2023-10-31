@@ -13,7 +13,7 @@ namespace Sample
 
     public static class GameCtx
     {
-        public static ScopedCtx<Game> Inst => ScopedCtx<Game>.Inst;
+        public static ScopeContext<Game> Inst => ScopeContext<Game>.Instance;
     }
 
     public class GameMatchers

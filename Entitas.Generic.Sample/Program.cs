@@ -33,7 +33,8 @@ namespace Sample
 
         private async static Task GameLoop()
         {
-            Contexts.Inst.Init<Game, InputScope>();
+            Contexts.Instance.InitializeScope<Game>();
+            Contexts.Instance.InitializeScope<InputScope>();
 
             var jack = GameCtx.Inst.CreateEntity();
             var player = jack.Add<Player>();
