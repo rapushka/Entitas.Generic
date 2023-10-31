@@ -23,8 +23,13 @@ namespace Sample
 
 			NewEntity
 				.Is<Item>(true)
-				// .Add<AttachedTo, int>(Constants.JackId)
-				;
+				.Add<Name, string>("Apple")
+				.Add<OwnerId, int>(Constants.JackId);
+
+			NewEntity
+				.Is<Item>(true)
+				.Add<Name, string>("Sword")
+				.Add<OwnerId, int>(Constants.JackId);
 		}
 	}
 }

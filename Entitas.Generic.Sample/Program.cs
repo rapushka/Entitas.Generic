@@ -18,10 +18,13 @@ namespace Sample
 			contexts.InitializeScope<InputScope>();
 
 			Id.Index.Initialize();
+			OwnerId.Index.Initialize();
 
 			_systems = new Feature()
 			           .Add(new SpawnJackSystem(contexts))
+			           .Add(new SpawnSteveSystem(contexts))
 			           .Add(new FindJackSystem(contexts))
+			           .Add(new ShowItemsSystem(contexts))
 			           .Add(new SayHelloSystem(contexts))
 				;
 
