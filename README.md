@@ -1,4 +1,4 @@
-## Waht is this?
+## What is this?
 Based on [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) (as you can see for yourself. _.)
 with my preferences for working with Entitas
 
@@ -42,7 +42,7 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 ## TODO:
 
 - [ ] EntityIndex
-- [ ] PrimaryEntityIndex
+- [x] PrimaryEntityIndex
 - [ ] EventAttribute
 - [ ] CleanupAttribute
 
