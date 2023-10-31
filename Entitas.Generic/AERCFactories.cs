@@ -1,4 +1,7 @@
-﻿namespace Entitas.Generic
+﻿// ReSharper disable InconsistentNaming
+using System;
+
+namespace Entitas.Generic
 {
     public class AERCFactories
     {

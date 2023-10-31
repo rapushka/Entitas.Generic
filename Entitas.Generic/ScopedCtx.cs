@@ -1,4 +1,6 @@
-﻿namespace Entitas.Generic
+﻿using System;
+
+namespace Entitas.Generic
 {
     public class ScopedCtx<TScope> : Context<Entity<TScope>> where TScope : IScope
     {
