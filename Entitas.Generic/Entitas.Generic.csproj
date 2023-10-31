@@ -29,4 +29,7 @@
         <HintPath>..\Entitas.1.14.1\TCPeasy\TCPeasy.dll</HintPath>
       </Reference>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="BaseComponents\" />
+    </ItemGroup>
 </Project>
