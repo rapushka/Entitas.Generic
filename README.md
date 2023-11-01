@@ -55,6 +55,7 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 - [ ] Some Code Generation:
   - [ ] Initialize all Scopes/Indexes/etc
   - [ ] Dropdown with all components for Unity Editor
+  - [ ] EventSystems/CleanupSystems
 
 ## Limitations (compared to the original Entitas)
 - `EntityIndex` and `PrimaryEntityIndex` components may be only in one context (\scope)
