@@ -39,20 +39,21 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 
 - You need create and init Entity Index manually(Luckly it is simple and don't need change frequently)
 
-## TODO (restore original Entitas's functionality):
-
+## TODO:
+### restore original Entitas's functionality:
 - [x] EntityIndex
 - [x] PrimaryEntityIndex
 - [ ] EventAttribute
 - [x] CleanupAttribute
 - [x] UniqueAttribute
 
-### Maybe (Addons):
+### Addons:
 - [ ] EntitytBehaviour
 - [ ] ComponentBehaviour
 - [ ] ComponentID
-- [ ] Some Code Generation
-- - [ ] Initialize all Scopes/Indexes/etc
+- [ ] Some Code Generation:
+  - [ ] Initialize all Scopes/Indexes/etc
+  - [ ] Dropdown with all components for Unity Editor
 
 ## Limitations (compared to the original Entitas)
 - `EntityIndex` and `PrimaryEntityIndex` components may be only in one context (\scope)
