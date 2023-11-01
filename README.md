@@ -41,7 +41,7 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 
 ## TODO:
 
-- [ ] EntityIndex
+- [x] EntityIndex
 - [x] PrimaryEntityIndex
 - [ ] EventAttribute
 - [ ] CleanupAttribute
