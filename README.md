@@ -45,7 +45,7 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 - [x] PrimaryEntityIndex
 - [ ] EventAttribute
 - [x] CleanupAttribute
-- [ ] UniqueAttribute
+- [x] UniqueAttribute
 
 ### Maybe (Addons):
 - [ ] EntitytBehaviour
@@ -56,7 +56,8 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 
 ## Limitations (compared to the original Entitas)
 - `EntityIndex` and `PrimaryEntityIndex` components may be only in one context (\scope)
-- mostly support for value components with only 1 field, and for flag components
+- Mostly support for value components with only 1 field, and for flag components
+- Unique components may be used as usual components
 
 ## Variants
 ### CleanupAttribute
