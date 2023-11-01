@@ -4,7 +4,7 @@ namespace Entitas.Generic
 {
 	public sealed class EventSystem<TScope, TComponent> : ReactiveSystem<Entity<TScope>>
 		where TScope : IScope
-		where TComponent : class, IComponent, IEvent<SelfTarget>, new()
+		where TComponent : class, IComponent, IEvent, new()
 	{
 		private readonly List<IListener<TScope, TComponent>> _listenerBuffer;
 

@@ -26,7 +26,7 @@ namespace Entitas.Generic
 				if (type.IsDerivedFrom<IComponent>())
 					Register(type);
 
-				if (type.IsDerivedFrom(typeof(IEvent<>)))
+				if (type.IsDerivedFrom(typeof(IEvent)))
 					Register(typeof(ListenerComponent<,>).MakeGenericType(typeof(TScope), type));
 			}
 
