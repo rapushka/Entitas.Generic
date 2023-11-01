@@ -9,7 +9,7 @@
 		public void Register(Entity<TScope> entity)
 		{
 			Entity = entity;
-			entity.AddListener<TComponent>(this);
+			entity.AddListener(this);
 
 			if (entity.Has<TComponent>())
 				OnValueChanged(entity, entity.Get<TComponent>());

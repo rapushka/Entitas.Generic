@@ -20,7 +20,7 @@ namespace Sample
 				.Is<Player>(true)
 				.Add<Id, int>(Constants.JackId)
 				.Add<Name, string>("Jack")
-				.Is<CurrentPlayer>(true)
+				.SetUnique<CurrentPlayer>(true)
 				.Add<Position>()
 				.Register(new PositionView())
 				;
