@@ -30,6 +30,7 @@ namespace Sample
 
 			           // Execute
 			           // .Add(new SayHelloSystem(contexts))
+			           .Add(new FightSystem(contexts))
 			           .Add(new LogDamageSystem(contexts))
 
 			           // Cleanup

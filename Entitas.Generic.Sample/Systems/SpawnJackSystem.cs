@@ -19,8 +19,7 @@ namespace Sample
 			NewEntity
 				.Is<Player>(true)
 				.Add<Id, int>(Constants.JackId)
-				.Add<Name, string>("Jack")
-				.Add<Damaged, int>(15);
+				.Add<Name, string>("Jack");
 
 			NewEntity
 				.Is<Item>(true)
