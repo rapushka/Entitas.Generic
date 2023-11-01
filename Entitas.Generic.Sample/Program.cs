@@ -38,6 +38,7 @@ namespace Sample
 					// .Add(new LogDamageSystem(contexts))
 					// .Add(new LogDeathSystem(contexts))
 					// .Add(new LogCurrentPlayerSystem(contexts))
+					.Add(new GravitySystem(contexts))
 					.Add(new JumpSystem(contexts))
 
 					// Cleanup
