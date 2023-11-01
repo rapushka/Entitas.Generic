@@ -3,7 +3,7 @@ using System;
 namespace Entitas.Generic
 {
 	// The whole IIndexFactory thing is needed only to don't copy-paste code of EntityIndex classes  
-	public interface IIndexFactory<TEntity, TKey>
+	public interface IEntityIndexFactory<TEntity, TKey>
 		where TEntity : class, IEntity
 	{
 		AbstractEntityIndex<TEntity, TKey> Create
@@ -14,7 +14,7 @@ namespace Entitas.Generic
 		);
 	}
 
-	public class EntityIndexFactory<TEntity, TKey> : IIndexFactory<TEntity, TKey>
+	public class EntityIndexFactory<TEntity, TKey> : IEntityIndexFactory<TEntity, TKey>
 		where TEntity : class, IEntity
 	{
 		public AbstractEntityIndex<TEntity, TKey> Create
@@ -26,7 +26,7 @@ namespace Entitas.Generic
 			=> new EntityIndex<TEntity, TKey>(name, group, getKey);
 	}
 
-	public class PrimaryEntityIndexFactory<TEntity, TKey> : IIndexFactory<TEntity, TKey>
+	public class PrimaryEntityIndexFactory<TEntity, TKey> : IEntityIndexFactory<TEntity, TKey>
 		where TEntity : class, IEntity
 	{
 		public AbstractEntityIndex<TEntity, TKey> Create

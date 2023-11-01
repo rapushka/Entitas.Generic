@@ -1,11 +1,11 @@
 namespace Entitas.Generic
 {
-	public class EntityIndexBase<TScope, TComponent, TValue, TIndexFactory>
+	public class EntityIndexBase<TScope, TComponent, TValue, TEntityIndexFactory>
 		where TScope : IScope
 		where TComponent : ValueComponent<TValue>, new()
-		where TIndexFactory : IIndexFactory<Entity<TScope>, TValue>, new()
+		where TEntityIndexFactory : IEntityIndexFactory<Entity<TScope>, TValue>, new()
 	{
-		private readonly TIndexFactory _indexFactory = new();
+		private readonly TEntityIndexFactory _entityIndexFactory = new();
 		private static EntityIndex<TScope, TComponent, TValue> _instance;
 
 		public static EntityIndex<TScope, TComponent, TValue> Instance
@@ -19,7 +19,7 @@ namespace Entitas.Generic
 		{
 			Context.AddEntityIndex
 			(
-				_indexFactory.Create
+				_entityIndexFactory.Create
 				(
 					Name,
 					Context.GetGroup(Matcher<TScope>.Get<TComponent>()),
