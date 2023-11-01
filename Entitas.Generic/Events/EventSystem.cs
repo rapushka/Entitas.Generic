@@ -4,7 +4,7 @@ namespace Entitas.Generic
 {
 	public sealed class EventSystem<TScope, TComponent> : ReactiveSystem<Entity<TScope>>
 		where TScope : IScope
-		where TComponent : class, IComponent, IEvent, new()
+		where TComponent : class, IComponent, IEvent<SelfTarget>, new()
 	{
 		private readonly List<IListener<TScope, TComponent>> _listenerBuffer;
 
@@ -24,12 +24,11 @@ namespace Entitas.Generic
 		{
 			foreach (var e in entities)
 			{
-				var component = e.Get<TComponent>();
 				_listenerBuffer.Clear();
 				_listenerBuffer.AddRange(e.Get<ListenerComponent<TScope, TComponent>>().Value);
 
 				foreach (var listener in _listenerBuffer)
-					listener.OnValueChanged(e, component);
+					listener.OnValueChanged(e, e.Get<TComponent>());
 			}
 		}
 	}
