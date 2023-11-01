@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Entitas;
 using Entitas.Generic;
 
@@ -21,17 +22,28 @@ namespace Sample
 			OwnerId.Index.Initialize();
 
 			_systems = new Feature()
+			           // Initialize
 			           .Add(new SpawnJackSystem(contexts))
 			           .Add(new SpawnSteveSystem(contexts))
-			           .Add(new FindJackSystem(contexts))
-			           .Add(new ShowItemsSystem(contexts))
+			           // .Add(new FindJackSystem(contexts))
+			           // .Add(new ShowItemsSystem(contexts))
+
+			           // Execute
 			           .Add(new SayHelloSystem(contexts))
+			           .Add(new FightSystem(contexts))
+			           .Add(new LogDamageSystem(contexts))
+			           .Add(new LogDeathSystem(contexts))
+
+			           // Cleanup
+			           .Add(new RemoveComponentsSystem<Damaged, GameScope>(contexts))
+			           .Add(new DestroyEntitySystem<Dead, GameScope>(contexts))
 				;
 
 			_systems.Initialize();
 
 			for (var i = 0; i < 5; i++)
 			{
+				Console.WriteLine("---[frame]---");
 				_systems.Execute();
 				_systems.Cleanup();
 
