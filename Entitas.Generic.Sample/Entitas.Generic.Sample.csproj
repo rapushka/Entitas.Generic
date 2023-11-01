@@ -56,8 +56,5 @@
         <HintPath>..\Entitas.1.14.1\Entitas\Editor\Entitas.VisualDebugging.Unity.Editor.dll</HintPath>
       </Reference>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="View\" />
-    </ItemGroup>
 </Project>
   
