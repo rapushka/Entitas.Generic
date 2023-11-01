@@ -39,14 +39,17 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 
 - You need create and init Entity Index manually(Luckly it is simple and don't need change frequently)
 
-## TODO:
+## TODO (restore original Entitas's functionality):
 
 - [x] EntityIndex
 - [x] PrimaryEntityIndex
 - [ ] EventAttribute
 - [ ] CleanupAttribute
+- [ ] UniqueAttribute
 
-### Maybe:
+### Maybe (Addons):
 - [ ] EntitytBehaviour
 - [ ] ComponentBehaviour
 - [ ] ComponentID
+- [ ] Some Code Generation
+- - [ ] Initialize all Scopes/Indexes/etc
