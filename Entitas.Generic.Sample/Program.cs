@@ -21,11 +21,18 @@ namespace Sample
 			OwnerId.Index.Initialize();
 
 			_systems = new Feature()
+			           // Initialize
 			           .Add(new SpawnJackSystem(contexts))
 			           .Add(new SpawnSteveSystem(contexts))
-			           .Add(new FindJackSystem(contexts))
-			           .Add(new ShowItemsSystem(contexts))
-			           .Add(new SayHelloSystem(contexts))
+			           // .Add(new FindJackSystem(contexts))
+			           // .Add(new ShowItemsSystem(contexts))
+
+			           // Execute
+			           // .Add(new SayHelloSystem(contexts))
+			           .Add(new LogDamageSystem(contexts))
+
+			           // Cleanup
+			           .Add(new RemoveComponentsSystem<Damaged, GameScope>(contexts))
 				;
 
 			_systems.Initialize();
