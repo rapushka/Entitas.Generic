@@ -17,4 +17,6 @@ namespace Sample
 	[GameScope] public sealed class Dead : FlagComponent, ICleanup<DestroyEntity> { }
 
 	[GameScope] public sealed class CurrentPlayer : FlagComponent, IUnique { }
+
+	[GameScope] public sealed class Position : ValueComponent<Vector2>, IEvent { }
 }

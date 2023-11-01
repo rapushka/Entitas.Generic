@@ -72,7 +72,7 @@ namespace Entitas.Generic
 		{
 			var entityExists = Has<TComponent>();
 
-			if (value && entityExists)
+			if (value && !entityExists)
 				CreateEntity<TComponent>();
 
 			if (!value && entityExists)

@@ -10,34 +10,36 @@
 		public Entity<TScope> Add<TComponent>(TComponent component)
 			where TComponent : IComponent, new()
 		{
-			AddComponent(ComponentIdx<TScope, TComponent>.Id, component);
+			AddComponent(Id<TComponent>(), component);
 			return this;
 		}
 
 		public TComponent Create<TComponent>()
 			where TComponent : IComponent, new()
-			=> CreateComponent<TComponent>(ComponentIdx<TScope, TComponent>.Id);
+			=> CreateComponent<TComponent>(Id<TComponent>());
 
 		public TComponent Get<TComponent>()
 			where TComponent : IComponent, new()
-			=> (TComponent)GetComponent(ComponentIdx<TScope, TComponent>.Id);
+			=> (TComponent) GetComponent(Id<TComponent>());
 
 		public bool Has<TComponent>()
 			where TComponent : IComponent, new()
-			=> HasComponent(ComponentIdx<TScope, TComponent>.Id);
+			=> HasComponent(Id<TComponent>());
 
 		public Entity<TScope> Replace<TComponent>(TComponent component)
 			where TComponent : IComponent, new()
 		{
-			ReplaceComponent(ComponentIdx<TScope, TComponent>.Id, component);
+			ReplaceComponent(Id<TComponent>(), component);
 			return this;
 		}
 
 		public Entity<TScope> Remove<TComponent>()
 			where TComponent : IComponent, new()
 		{
-			RemoveComponent(ComponentIdx<TScope, TComponent>.Id);
+			RemoveComponent(Id<TComponent>());
 			return this;
 		}
+
+		private static int Id<TComponent>() where TComponent : IComponent, new() => ComponentIdx<TScope, TComponent>.Id;
 	}
 }

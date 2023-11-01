@@ -6,6 +6,6 @@
 		where TScope : IScope
 		where TComponent : IComponent, new()
 	{
-		public static int Id;
+		public static int Id = -1;
 	}
 }
