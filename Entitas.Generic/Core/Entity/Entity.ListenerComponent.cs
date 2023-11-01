@@ -5,7 +5,7 @@ namespace Entitas.Generic
 	public partial class Entity<TScope>
 		where TScope : IScope
 	{
-		public void AddListener<TComponent>(IListener<TScope, TComponent> value)
+		public Entity<TScope> AddListener<TComponent>(IListener<TScope, TComponent> value)
 			where TComponent : IComponent, new()
 		{
 			var listeners = Has<ListenerComponent<TScope, TComponent>>()
@@ -14,18 +14,20 @@ namespace Entitas.Generic
 
 			listeners.Add(value);
 			ReplaceListener(listeners);
+			return this;
 		}
 
-		public void ReplaceListener<TComponent>(List<IListener<TScope, TComponent>> newValue)
+		public Entity<TScope> ReplaceListener<TComponent>(List<IListener<TScope, TComponent>> newValue)
 			where TComponent : IComponent, new()
 		{
 			var index = Id<ListenerComponent<TScope, TComponent>>();
 			var component = CreateComponent<ListenerComponent<TScope, TComponent>>(index);
 			component.Value = newValue;
 			ReplaceComponent(index, component);
+			return this;
 		}
 
-		public void RemoveListener<TComponent>(IListener<TScope, TComponent> value, bool removeComponentWhenEmpty = true)
+		public Entity<TScope> RemoveListener<TComponent>(IListener<TScope, TComponent> value, bool removeComponentWhenEmpty = true)
 			where TComponent : IComponent, new()
 		{
 			var listeners = Get<ListenerComponent<TScope, TComponent>>().Value;
@@ -35,10 +37,15 @@ namespace Entitas.Generic
 				RemoveListener<TComponent>();
 			else
 				ReplaceListener(listeners);
+
+			return this;
 		}
 
-		public void RemoveListener<TComponent>()
+		public Entity<TScope> RemoveListener<TComponent>()
 			where TComponent : IComponent, new()
-			=> RemoveComponent(Id<ListenerComponent<TScope, TComponent>>());
+		{
+			RemoveComponent(Id<ListenerComponent<TScope, TComponent>>());
+			return this;
+		}
 	}
 }

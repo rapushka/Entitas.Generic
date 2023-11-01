@@ -7,7 +7,10 @@ namespace Sample
 {
 	public class Program
 	{
+		public const int FramesCount = 10;
 		private static Systems _systems;
+
+		public static int CurrentFrame { get; private set; }
 
 		public static void Main() => GameLoop().GetAwaiter().GetResult();
 
@@ -29,21 +32,25 @@ namespace Sample
 					// .Add(new ShowItemsSystem(contexts))
 
 					// Execute
-					.Add(new PassCurrentPlayerSystem(contexts))
-					.Add(new SayHelloSystem(contexts))
-					.Add(new FightSystem(contexts))
-					.Add(new LogDamageSystem(contexts))
-					.Add(new LogDeathSystem(contexts))
-					.Add(new LogCurrentPlayerSystem(contexts))
+					// .Add(new PassCurrentPlayerSystem(contexts))
+					// .Add(new SayHelloSystem(contexts))
+					// .Add(new FightSystem(contexts))
+					// .Add(new LogDamageSystem(contexts))
+					// .Add(new LogDeathSystem(contexts))
+					// .Add(new LogCurrentPlayerSystem(contexts))
+					.Add(new JumpSystem(contexts))
 
 					// Cleanup
 					.Add(new RemoveComponentsSystem<Damaged, GameScope>(contexts))
 					.Add(new DestroyEntitySystem<Dead, GameScope>(contexts))
+
+					// Events
+					.Add(new EventSystem<GameScope, Position>(contexts))
 				;
 
 			_systems.Initialize();
 
-			for (var i = 0; i < 5; i++)
+			for (CurrentFrame = 0; CurrentFrame < FramesCount; CurrentFrame++)
 			{
 				Console.WriteLine("---[frame]---");
 				_systems.Execute();

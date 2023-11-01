@@ -5,7 +5,8 @@ using System.Reflection;
 
 namespace Entitas.Generic
 {
-	public static class ComponentTypeManager<TScope> where TScope : IScope
+	public static class ComponentTypeManager<TScope>
+		where TScope : IScope
 	{
 		private static readonly List<Type> _componentIdxTypes = new();
 		private static int _lastComponentIdx;
@@ -23,8 +24,12 @@ namespace Entitas.Generic
 				foreach (var type in assembly.GetTypes())
 				{
 					if (type.GetInterface(nameof(IComponent)) != null
-					    && type.GetCustomAttribute(typeof(TScope)) != null)
+						&& type.GetCustomAttribute(typeof(TScope)) != null)
 						Register(type);
+
+					if (typeof(IEvent).IsAssignableFrom(type)
+						&& type.GetCustomAttribute(typeof(TScope)) != null)
+						Register(typeof(ListenerComponent<,>).MakeGenericType(typeof(TScope), type));
 				}
 			}
 

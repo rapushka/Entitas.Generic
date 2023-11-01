@@ -19,17 +19,23 @@ namespace Sample
 			NewEntity
 				.Is<Player>(true)
 				.Add<Id, int>(Constants.JackId)
-				.Add<Name, string>("Jack");
+				.Add<Name, string>("Jack")
+				.Is<CurrentPlayer>(true)
+				.Add<Position>()
+				.Register(new PositionView())
+				;
 
 			NewEntity
 				.Is<Item>(true)
 				.Add<Name, string>("Apple")
-				.Add<OwnerId, int>(Constants.JackId);
+				.Add<OwnerId, int>(Constants.JackId)
+				;
 
 			NewEntity
 				.Is<Item>(true)
 				.Add<Name, string>("Sword")
-				.Add<OwnerId, int>(Constants.JackId);
+				.Add<OwnerId, int>(Constants.JackId)
+				;
 		}
 	}
 }
