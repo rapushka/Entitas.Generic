@@ -53,3 +53,7 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 - [ ] ComponentID
 - [ ] Some Code Generation
 - - [ ] Initialize all Scopes/Indexes/etc
+
+## Limitations (compared to the original Entitas)
+- `EntityIndex` and `PrimaryEntityIndex` components may be only in one context (\scope)
+- mostly support for value components with only 1 field, and for flag components
