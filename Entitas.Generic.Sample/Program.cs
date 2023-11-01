@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Entitas;
 using Entitas.Generic;
 
@@ -39,6 +40,7 @@ namespace Sample
 
 			for (var i = 0; i < 5; i++)
 			{
+				Console.WriteLine("---[frame]---");
 				_systems.Execute();
 				_systems.Cleanup();
 
