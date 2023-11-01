@@ -20,6 +20,9 @@ namespace Sample
 
 		public void Execute()
 		{
+			if (!Id.Index.HasEntity(Constants.JackId) || !Id.Index.HasEntity(Constants.SteveId))
+				return;
+
 			var jackEntity = Id.Index.GetEntity(Constants.JackId);
 			var steveEntity = Id.Index.GetEntity(Constants.SteveId);
 
@@ -28,7 +31,11 @@ namespace Sample
 
 		private void Attack(Entity<GameScope> target)
 		{
-			target.Add<Damaged, int>(RandomDamage);
+			var damage = RandomDamage;
+			target.Add<Damaged, int>(damage);
+
+			if (damage > 10)
+				target.Is<Dead>(true);
 		}
 	}
 }

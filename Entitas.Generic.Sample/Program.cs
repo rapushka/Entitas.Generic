@@ -29,12 +29,14 @@ namespace Sample
 			           // .Add(new ShowItemsSystem(contexts))
 
 			           // Execute
-			           // .Add(new SayHelloSystem(contexts))
+			           .Add(new SayHelloSystem(contexts))
 			           .Add(new FightSystem(contexts))
 			           .Add(new LogDamageSystem(contexts))
+			           .Add(new LogDeathSystem(contexts))
 
 			           // Cleanup
 			           .Add(new RemoveComponentsSystem<Damaged, GameScope>(contexts))
+			           .Add(new DestroyEntitySystem<Dead, GameScope>(contexts))
 				;
 
 			_systems.Initialize();
