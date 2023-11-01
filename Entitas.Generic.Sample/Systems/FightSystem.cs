@@ -14,8 +14,6 @@ namespace Sample
 			_random = new Random();
 		}
 
-		private bool RandomBool => _random.Next() % 2 == 0;
-
 		private int RandomDamage => _random.Next(20);
 
 		public void Execute()
@@ -26,7 +24,7 @@ namespace Sample
 			var jackEntity = Id.Index.GetEntity(Constants.JackId);
 			var steveEntity = Id.Index.GetEntity(Constants.SteveId);
 
-			Attack(RandomBool ? steveEntity : jackEntity);
+			Attack(jackEntity.Is<CurrentPlayer>() ? steveEntity : jackEntity);
 		}
 
 		private void Attack(Entity<GameScope> target)
