@@ -14,7 +14,7 @@ namespace Sample
 
 		public void Execute()
 		{
-			if (Program.CurrentFrame == 3)
+			if (Program.CurrentFrame != 3)
 				return;
 
 			var player = _contexts.Get<GameScope>().Unique.GetEntity<CurrentPlayer>();

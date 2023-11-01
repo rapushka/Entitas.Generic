@@ -19,5 +19,4 @@ namespace Sample
 	[GameScope] public sealed class CurrentPlayer : FlagComponent, IUnique { }
 
 	[GameScope] public sealed class Position : ValueComponent<Vector2>, IEvent { }
-	// [GameScope] public sealed class PositionListener : ListenerComponent<GameScope, Position> { }
 }
