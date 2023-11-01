@@ -13,6 +13,6 @@ namespace Entitas.Generic
 		where TComponent : IComponent
 		where TScope : IScope
 	{
-		void OnPosition(Entity<TScope> entity, TComponent component);
+		void OnValueChanged(Entity<TScope> entity, TComponent component);
 	}
 }
