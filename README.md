@@ -43,10 +43,11 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 ### restore original Entitas's functionality:
 - [x] EntityIndex
 - [x] PrimaryEntityIndex
-- [ ] EventAttribute
+- [x] EventAttribute
 - [x] CleanupAttribute
 - [x] UniqueAttribute
 - [ ] Context name?
+- [ ] Unity Package
 
 ### Addons:
 - [ ] EntitytBehaviour
