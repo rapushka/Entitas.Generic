@@ -46,9 +46,4 @@ namespace Sample
 			Console.Write("\n---\n");
 		}
 	}
-
-	public static class NameExtensions
-	{
-		public static string GetName(this Entity<GameScope> @this) => @this.Get<Name>().Value;
-	}
 }

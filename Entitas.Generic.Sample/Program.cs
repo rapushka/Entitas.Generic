@@ -22,21 +22,23 @@ namespace Sample
 			OwnerId.Index.Initialize();
 
 			_systems = new Feature()
-			           // Initialize
-			           .Add(new SpawnJackSystem(contexts))
-			           .Add(new SpawnSteveSystem(contexts))
-			           // .Add(new FindJackSystem(contexts))
-			           // .Add(new ShowItemsSystem(contexts))
+					// Initialize
+					.Add(new SpawnJackSystem(contexts))
+					.Add(new SpawnSteveSystem(contexts))
+					// .Add(new FindJackSystem(contexts))
+					// .Add(new ShowItemsSystem(contexts))
 
-			           // Execute
-			           .Add(new SayHelloSystem(contexts))
-			           .Add(new FightSystem(contexts))
-			           .Add(new LogDamageSystem(contexts))
-			           .Add(new LogDeathSystem(contexts))
+					// Execute
+					.Add(new PassCurrentPlayerSystem(contexts))
+					.Add(new SayHelloSystem(contexts))
+					.Add(new FightSystem(contexts))
+					.Add(new LogDamageSystem(contexts))
+					.Add(new LogDeathSystem(contexts))
+					.Add(new LogCurrentPlayerSystem(contexts))
 
-			           // Cleanup
-			           .Add(new RemoveComponentsSystem<Damaged, GameScope>(contexts))
-			           .Add(new DestroyEntitySystem<Dead, GameScope>(contexts))
+					// Cleanup
+					.Add(new RemoveComponentsSystem<Damaged, GameScope>(contexts))
+					.Add(new DestroyEntitySystem<Dead, GameScope>(contexts))
 				;
 
 			_systems.Initialize();
@@ -46,6 +48,7 @@ namespace Sample
 				Console.WriteLine("---[frame]---");
 				_systems.Execute();
 				_systems.Cleanup();
+				Console.WriteLine();
 
 				await Task.Delay(50);
 			}
