@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Entitas.Generic
 {
@@ -19,18 +18,16 @@ namespace Entitas.Generic
 
 		public static void AutoScan()
 		{
-			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+			foreach (var type in AppDomain.CurrentDomain.GetAssemblies().SelectMany((a) => a.GetTypes()))
 			{
-				foreach (var type in assembly.GetTypes())
-				{
-					if (type.GetInterface(nameof(IComponent)) != null
-						&& type.GetCustomAttribute(typeof(TScope)) != null)
-						Register(type);
+				if (!type.HasAttribute<TScope>())
+					continue;
 
-					if (typeof(IEvent).IsAssignableFrom(type)
-						&& type.GetCustomAttribute(typeof(TScope)) != null)
-						Register(typeof(ListenerComponent<,>).MakeGenericType(typeof(TScope), type));
-				}
+				if (type.IsDerivedFrom<IComponent>())
+					Register(type);
+
+				if (type.IsDerivedFrom<IEvent>())
+					Register(typeof(ListenerComponent<,>).MakeGenericType(typeof(TScope), type));
 			}
 
 			ComponentTypes = _componentIdxTypes.Select(x => x.GetGenericArguments()[1]).ToArray();
@@ -46,14 +43,7 @@ namespace Entitas.Generic
 				return;
 
 			_componentIdxTypes.Add(genericType);
-
-			var fieldInfo = genericType.GetField("Id", BindingFlags.Static | BindingFlags.Public);
-
-			if (fieldInfo == null)
-				throw new Exception($"Type `{genericType.Name}' does not contains `Id' field");
-
-			fieldInfo.SetValue(null, _lastComponentIdx);
-			_lastComponentIdx++;
+			genericType.SetStaticField("Id", _lastComponentIdx++);
 		}
 	}
 }
