@@ -44,7 +44,7 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 - [x] EntityIndex
 - [x] PrimaryEntityIndex
 - [ ] EventAttribute
-- [ ] CleanupAttribute
+- [x] CleanupAttribute
 - [ ] UniqueAttribute
 
 ### Maybe (Addons):
