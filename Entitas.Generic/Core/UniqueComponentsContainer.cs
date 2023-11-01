@@ -14,20 +14,34 @@ namespace Entitas.Generic
 			_entityFactory = entityFactory;
 		}
 
+		public Entity<TScope> Add<TComponent>(Entity<TScope> entity)
+			where TComponent : IComponent, IUnique, new()
+		{
+			entity.Add<TComponent>();
+			_uniqueEntities.Add(Id<TComponent>(), entity);
+
+			return entity;
+		}
+
 		public TComponent Create<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> CreateEntity<TComponent>().Get<TComponent>();
 
 		public Entity<TScope> CreateEntity<TComponent>()
 			where TComponent : IComponent, IUnique, new()
-		{
-			var entity = _entityFactory.Invoke().Add<TComponent>();
-			_uniqueEntities.Add(Id<TComponent>(), entity);
+			=> Add<TComponent>(_entityFactory.Invoke());
 
-			return entity;
+		public Entity<TScope> Remove<TComponent>()
+			where TComponent : IComponent, IUnique, new()
+			=> Remove<TComponent>(GetEntity<TComponent>());
+
+		public Entity<TScope> Remove<TComponent>(Entity<TScope> entity) where TComponent : IComponent, IUnique, new()
+		{
+			_uniqueEntities.Remove(Id<TComponent>());
+			return entity.Remove<TComponent>();
 		}
 
-		public void Remove<TComponent>()
+		public void DestroyEntity<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 		{
 			GetEntity<TComponent>().Destroy();
@@ -62,7 +76,7 @@ namespace Entitas.Generic
 				CreateEntity<TComponent>();
 
 			if (!value && entityExists)
-				Remove<TComponent>();
+				DestroyEntity<TComponent>();
 		}
 
 		public bool Has<TComponent>()

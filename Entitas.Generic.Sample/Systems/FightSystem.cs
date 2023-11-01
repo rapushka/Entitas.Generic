@@ -34,7 +34,7 @@ namespace Sample
 			var damage = RandomDamage;
 			target.Add<Damaged, int>(damage);
 
-			if (damage > 10)
+			if (damage > 15)
 				target.Is<Dead>(true);
 		}
 	}
