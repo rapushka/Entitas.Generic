@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2012-2022 FuryLion Group. All Rights Reserved.
-
-using System;
+﻿using System;
 using Entitas.Generic;
 
 namespace Sample
