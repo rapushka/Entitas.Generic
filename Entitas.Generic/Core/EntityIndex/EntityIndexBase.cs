@@ -1,15 +1,16 @@
 namespace Entitas.Generic
 {
-	public class EntityIndexBase<TScope, TComponent, TValue, TEntityIndexFactory>
+	public class EntityIndexBase<TScope, TComponent, TValue, TEntityIndexFactory, TEntityIndex>
 		where TScope : IScope
 		where TComponent : ValueComponent<TValue>, new()
 		where TEntityIndexFactory : IEntityIndexFactory<Entity<TScope>, TValue>, new()
+		where TEntityIndex : EntityIndexBase<TScope, TComponent, TValue, TEntityIndexFactory, TEntityIndex>, new()
 	{
 		private readonly TEntityIndexFactory _entityIndexFactory = new();
-		private static EntityIndex<TScope, TComponent, TValue> _instance;
+		private static TEntityIndex _instance;
 
-		public static EntityIndex<TScope, TComponent, TValue> Instance
-			=> _instance ??= new EntityIndex<TScope, TComponent, TValue>();
+		public static TEntityIndex Instance
+			=> _instance ??= new TEntityIndex();
 
 		protected static string Name => typeof(TComponent).Name;
 

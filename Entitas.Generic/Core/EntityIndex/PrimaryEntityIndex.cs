@@ -1,7 +1,8 @@
 namespace Entitas.Generic
 {
 	public class PrimaryEntityIndex<TScope, TComponent, TValue>
-		: EntityIndexBase<TScope, TComponent, TValue, PrimaryEntityIndexFactory<Entity<TScope>, TValue>>
+		: EntityIndexBase<TScope, TComponent, TValue, PrimaryEntityIndexFactory<Entity<TScope>, TValue>,
+			PrimaryEntityIndex<TScope, TComponent, TValue>>
 		where TScope : IScope
 		where TComponent : ValueComponent<TValue>, new()
 	{
