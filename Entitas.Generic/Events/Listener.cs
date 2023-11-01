@@ -10,8 +10,8 @@ namespace Entitas.Generic
 	}
 
 	public interface IListener<TScope, in TComponent>
-		where TComponent : IComponent
 		where TScope : IScope
+		where TComponent : IComponent
 	{
 		void OnValueChanged(Entity<TScope> entity, TComponent component);
 	}
