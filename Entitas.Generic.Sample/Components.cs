@@ -12,7 +12,7 @@ namespace Sample
 
 	[GameScope] public sealed class Name : ValueComponent<string> { }
 
-	[GameScope] public sealed class Damaged : ValueComponent<int> { }
+	[GameScope] public sealed class Damaged : ValueComponent<int>, ICleanup<RemoveComponent> { }
 
-	[GameScope] public sealed class Dead : FlagComponent { }
+	[GameScope] public sealed class Dead : FlagComponent, ICleanup<DestroyEntity> { }
 }

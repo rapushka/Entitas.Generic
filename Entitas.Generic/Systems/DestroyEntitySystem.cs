@@ -2,7 +2,7 @@ namespace Entitas.Generic
 {
 	public class DestroyEntitySystem<TComponent, TScope> : ICleanupSystem
 		where TScope : IScope
-		where TComponent : IComponent, new()
+		where TComponent : IComponent, ICleanup<DestroyEntity>, new()
 	{
 		private readonly IGroup<Entity<TScope>> _entities;
 

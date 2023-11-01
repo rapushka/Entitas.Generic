@@ -2,7 +2,7 @@ namespace Entitas.Generic
 {
 	public class RemoveComponentsSystem<TComponent, TScope> : ICleanupSystem
 		where TScope : IScope
-		where TComponent : IComponent, new()
+		where TComponent : IComponent, ICleanup<RemoveComponent>, new()
 	{
 		private readonly IGroup<Entity<TScope>> _entities;
 
