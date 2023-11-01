@@ -57,3 +57,9 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 ## Limitations (compared to the original Entitas)
 - `EntityIndex` and `PrimaryEntityIndex` components may be only in one context (\scope)
 - mostly support for value components with only 1 field, and for flag components
+
+## Variants
+### CleanupAttribute
+Now, to mark some component as cleanup, you need to mark it with marker-interface `ICleanup<RemoveComponent>`, or `ICleanup<DestroyEntity>` <br>
+But also you can just remove constraints from `RemoveComponentsSystem` and `DestroyEntitySystem` accordingly. and just set into their type parameters any components <br>
+I've used these interfaces to be able to quickly see that the component will cause a Cleanup. And not to guess by component's name:D
