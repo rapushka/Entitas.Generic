@@ -14,7 +14,7 @@ namespace Entitas.Generic
 
 		protected static string Name => typeof(TComponent).Name;
 
-		protected static ScopeContext<TScope> Context => ContextsBase.Instance.Get<TScope>();
+		protected static ScopeContext<TScope> Context => Contexts.Instance.Get<TScope>();
 
 		public void Initialize()
 		{

@@ -3,7 +3,7 @@
 	public partial class Entity<TScope>
 		where TScope : IScope
 	{
-		private static ScopeContext<TScope> Context => ContextsBase.Instance.Get<TScope>();
+		private static ScopeContext<TScope> Context => Contexts.Instance.Get<TScope>();
 
 		public Entity<TScope> SetUnique<TComponent>(bool value)
 			where TComponent : IComponent, IUnique, new()

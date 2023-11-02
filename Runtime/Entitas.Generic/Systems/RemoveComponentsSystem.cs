@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		private readonly IGroup<Entity<TScope>> _entities;
 
-		public RemoveComponentsSystem(ContextsBase contexts)
+		public RemoveComponentsSystem(Contexts contexts)
 		{
 			_entities = contexts.Get<TScope>().GetGroup(Matcher<TScope>.Get<TComponent>());
 		}

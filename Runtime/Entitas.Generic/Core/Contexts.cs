@@ -1,18 +1,11 @@
-﻿using System;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
-	public class ContextsBase
+	public class Contexts
 	{
-		private static ContextsBase _instance;
-		public static ContextsBase Instance => _instance ??= new ContextsBase();
+		private static Contexts _instance;
+		public static Contexts Instance => _instance ??= new Contexts();
 
-		protected ContextsBase() { }
-
-		public virtual void Initialize()
-		{
-			throw new NotImplementedException("Initialize here Scopes, EntityIndexes, etc.");
-		}
+		private Contexts() { }
 
 		public void InitializeScope<TScope>()
 			where TScope : IScope
@@ -38,12 +31,5 @@ namespace Entitas.Generic
 			}
 #endif
 		}
-	}
-
-	public class ContextsBase<TContexts> : ContextsBase
-		where TContexts : ContextsBase<TContexts>, new()
-	{
-		private static TContexts _instance;
-		public new static TContexts Instance => _instance ??= new TContexts();
 	}
 }

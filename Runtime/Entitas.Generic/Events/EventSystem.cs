@@ -8,7 +8,7 @@ namespace Entitas.Generic
 	{
 		private readonly List<IListener<TScope, TComponent>> _listenerBuffer;
 
-		public EventSystem(ContextsBase contexts)
+		public EventSystem(Contexts contexts)
 			: base(contexts.Get<TScope>())
 		{
 			_listenerBuffer = new List<IListener<TScope, TComponent>>();
