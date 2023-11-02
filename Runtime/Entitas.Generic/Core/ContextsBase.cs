@@ -39,4 +39,11 @@ namespace Entitas.Generic
 #endif
 		}
 	}
+
+	public class ContextsBase<TContexts> : ContextsBase
+		where TContexts : ContextsBase<TContexts>, new()
+	{
+		private static TContexts _instance;
+		public new static TContexts Instance => _instance ??= new TContexts();
+	}
 }
