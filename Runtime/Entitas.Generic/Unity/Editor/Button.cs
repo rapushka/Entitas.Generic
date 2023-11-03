@@ -5,9 +5,11 @@ using System.Reflection;
 using UnityEngine;
 using UnityEditor;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
+	[MeansImplicitUse(ImplicitUseTargetFlags.WithMembers)]
 	public class ButtonAttribute : Attribute { }
 
 	[CustomEditor(typeof(Component), editorForChildClasses: true)]
