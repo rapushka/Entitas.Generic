@@ -17,6 +17,13 @@ namespace Entitas.Generic
 			              .Where((e) => e is not ISelfRegistry)
 			              .ToArray();
 		}
+
+		[Button]
+		public void ForceAllEntitiesToCollectAllComponents()
+		{
+			foreach (var behaviour in FindObjectsOfType<EntityBehaviour>())
+				behaviour.CollectComponents();
+		}
 	}
 }
 #endif
