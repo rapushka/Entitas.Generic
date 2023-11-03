@@ -23,7 +23,7 @@ namespace Entitas.Generic
 				_entityIndexFactory.Create
 				(
 					Name,
-					Context.GetGroup(Matcher<TScope>.Get<TComponent>()),
+					Contexts.Instance.GetGroup(Matcher<TScope>.Get<TComponent>()),
 					(_, c) => ((TComponent)c).Value
 				)
 			);
