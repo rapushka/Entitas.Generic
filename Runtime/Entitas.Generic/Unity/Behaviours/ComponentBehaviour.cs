@@ -7,8 +7,6 @@ namespace Entitas.Generic
 		where TScope : IScope
 	{
 		public abstract void Add(ref Entity<TScope> entity);
-
-		public abstract void Remove(ref Entity<TScope> entity);
 	}
 
 	public abstract class ComponentBehaviour<TScope, TComponent> : ComponentBehaviourBase<TScope>
@@ -18,11 +16,6 @@ namespace Entitas.Generic
 		public override void Add(ref Entity<TScope> entity)
 		{
 			entity.Is<TComponent>(true);
-		}
-
-		public override void Remove(ref Entity<TScope> entity)
-		{
-			entity.Is<TComponent>(false);
 		}
 	}
 
@@ -35,11 +28,6 @@ namespace Entitas.Generic
 		public override void Add(ref Entity<TScope> entity)
 		{
 			entity.Add<TComponent, TValue>(_value);
-		}
-
-		public override void Remove(ref Entity<TScope> entity)
-		{
-			entity.Remove<TComponent>();
 		}
 	}
 }
