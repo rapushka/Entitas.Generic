@@ -2,17 +2,17 @@
     "name": "com.rapuska.entitas-generic.sample.unity",
     "rootNamespace": "Entitas.Generic.Sample.Unity",
     "references": [
-        "GUID:a938580faf129dc2dbcd1df2e7d7011e"
+        "com.rapuska.entitas-generic"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNITY_EDITOR"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

@@ -13,12 +13,14 @@ namespace Entitas.Generic.Sample.Unity
 
 		public void Initialize()
 		{
-			var positionView = Resources.Load<PositionView>("path to player view");
+			var positionViewPrefab = Resources.Load<PositionView>("Player");
+			var positionView = Object.Instantiate(positionViewPrefab);
 
 			_contexts.Get<GameScope>().CreateEntity()
 				.Add<Name, string>("Steve")
 				.Is<Player>(true)
 				.Register(positionView)
+				.Add<Position, Vector3>(Vector3.zero)
 				;
 		}
 	}
