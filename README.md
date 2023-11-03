@@ -46,8 +46,7 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 - [x] EventAttribute
 - [x] CleanupAttribute
 - [x] UniqueAttribute
-- [ ] Context name?
-- [ ] Unity Package
+- [x] Unity Package
 
 ### Addons:
 - [ ] EntitytBehaviour
