@@ -5,29 +5,32 @@ namespace Entitas.Generic
 {
 	public abstract class FeatureAdapterBase : MonoBehaviour
 	{
-		protected abstract Systems Systems { get; }
+		private Systems _systems;
+
+		protected abstract Systems CreateSystems();
 
 		private void Start()
 		{
-			Systems.Initialize();
+			_systems = CreateSystems();
+			_systems.Initialize();
 		}
 
 		private void Update()
 		{
-			Systems.Execute();
-			Systems.Cleanup();
+			_systems.Execute();
+			_systems.Cleanup();
 		}
 
 		private void OnDestroy()
 		{
-			Systems.TearDown();
+			_systems.TearDown();
 		}
 	}
 
 	public abstract class FeatureAdapterBase<TSystems> : FeatureAdapterBase
 		where TSystems : Systems, new()
 	{
-		protected override Systems Systems => new TSystems();
+		protected override Systems CreateSystems() => new TSystems();
 	}
 }
 #endif
