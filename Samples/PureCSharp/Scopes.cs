@@ -1,7 +1,6 @@
 using System;
-using Entitas.Generic;
 
-namespace Sample
+namespace Entitas.Generic.Sample.PureCSharp
 {
 	public class GameScope : Attribute, IScope { }
 

@@ -1,7 +1,4 @@
-using Entitas;
-using Entitas.Generic;
-
-namespace Sample
+namespace Entitas.Generic.Sample.PureCSharp
 {
 	public class SpawnSteveSystem : IInitializeSystem
 	{

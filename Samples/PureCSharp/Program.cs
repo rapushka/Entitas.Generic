@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Entitas;
-using Entitas.Generic;
 
-namespace Sample
+namespace Entitas.Generic.Sample.PureCSharp
 {
 	public class Program
 	{

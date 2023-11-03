@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entitas;
-using Entitas.Generic;
-using static Entitas.Generic.Matcher<Sample.GameScope>;
+using static Entitas.Generic.Matcher<Entitas.Generic.Sample.PureCSharp.GameScope>;
 
-namespace Sample
+namespace Entitas.Generic.Sample.PureCSharp
 {
 	public class LogCurrentPlayerSystem : ReactiveSystem<Entity<GameScope>>
 	{

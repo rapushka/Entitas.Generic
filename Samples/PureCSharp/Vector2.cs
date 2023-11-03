@@ -1,4 +1,4 @@
-﻿namespace Sample
+﻿namespace Entitas.Generic.Sample.PureCSharp
 {
 	public struct Vector2
 	{

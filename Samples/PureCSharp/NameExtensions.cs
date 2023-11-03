@@ -1,6 +1,4 @@
-﻿using Entitas.Generic;
-
-namespace Sample
+﻿namespace Entitas.Generic.Sample.PureCSharp
 {
 	public static class NameExtensions
 	{
