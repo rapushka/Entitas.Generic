@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System.Linq;
 using UnityEngine;
 
 namespace Entitas.Generic
@@ -16,8 +17,9 @@ namespace Entitas.Generic
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
 
 #if DEBUG
-		[Header("Auto Collect")]
+		[Header("Auto Collect (debug only)")]
 		[SerializeField] private bool _collectInChildren;
+		[SerializeField] private bool _interruptChildrenEntities = true;
 #endif
 
 		private Entity<TScope> _entity;
@@ -27,10 +29,11 @@ namespace Entitas.Generic
 #if DEBUG
 		private void Awake()
 		{
-			var actualCount = GetComponents<ComponentBehaviourBase<TScope>>().Length;
+			var actualComponents = Collect().OrderBy((a) => a.GetInstanceID());
+			var setComponents = _componentBehaviours.OrderBy((a) => a.GetInstanceID());
 
-			if (actualCount != _componentBehaviours.Length)
-				Debug.LogWarning("Not all component behaviours are added to the entity!", this);
+			if (!actualComponents.SequenceEqual(setComponents))
+				Debug.LogWarning("Actual components don't match the currently set!", this);
 		}
 #endif
 
@@ -45,11 +48,32 @@ namespace Entitas.Generic
 		public override void CollectComponents()
 		{
 #if DEBUG
-			_componentBehaviours = _collectInChildren
-				? GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
-				: GetComponents<ComponentBehaviourBase<TScope>>();
+			_componentBehaviours = Collect();
 #endif
 		}
+
+#if DEBUG
+		private ComponentBehaviourBase<TScope>[] Collect()
+		{
+			var componentBehaviours = _collectInChildren
+				? GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
+				: GetComponents<ComponentBehaviourBase<TScope>>();
+
+			if (!_interruptChildrenEntities)
+			{
+				var childrenComponents = GetComponentsInChildren<EntityBehaviour<TScope>>()
+					.SelectMany((e) => e.GetComponentsInChildren<ComponentBehaviourBase<TScope>>());
+				var ourComponents = GetComponents<ComponentBehaviourBase<TScope>>();
+
+				componentBehaviours = componentBehaviours
+				                      .Except(childrenComponents)
+				                      .Concat(ourComponents)
+				                      .ToArray();
+			}
+
+			return componentBehaviours;
+		}
+#endif
 	}
 }
 #endif
