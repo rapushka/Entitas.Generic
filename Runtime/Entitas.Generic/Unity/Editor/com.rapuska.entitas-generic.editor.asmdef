@@ -1,10 +1,10 @@
 {
-    "name": "com.rapuska.entitas-generic",
+    "name": "com.rapuska.entitas-generic.editor",
     "rootNamespace": "",
-    "references": [
-        "GUID:ad60ef1cb1a2ab045b511ff137216a70"
+    "references": [],
+    "includePlatforms": [
+        "Editor"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

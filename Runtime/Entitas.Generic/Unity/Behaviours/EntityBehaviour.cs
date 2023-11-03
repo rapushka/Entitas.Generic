@@ -5,10 +5,10 @@ namespace Entitas.Generic
 {
 	public abstract class EntityBehaviour : MonoBehaviour
 	{
-		public abstract void Register();
+		public abstract void Register(Contexts contexts);
 
-		[ContextMenu(nameof(CollectComponentsFromGameObject))]
-		public abstract void CollectComponentsFromGameObject();
+		[Button] public abstract void CollectComponents();
+		[Button] public abstract void CollectComponentsInChildren();
 	}
 
 	public class EntityBehaviour<TScope> : EntityBehaviour
@@ -30,17 +30,22 @@ namespace Entitas.Generic
 		}
 #endif
 
-		public override void Register()
+		public override void Register(Contexts contexts)
 		{
-			_entity = Contexts.Instance.Get<TScope>().CreateEntity();
+			_entity = contexts.Get<TScope>().CreateEntity();
 
 			foreach (var component in _componentBehaviours)
 				component.Add(ref _entity);
 		}
 
-		public override void CollectComponentsFromGameObject()
+		public override void CollectComponents()
 		{
 			_componentBehaviours = GetComponents<ComponentBehaviourBase<TScope>>();
+		}
+
+		public override void CollectComponentsInChildren()
+		{
+			_componentBehaviours = GetComponentsInChildren<ComponentBehaviourBase<TScope>>();
 		}
 	}
 }
