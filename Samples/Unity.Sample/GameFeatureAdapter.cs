@@ -1,6 +1,4 @@
-using Entitas.Generic;
-
-namespace Entitas.Generic.Example
+namespace Entitas.Generic.Sample.Unity
 {
 	public class GameFeatureAdapter : FeatureAdapter<GameFeature> { }
 }

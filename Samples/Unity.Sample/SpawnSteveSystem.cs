@@ -1,7 +1,4 @@
-using Entitas;
-using Entitas.Generic;
-
-namespace Entitas.Generic.Example
+namespace Entitas.Generic.Sample.Unity
 {
 	public class SpawnSteveSystem : IInitializeSystem
 	{
@@ -14,8 +11,9 @@ namespace Entitas.Generic.Example
 
 		public void Initialize()
 		{
-			var steve = _contexts.Get<GameScope>().CreateEntity();
-			steve.Add<Name, string>("Steve");
+			_contexts.Get<GameScope>().CreateEntity()
+				.Add<Name, string>("Steve")
+				.Is<Player>(true);
 		}
 	}
 }

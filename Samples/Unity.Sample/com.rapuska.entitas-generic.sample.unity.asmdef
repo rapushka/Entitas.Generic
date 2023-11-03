@@ -1,0 +1,16 @@
+{
+    "name": "com.rapuska.entitas-generic.sample.unity",
+    "rootNamespace": "Entitas.Generic.Sample.Unity",
+    "references": [
+        "GUID:a938580faf129dc2dbcd1df2e7d7011e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

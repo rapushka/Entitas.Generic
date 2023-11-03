@@ -1,6 +1,4 @@
-using Entitas.Generic;
-
-namespace Entitas.Generic.Example
+namespace Entitas.Generic.Sample.Unity
 {
 	public sealed class GameFeature : Feature
 	{
