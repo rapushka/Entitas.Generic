@@ -1,0 +1,16 @@
+{
+  "name": "com.rapuska.entitas-generic",
+  "version": "0.0.1",
+  "displayName": "Entitas Generic",
+  "description": "Some code to use Entitas without code generation",
+  "unity": "2019.1",
+  "keywords": [
+    "ecs",
+    "Entitas"
+  ],
+  "author": {
+    "name": "Rapu\u0161ka",
+    "email": "mikalajsiatkouski@gmail.com",
+    "url": "https://github.com/rapushka"
+  }
+}
