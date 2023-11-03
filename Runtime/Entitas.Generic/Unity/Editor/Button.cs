@@ -1,8 +1,10 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEditor;
+using System.Text.RegularExpressions;
 
 namespace Entitas.Generic
 {
@@ -20,13 +22,18 @@ namespace Entitas.Generic
 
 			foreach (var method in methods)
 			{
-				if (!method.GetCustomAttributes(typeof(ButtonAttribute), inherit: true).Any())
-					continue;
-
-				if (GUILayout.Button(method.Name))
+				if (HasAttribute(method) && GUILayout.Button(method.Name.Pretty()))
 					method.Invoke(component, null);
 			}
 		}
+
+		private static bool HasAttribute(MethodInfo method)
+			=> method.GetCustomAttributes(typeof(ButtonAttribute), inherit: true).Any();
+	}
+
+	public static class StringExtensions
+	{
+		public static string Pretty(this string @this) => Regex.Replace(@this, "(\\B[A-Z])", " $1");
 	}
 }
 #endif
