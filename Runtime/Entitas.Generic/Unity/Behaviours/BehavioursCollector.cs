@@ -14,7 +14,7 @@ namespace Entitas.Generic
 		public void CollectAll()
 		{
 			_behaviours = FindObjectsOfType<EntityBehaviour>()
-			              .Where(e => e.GetType() != typeof(SelfRegisterEntityBehaviour<>))
+			              .Where((e) => e is not ISelfRegistry)
 			              .ToArray();
 		}
 	}
