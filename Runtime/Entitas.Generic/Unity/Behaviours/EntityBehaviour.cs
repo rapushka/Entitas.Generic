@@ -8,13 +8,17 @@ namespace Entitas.Generic
 		public abstract void Register(Contexts contexts);
 
 		[Button] public abstract void CollectComponents();
-		[Button] public abstract void CollectComponentsInChildren();
 	}
 
 	public class EntityBehaviour<TScope> : EntityBehaviour
 		where TScope : IScope
 	{
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
+
+#if DEBUG
+		[Header("Auto Collect")]
+		[SerializeField] private bool _collectInChildren;
+#endif
 
 		private Entity<TScope> _entity;
 
@@ -40,12 +44,11 @@ namespace Entitas.Generic
 
 		public override void CollectComponents()
 		{
-			_componentBehaviours = GetComponents<ComponentBehaviourBase<TScope>>();
-		}
-
-		public override void CollectComponentsInChildren()
-		{
-			_componentBehaviours = GetComponentsInChildren<ComponentBehaviourBase<TScope>>();
+#if DEBUG
+			_componentBehaviours = _collectInChildren
+				? GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
+				: GetComponents<ComponentBehaviourBase<TScope>>();
+#endif
 		}
 	}
 }
