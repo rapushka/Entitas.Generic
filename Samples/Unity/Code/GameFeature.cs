@@ -7,6 +7,8 @@ namespace Entitas.Generic.Sample.Unity
 			var contexts = Contexts.Instance;
 
 			Add(new SpawnSteveSystem(contexts));
+
+			Add(new EventSystem<GameScope, Position>(contexts));
 		}
 	}
 }
