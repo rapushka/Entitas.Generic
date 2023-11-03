@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Entitas.Generic.Sample.Unity
 {
 	public class SpawnSteveSystem : IInitializeSystem
@@ -11,9 +13,13 @@ namespace Entitas.Generic.Sample.Unity
 
 		public void Initialize()
 		{
+			var positionView = Resources.Load<PositionView>("path to player view");
+
 			_contexts.Get<GameScope>().CreateEntity()
 				.Add<Name, string>("Steve")
-				.Is<Player>(true);
+				.Is<Player>(true)
+				.Register(positionView)
+				;
 		}
 	}
 }
