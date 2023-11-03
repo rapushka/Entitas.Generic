@@ -26,7 +26,7 @@ namespace Entitas.Generic
 			var actualCount = GetComponents<ComponentBehaviourBase<TScope>>().Length;
 
 			if (actualCount != _componentBehaviours.Length)
-				Debug.LogWarning($"Not all component behaviours are added to the entity on {gameObject.name}!");
+				Debug.LogWarning("Not all component behaviours are added to the entity!", this);
 		}
 #endif
 

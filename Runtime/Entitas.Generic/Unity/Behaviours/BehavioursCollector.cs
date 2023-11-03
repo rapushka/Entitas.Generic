@@ -1,9 +1,10 @@
 ﻿#if UNITY_EDITOR
+using System.Linq;
 using UnityEngine;
 
 namespace Entitas.Generic
 {
-	public class EntitiesCollector : MonoBehaviour
+	public class BehavioursCollector : MonoBehaviour
 	{
 		[SerializeField] private EntityBehaviour[] _behaviours;
 
@@ -12,7 +13,9 @@ namespace Entitas.Generic
 		[Button]
 		public void CollectAll()
 		{
-			_behaviours = FindObjectsOfType<EntityBehaviour>();
+			_behaviours = FindObjectsOfType<EntityBehaviour>()
+			              .Where(e => e.GetType() != typeof(SelfRegisterEntityBehaviour<>))
+			              .ToArray();
 		}
 	}
 }
