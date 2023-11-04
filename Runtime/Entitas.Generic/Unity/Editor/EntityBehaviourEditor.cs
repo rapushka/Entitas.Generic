@@ -9,42 +9,33 @@ namespace Entitas.Generic
 	{
 		private EntityBehaviour Target => (EntityBehaviour)target;
 
-		private bool _collectInChildrenValue;
-		private bool _interruptChildrenEntitiesValue = true;
 		private SerializedProperty _collectInChildren;
 		private SerializedProperty _interruptChildrenEntities;
 
 		private void OnEnable()
 		{
-			_collectInChildren = serializedObject.FindProperty(nameof(_collectInChildren));
-			_interruptChildrenEntities = serializedObject.FindProperty(nameof(_interruptChildrenEntities));
-
-			// _interruptChildrenEntities = Target.GetPrivateFieldValue<bool>(nameof(_interruptChildrenEntities));
-			// _collectInChildren = Target.GetPrivateFieldValue<bool>(nameof(_collectInChildren));
+			_collectInChildren = serializedObject.FindProperty("_collectInChildren");
+			_interruptChildrenEntities = serializedObject.FindProperty("_interruptChildrenEntities");
 		}
 
 		public override void OnInspectorGUI()
 		{
+			serializedObject.Update();
+
 			base.OnInspectorGUI();
 
 			GUILayout.Label("Auto Collect (debug only)");
 
-			_collectInChildrenValue = _collectInChildren.boolValue;
-			_interruptChildrenEntitiesValue = _interruptChildrenEntities.boolValue;
-
-			_collectInChildrenValue.GuiToggle(nameof(_collectInChildrenValue).Pretty());
-			_interruptChildrenEntitiesValue.GuiToggle(nameof(_interruptChildrenEntitiesValue).Pretty());
-
-			GUILayout.BeginHorizontal();
+			EditorGUILayout.BeginHorizontal();
 			{
-				_collectInChildren.boolValue = _collectInChildrenValue;
-				_interruptChildrenEntities.boolValue = _interruptChildrenEntitiesValue;
-				// Target.SetPrivateFieldValue(nameof(_interruptChildrenEntities), _interruptChildrenEntities);
-				// Target.SetPrivateFieldValue(nameof(_collectInChildren), _collectInChildren);
+				_collectInChildren.GuiField(nameof(_collectInChildren).Pretty());
+				_interruptChildrenEntities.GuiField(nameof(_interruptChildrenEntities).Pretty());
 			}
-			GUILayout.EndHorizontal();
+			EditorGUILayout.EndHorizontal();
 
 			GUILayout.Button(nameof(Target.CollectComponents).Pretty()).OnClick(Target.CollectComponents);
+
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 }
