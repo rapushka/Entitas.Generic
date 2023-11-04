@@ -49,8 +49,8 @@ Inspired by [Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), and
 - [x] Unity Package
 
 ### Addons:
-- [ ] EntitytBehaviour
-- [ ] ComponentBehaviour
+- [x] EntitytBehaviour
+- [x] ComponentBehaviour
 - [ ] ComponentID
 - [ ] Some Code Generation:
   - [ ] Initialize all Scopes/Indexes/etc
