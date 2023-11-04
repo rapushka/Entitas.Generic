@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Entitas.Generic
@@ -8,7 +9,8 @@ namespace Entitas.Generic
 	{
 		public abstract void Register(Contexts contexts);
 
-		[Button] public abstract void CollectComponents();
+		[UsedImplicitly] // Button in EntityBehaviourEditor 
+		public abstract void CollectComponents();
 	}
 
 	public class EntityBehaviour<TScope> : EntityBehaviour

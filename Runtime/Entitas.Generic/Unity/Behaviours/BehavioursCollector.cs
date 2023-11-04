@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System.Linq;
 using UnityEngine;
 
 namespace Entitas.Generic
@@ -9,21 +8,6 @@ namespace Entitas.Generic
 		[SerializeField] private EntityBehaviour[] _behaviours;
 
 		public EntityBehaviour[] Behaviours => _behaviours;
-
-		[Button]
-		public void CollectAll()
-		{
-			_behaviours = FindObjectsOfType<EntityBehaviour>()
-			              .Where((e) => e is not ISelfRegistry)
-			              .ToArray();
-		}
-
-		[Button]
-		public void ForceAllEntitiesToCollectAllComponents()
-		{
-			foreach (var behaviour in FindObjectsOfType<EntityBehaviour>())
-				behaviour.CollectComponents();
-		}
 	}
 }
 #endif

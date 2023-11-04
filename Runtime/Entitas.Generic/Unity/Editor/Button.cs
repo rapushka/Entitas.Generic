@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEditor;
-using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
 namespace Entitas.Generic
@@ -31,11 +30,6 @@ namespace Entitas.Generic
 
 		private static bool HasAttribute(MethodInfo method)
 			=> method.GetCustomAttributes(typeof(ButtonAttribute), inherit: true).Any();
-	}
-
-	public static class StringExtensions
-	{
-		public static string Pretty(this string @this) => Regex.Replace(@this, "(\\B[A-Z])", " $1");
 	}
 }
 #endif
