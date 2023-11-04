@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 using System.Linq;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Entitas.Generic
