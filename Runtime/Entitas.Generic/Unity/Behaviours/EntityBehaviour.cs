@@ -53,7 +53,7 @@ namespace Entitas.Generic
 		}
 
 #if DEBUG
-		private ComponentBehaviourBase<TScope>[] Collect()
+		protected virtual ComponentBehaviourBase<TScope>[] Collect()
 		{
 			var componentBehaviours = _collectInChildren
 				? GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
