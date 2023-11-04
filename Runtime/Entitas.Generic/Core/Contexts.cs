@@ -20,6 +20,10 @@
 			where TScope : IScope
 			=> ScopeContext<TScope>.Instance;
 
+		public IGroup<Entity<TScope>> GetGroup<TScope>(IMatcher<Entity<TScope>> matcher)
+			where TScope : IScope
+			=> Get<TScope>().GetGroup(matcher);
+
 		// ReSharper disable once UnusedParameter.Local - used in #if
 		private void InitScopeObserver(IContext context)
 		{

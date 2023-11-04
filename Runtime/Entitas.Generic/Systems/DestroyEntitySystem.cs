@@ -8,7 +8,7 @@ namespace Entitas.Generic
 
 		public DestroyEntitySystem(Contexts contexts)
 		{
-			_entities = contexts.Get<TScope>().GetGroup(Matcher<TScope>.Get<TComponent>());
+			_entities = contexts.GetGroup(Matcher<TScope>.Get<TComponent>());
 		}
 
 		public void Cleanup()
