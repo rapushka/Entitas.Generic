@@ -11,6 +11,7 @@ namespace Entitas.Generic
 
 		private SerializedProperty _collectInChildren;
 		private SerializedProperty _interruptChildrenEntities;
+		private bool _foldout;
 
 		private void OnEnable()
 		{
@@ -26,12 +27,13 @@ namespace Entitas.Generic
 
 			GUILayout.Label("Auto Collect (debug only)");
 
-			EditorGUILayout.BeginHorizontal();
+			_foldout = EditorGUILayout.BeginFoldoutHeaderGroup(_foldout, "Options");
+			if (_foldout)
 			{
 				_collectInChildren.GuiField(nameof(_collectInChildren).Pretty());
 				_interruptChildrenEntities.GuiField(nameof(_interruptChildrenEntities).Pretty());
 			}
-			EditorGUILayout.EndHorizontal();
+			EditorGUILayout.EndFoldoutHeaderGroup();
 
 			GUILayout.Button(nameof(Target.CollectComponents).Pretty()).OnClick(Target.CollectComponents);
 
