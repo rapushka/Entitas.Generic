@@ -9,6 +9,7 @@ namespace Entitas.Generic
 	{
 		private static readonly List<Type> _componentIdxTypes = new();
 		private static int _lastComponentIdx;
+		private static bool _initialized;
 
 		public static string[] ComponentNames { get; private set; }
 
@@ -18,6 +19,9 @@ namespace Entitas.Generic
 
 		public static void AutoScan()
 		{
+			if (_initialized)
+				return;
+
 			foreach (var type in AppDomain.CurrentDomain.GetAssemblies().SelectMany((a) => a.GetTypes()))
 			{
 				if (!type.HasAttribute<TScope>())
@@ -32,6 +36,8 @@ namespace Entitas.Generic
 
 			ComponentTypes = _componentIdxTypes.Select(x => x.GetGenericArguments()[1]).ToArray();
 			ComponentNames = ComponentTypes.Select(x => x.Name).ToArray();
+
+			_initialized = true;
 		}
 
 		private static void Register(Type componentType)
