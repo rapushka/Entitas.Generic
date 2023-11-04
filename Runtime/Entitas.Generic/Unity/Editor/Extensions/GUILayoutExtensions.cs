@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using System;
+using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -9,5 +11,11 @@ namespace Entitas.Generic
 			if (@this)
 				action.Invoke();
 		}
+
+		public static void GuiToggle(this ref bool @this, string text)
+		{
+			@this = GUILayout.Toggle(@this, text);
+		}
 	}
 }
+#endif
