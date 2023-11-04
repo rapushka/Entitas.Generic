@@ -7,7 +7,10 @@ namespace Entitas.Generic
 	public static class ReflectionExtensions
 	{
 		public static T GetPrivateFieldValue<T>(this object @this, string fieldName)
-			=> (T)@this.GetPrivateField(fieldName).GetValue(@this);
+			=> (T)@this.GetPrivateFieldValue(fieldName);
+
+		public static object GetPrivateFieldValue(this object @this, string fieldName)
+			=> @this.GetPrivateField(fieldName).GetValue(@this);
 
 		public static void SetPrivateFieldValue<T>(this object @this, string fieldName, T value)
 			=> @this.GetPrivateField(fieldName).SetValue(@this, value);
