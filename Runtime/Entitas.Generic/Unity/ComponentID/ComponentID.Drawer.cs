@@ -43,7 +43,6 @@ namespace Entitas.Generic
 			var type = @object.GetType();
 			var baseType = type.BaseType;
 
-			Debug.Log("IM COCKSUCCER");
 			while (baseType != null)
 			{
 				foreach (var field in baseType.GetFields())
