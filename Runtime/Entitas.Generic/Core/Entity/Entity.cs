@@ -40,6 +40,6 @@
 			return this;
 		}
 
-		private static int Id<TComponent>() where TComponent : IComponent, new() => ComponentIdx<TScope, TComponent>.Id;
+		private static int Id<TComponent>() where TComponent : IComponent, new() => ComponentIndex<TScope, TComponent>.Id;
 	}
 }

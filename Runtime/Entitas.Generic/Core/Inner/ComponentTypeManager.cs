@@ -42,7 +42,7 @@ namespace Entitas.Generic
 
 		private static void Register(Type componentType)
 		{
-			var idxType = typeof(ComponentIdx<,>);
+			var idxType = typeof(ComponentIndex<,>);
 			var genericType = idxType.MakeGenericType(typeof(TScope), componentType);
 
 			if (_componentIdxTypes.Contains(genericType))

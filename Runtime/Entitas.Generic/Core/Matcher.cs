@@ -13,7 +13,7 @@
 				if (_cached == null)
 				{
 					var matcher = (Entitas.Matcher<Entity<TScope>>)Entitas.Matcher<Entity<TScope>>
-					                                                      .AllOf(ComponentIdx<TScope, TComponent>.Id);
+					                                                      .AllOf(ComponentIndex<TScope, TComponent>.Id);
 					matcher.componentNames = ComponentTypeManager<TScope>.ComponentNames;
 					_cached = matcher;
 				}
