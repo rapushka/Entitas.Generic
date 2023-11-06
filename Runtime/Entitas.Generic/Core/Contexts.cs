@@ -1,4 +1,7 @@
-﻿namespace Entitas.Generic
+﻿using Entitas.VisualDebugging.Unity;
+using JetBrains.Annotations;
+
+namespace Entitas.Generic
 {
 	public class Contexts
 	{
@@ -7,30 +10,33 @@
 
 		private Contexts() { }
 
+		[PublicAPI]
 		public void InitializeScope<TScope>()
 			where TScope : IScope
 		{
-			ComponentTypeManager<TScope>.AutoScan();
-			var context = new ScopeContext<TScope>(AERCFactories.SafeAERCFactory);
+			ComponentsLookup<TScope>.Instance.Initialize();
+			var context = new ScopeContext<TScope>((e) => new SafeAERC(e));
 
 			InitScopeObserver(context);
 		}
 
+		[PublicAPI]
 		public ScopeContext<TScope> Get<TScope>()
 			where TScope : IScope
 			=> ScopeContext<TScope>.Instance;
 
+		[PublicAPI]
 		public IGroup<Entity<TScope>> GetGroup<TScope>(IMatcher<Entity<TScope>> matcher)
 			where TScope : IScope
 			=> Get<TScope>().GetGroup(matcher);
 
-		// ReSharper disable once UnusedParameter.Local - used in #if
+		[UsedImplicitly]
 		private void InitScopeObserver(IContext context)
 		{
 #if UNITY_EDITOR
 			if (UnityEngine.Application.isPlaying)
 			{
-				var observer = new Entitas.VisualDebugging.Unity.ContextObserver(context);
+				var observer = new ContextObserver(context);
 				UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
 			}
 #endif

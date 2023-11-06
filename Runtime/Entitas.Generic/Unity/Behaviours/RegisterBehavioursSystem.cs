@@ -1,6 +1,8 @@
-﻿#if UNITY_EDITOR
+﻿using JetBrains.Annotations;
+
 namespace Entitas.Generic
 {
+	[PublicAPI]
 	public sealed class RegisterBehavioursSystem : IInitializeSystem
 	{
 		private readonly Contexts _contexts;
@@ -19,4 +21,3 @@ namespace Entitas.Generic
 		}
 	}
 }
-#endif

@@ -9,6 +9,7 @@ namespace Entitas.Generic
 		public abstract int Index { get; }
 	}
 
+	[Serializable]
 	public class ComponentID<TScope> : ComponentIDBase
 		where TScope : IScope
 	{
@@ -16,11 +17,11 @@ namespace Entitas.Generic
 
 		private int? _cashedIndex;
 
-		public override int Index => _cashedIndex ??= GetIndex();
+		public override int Index => _cashedIndex ??= IndexOf();
 
-		private int GetIndex()
+		private int IndexOf()
 		{
-			var indexOf = ComponentTypeManager<TScope>.ComponentNames.IndexOf(_name);
+			var indexOf = ComponentsLookup<TScope>.Instance.ComponentNames.IndexOf(_name);
 			Debug.Assert(indexOf != -1, $"the component {_name} is lost");
 
 			return indexOf;

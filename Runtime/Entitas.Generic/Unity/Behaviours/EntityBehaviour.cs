@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -10,7 +9,8 @@ namespace Entitas.Generic
 		public abstract void CollectComponents();
 	}
 
-	public class EntityBehaviour<TScope> : EntityBehaviourDebug<TScope> where TScope : IScope
+	public class EntityBehaviour<TScope> : EntityBehaviourDebug<TScope>
+		where TScope : IScope
 	{
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
 
@@ -33,4 +33,3 @@ namespace Entitas.Generic
 		}
 	}
 }
-#endif

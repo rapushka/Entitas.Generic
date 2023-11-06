@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System.Linq;
 using UnityEngine;
 
@@ -16,9 +15,7 @@ namespace Entitas.Generic
 
 		public override void CollectComponents()
 		{
-#if DEBUG
 			ComponentBehaviours = Collect();
-#endif
 		}
 
 #if DEBUG
@@ -39,7 +36,7 @@ namespace Entitas.Generic
 				? GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
 				: GetComponents<ComponentBehaviourBase<TScope>>();
 
-			if (!_interruptChildrenEntities)
+			if (_collectInChildren && !_interruptChildrenEntities)
 			{
 				var childrenComponents = GetComponentsInChildren<EntityBehaviour<TScope>>()
 					.SelectMany((e) => e.GetComponentsInChildren<ComponentBehaviourBase<TScope>>());
@@ -53,9 +50,8 @@ namespace Entitas.Generic
 
 			return componentBehaviours;
 #else
-			throw new NotImplementedException($"Call the {nameof(Collect)} in DEBUG only, or override it");
+			throw new System.NotImplementedException($"Call the {nameof(Collect)} in DEBUG only, or override it");
 #endif
 		}
 	}
 }
-#endif

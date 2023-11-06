@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using UnityEngine;
 
 namespace Entitas.Generic
@@ -33,4 +32,3 @@ namespace Entitas.Generic
 		protected override Systems CreateSystems() => new TSystems();
 	}
 }
-#endif
