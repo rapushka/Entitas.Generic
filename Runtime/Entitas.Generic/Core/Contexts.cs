@@ -1,4 +1,8 @@
-﻿namespace Entitas.Generic
+﻿using Entitas.VisualDebugging.Unity;
+using JetBrains.Annotations;
+using UnityEngine;
+
+namespace Entitas.Generic
 {
 	public class Contexts
 	{
@@ -24,14 +28,16 @@
 			where TScope : IScope
 			=> Get<TScope>().GetGroup(matcher);
 
-		// ReSharper disable once UnusedParameter.Local - used in #if
+		[UsedImplicitly]
 		private void InitScopeObserver(IContext context)
 		{
-			if (UnityEngine.Application.isPlaying)
+#if UNITY_EDITOR
+			if (Application.isPlaying)
 			{
-				var observer = new Entitas.VisualDebugging.Unity.ContextObserver(context);
-				UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
+				var observer = new ContextObserver(context);
+				Object.DontDestroyOnLoad(observer.gameObject);
 			}
+#endif
 		}
 	}
 }
