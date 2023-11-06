@@ -14,7 +14,7 @@
 				{
 					var matcher = (Entitas.Matcher<Entity<TScope>>)Entitas.Matcher<Entity<TScope>>
 					                                                      .AllOf(ComponentIndex<TScope, TComponent>.Id);
-					matcher.componentNames = ComponentTypeManager<TScope>.ComponentNames;
+					matcher.componentNames = ComponentsLookup<TScope>.ComponentNames;
 					_cached = matcher;
 				}
 

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Entitas.Generic
 {
-	public static class ComponentTypeManager<TScope>
+	public static class ComponentsLookup<TScope>
 		where TScope : IScope
 	{
 		private static readonly List<Type> _componentIdxTypes = new();

@@ -7,13 +7,13 @@ namespace Entitas.Generic
 	{
 		public ScopeContext(Func<IEntity, IAERC> aercFactory) : base
 		(
-			ComponentTypeManager<TScope>.TotalComponents,
+			ComponentsLookup<TScope>.TotalComponents,
 			1,
 			new ContextInfo
 			(
 				typeof(TScope).Name,
-				ComponentTypeManager<TScope>.ComponentNames,
-				ComponentTypeManager<TScope>.ComponentTypes
+				ComponentsLookup<TScope>.ComponentNames,
+				ComponentsLookup<TScope>.ComponentTypes
 			),
 			aercFactory,
 			() => new Entity<TScope>()

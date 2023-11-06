@@ -10,7 +10,7 @@
 		public void InitializeScope<TScope>()
 			where TScope : IScope
 		{
-			ComponentTypeManager<TScope>.AutoScan();
+			ComponentsLookup<TScope>.AutoScan();
 			var context = new ScopeContext<TScope>(AERCFactories.SafeAERCFactory);
 
 			InitScopeObserver(context);
