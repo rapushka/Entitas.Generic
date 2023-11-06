@@ -1,6 +1,5 @@
 ﻿using Entitas.VisualDebugging.Unity;
 using JetBrains.Annotations;
-using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -16,7 +15,7 @@ namespace Entitas.Generic
 			where TScope : IScope
 		{
 			ComponentsLookup<TScope>.Instance.Initialize();
-			var context = new ScopeContext<TScope>(AERCFactories.SafeAERCFactory);
+			var context = new ScopeContext<TScope>((e) => new SafeAERC(e));
 
 			InitScopeObserver(context);
 		}
@@ -35,10 +34,10 @@ namespace Entitas.Generic
 		private void InitScopeObserver(IContext context)
 		{
 #if UNITY_EDITOR
-			if (Application.isPlaying)
+			if (UnityEngine.Application.isPlaying)
 			{
 				var observer = new ContextObserver(context);
-				Object.DontDestroyOnLoad(observer.gameObject);
+				UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
 			}
 #endif
 		}
