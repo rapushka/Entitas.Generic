@@ -54,7 +54,7 @@ namespace Entitas.Generic
 				if (type.IsDerivedFrom<IEvent>())
 					RegisterListener(type);
 
-				if (type.IsDerivedFrom(typeof(IUnique<,>)))
+				if (type.IsDerivedFrom<IUnique>())
 					RegisterUnique(type);
 			}
 		}

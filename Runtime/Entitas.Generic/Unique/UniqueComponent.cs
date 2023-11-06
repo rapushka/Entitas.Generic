@@ -6,5 +6,8 @@ namespace Entitas.Generic
 		public TSelf Value;
 	}
 
-	public interface IUnique<TSelf, out TComponent> where TSelf : IUnique<TSelf, TComponent> { }
+	public interface IUnique<TSelf, out TComponent> : IUnique
+		where TSelf : IUnique<TSelf, TComponent> { }
+
+	public interface IUnique { }
 }
