@@ -53,8 +53,14 @@ namespace Entitas.Generic
 
 				if (type.IsDerivedFrom<IEvent>())
 					RegisterListener(type);
+
+				if (type.IsDerivedFrom(typeof(IUnique<,>)))
+					RegisterUnique(type);
 			}
 		}
+
+		private void RegisterUnique(Type componentType)
+			=> Register(typeof(UniqueComponent<>).MakeGenericType(componentType));
 
 		private void RegisterListener(Type componentType)
 			=> Register(typeof(ListenerComponent<,>).MakeGenericType(typeof(TScope), componentType));
