@@ -9,6 +9,7 @@ namespace Entitas.Generic
 		public abstract int Index { get; }
 	}
 
+	[Serializable]
 	public class ComponentID<TScope> : ComponentIDBase
 		where TScope : IScope
 	{
