@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
+
 namespace Entitas.Generic
 {
+	[PublicAPI]
 	public class DestroyEntitySystem<TComponent, TScope> : ICleanupSystem
 		where TScope : IScope
 		where TComponent : IComponent, ICleanup<DestroyEntity>, new()
