@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
@@ -14,6 +15,7 @@ namespace Entitas.Generic
 			_entityFactory = entityFactory;
 		}
 
+		[PublicAPI]
 		public Entity<TScope> Add<TComponent>(Entity<TScope> entity)
 			where TComponent : IComponent, IUnique, new()
 		{
@@ -23,24 +25,30 @@ namespace Entitas.Generic
 			return entity;
 		}
 
+		[PublicAPI]
 		public TComponent Create<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> CreateEntity<TComponent>().Get<TComponent>();
 
+		[PublicAPI]
 		public Entity<TScope> CreateEntity<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> Add<TComponent>(_entityFactory.Invoke());
 
+		[PublicAPI]
 		public Entity<TScope> Remove<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> Remove<TComponent>(GetEntity<TComponent>());
 
-		public Entity<TScope> Remove<TComponent>(Entity<TScope> entity) where TComponent : IComponent, IUnique, new()
+		[PublicAPI]
+		public Entity<TScope> Remove<TComponent>(Entity<TScope> entity)
+			where TComponent : IComponent, IUnique, new()
 		{
 			_uniqueEntities.Remove(Id<TComponent>());
 			return entity.Remove<TComponent>();
 		}
 
+		[PublicAPI]
 		public void DestroyEntity<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 		{
@@ -48,18 +56,22 @@ namespace Entitas.Generic
 			_uniqueEntities.Remove(Id<TComponent>());
 		}
 
+		[PublicAPI]
 		public Entity<TScope> GetEntity<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> _uniqueEntities[Id<TComponent>()];
 
+		[PublicAPI]
 		public Entity<TScope> GetEntityOrDefault<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> _uniqueEntities.GetValueOrDefault(Id<TComponent>());
 
+		[PublicAPI]
 		public TComponent Get<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> GetEntity<TComponent>().Get<TComponent>();
 
+		[PublicAPI]
 		public TComponent GetOrDefault<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 		{
@@ -67,6 +79,7 @@ namespace Entitas.Generic
 			return entity is not null ? entity.Get<TComponent>() : default;
 		}
 
+		[PublicAPI]
 		public void Set<TComponent>(bool value)
 			where TComponent : IComponent, IUnique, new()
 		{
@@ -79,6 +92,7 @@ namespace Entitas.Generic
 				DestroyEntity<TComponent>();
 		}
 
+		[PublicAPI]
 		public bool Has<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 			=> GetEntityOrDefault<TComponent>() is not null;

@@ -11,6 +11,7 @@ namespace Entitas.Generic
 
 		private Contexts() { }
 
+		[PublicAPI]
 		public void InitializeScope<TScope>()
 			where TScope : IScope
 		{
@@ -20,10 +21,12 @@ namespace Entitas.Generic
 			InitScopeObserver(context);
 		}
 
+		[PublicAPI]
 		public ScopeContext<TScope> Get<TScope>()
 			where TScope : IScope
 			=> ScopeContext<TScope>.Instance;
 
+		[PublicAPI]
 		public IGroup<Entity<TScope>> GetGroup<TScope>(IMatcher<Entity<TScope>> matcher)
 			where TScope : IScope
 			=> Get<TScope>().GetGroup(matcher);
