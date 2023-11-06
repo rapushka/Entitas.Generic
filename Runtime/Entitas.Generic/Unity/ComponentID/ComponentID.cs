@@ -17,9 +17,9 @@ namespace Entitas.Generic
 
 		private int? _cashedIndex;
 
-		public override int Index => _cashedIndex ??= GetIndex();
+		public override int Index => _cashedIndex ??= IndexOf();
 
-		private int GetIndex()
+		private int IndexOf()
 		{
 			var indexOf = ComponentsLookup<TScope>.Instance.ComponentNames.IndexOf(_name);
 			Debug.Assert(indexOf != -1, $"the component {_name} is lost");

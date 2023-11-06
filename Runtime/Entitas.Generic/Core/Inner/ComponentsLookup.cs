@@ -13,7 +13,7 @@ namespace Entitas.Generic
 		private bool _initialized;
 
 		private static ComponentsLookup<TScope> _instance;
-		public static ComponentsLookup<TScope> Instance => _instance ??= new ComponentsLookup<TScope>();
+		public static ComponentsLookup<TScope> Instance => _instance ??= new ComponentsLookup<TScope>().Initialize();
 
 		private ComponentsLookup() { }
 
@@ -26,10 +26,10 @@ namespace Entitas.Generic
 		private static IEnumerable<Type> AllTypes
 			=> AppDomain.CurrentDomain.GetAssemblies().SelectMany((a) => a.GetTypes());
 
-		public void Initialize()
+		public ComponentsLookup<TScope> Initialize()
 		{
 			if (_initialized)
-				return;
+				return this;
 
 			RegisterAllTypes();
 
@@ -37,6 +37,8 @@ namespace Entitas.Generic
 			ComponentNames = ComponentTypes.Select((x) => x.Name).ToArray();
 
 			_initialized = true;
+
+			return this;
 		}
 
 		private void RegisterAllTypes()
