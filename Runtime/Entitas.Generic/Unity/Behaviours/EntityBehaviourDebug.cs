@@ -15,9 +15,7 @@ namespace Entitas.Generic
 
 		public override void CollectComponents()
 		{
-#if DEBUG
 			ComponentBehaviours = Collect();
-#endif
 		}
 
 #if DEBUG
@@ -38,7 +36,7 @@ namespace Entitas.Generic
 				? GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
 				: GetComponents<ComponentBehaviourBase<TScope>>();
 
-			if (!_interruptChildrenEntities)
+			if (_collectInChildren && !_interruptChildrenEntities)
 			{
 				var childrenComponents = GetComponentsInChildren<EntityBehaviour<TScope>>()
 					.SelectMany((e) => e.GetComponentsInChildren<ComponentBehaviourBase<TScope>>());
