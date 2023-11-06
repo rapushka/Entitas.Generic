@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Entitas.Generic
 {
-	public abstract class EntitasAdapterBase : MonoBehaviour
+	public abstract class ContextsAdapterBase : MonoBehaviour
 	{
 		private void Awake() => Initialize(Contexts.Instance);
 
