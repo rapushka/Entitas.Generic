@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
 	public sealed class RegisterBehavioursSystem : IInitializeSystem
 	{
@@ -19,4 +18,3 @@ namespace Entitas.Generic
 		}
 	}
 }
-#endif

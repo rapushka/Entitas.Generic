@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -31,4 +30,3 @@ namespace Entitas.Generic
 		}
 	}
 }
-  #endif

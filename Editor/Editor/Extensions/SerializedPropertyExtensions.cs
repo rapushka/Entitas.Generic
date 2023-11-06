@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System;
 using UnityEditor;
 
@@ -11,4 +10,3 @@ namespace Entitas.Generic
 			   ?? throw new NullReferenceException($"{@this} doesn't contain {name}");
 	}
 }
-#endif

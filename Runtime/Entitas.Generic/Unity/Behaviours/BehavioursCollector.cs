@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -10,4 +9,3 @@ namespace Entitas.Generic
 		public EntityBehaviour[] Behaviours => _behaviours;
 	}
 }
-#endif

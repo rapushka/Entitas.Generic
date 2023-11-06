@@ -1,10 +1,7 @@
 ﻿namespace Entitas.Generic
 {
-#if UNITY_EDITOR
 	public abstract class BaseListener<TScope, TComponent> : UnityEngine.MonoBehaviour, IListener<TScope, TComponent>
-#else
-	public abstract class BaseListener<TScope, TComponent> : IListener<TScope, TComponent>
-#endif
+		// public abstract class BaseListener<TScope, TComponent> : IListener<TScope, TComponent>
 		where TScope : IScope
 		where TComponent : IComponent, new()
 	{

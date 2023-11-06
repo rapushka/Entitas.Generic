@@ -27,13 +27,11 @@
 		// ReSharper disable once UnusedParameter.Local - used in #if
 		private void InitScopeObserver(IContext context)
 		{
-#if UNITY_EDITOR
 			if (UnityEngine.Application.isPlaying)
 			{
 				var observer = new Entitas.VisualDebugging.Unity.ContextObserver(context);
 				UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
 			}
-#endif
 		}
 	}
 }

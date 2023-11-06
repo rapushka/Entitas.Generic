@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System.Linq;
 using UnityEngine;
 
@@ -53,9 +52,8 @@ namespace Entitas.Generic
 
 			return componentBehaviours;
 #else
-			throw new NotImplementedException($"Call the {nameof(Collect)} in DEBUG only, or override it");
+			throw new System.NotImplementedException($"Call the {nameof(Collect)} in DEBUG only, or override it");
 #endif
 		}
 	}
 }
-#endif
