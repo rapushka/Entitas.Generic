@@ -65,7 +65,7 @@ namespace Entitas.Generic
 				return;
 
 			_componentTypes.Add(componentType);
-			indexType.SetStaticField("Id", _lastComponentIndex++);
+			indexType.SetStaticField("Value", _lastComponentIndex++);
 		}
 	}
 }
