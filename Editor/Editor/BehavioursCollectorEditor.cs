@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
@@ -35,3 +36,4 @@ namespace Entitas.Generic
 		}
 	}
 }
+#endif
