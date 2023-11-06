@@ -1,8 +1,10 @@
-﻿namespace Entitas.Generic
+﻿using JetBrains.Annotations;
+
+namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
-		where TScope : IScope
 	{
+		[PublicAPI]
 		public Entity<TScope> Register<TComponent>(BaseListener<TScope, TComponent> value)
 			where TComponent : IComponent, new()
 		{

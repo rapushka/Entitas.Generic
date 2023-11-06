@@ -1,38 +1,31 @@
-﻿namespace Entitas.Generic
+﻿using JetBrains.Annotations;
+
+namespace Entitas.Generic
 {
 	public partial class Entity<TScope> : Entity
 		where TScope : IScope
 	{
+		[PublicAPI]
 		public Entity<TScope> Add<TComponent>()
 			where TComponent : IComponent, new()
 			=> Add(Create<TComponent>());
 
-		public Entity<TScope> Add<TComponent>(TComponent component)
-			where TComponent : IComponent, new()
-		{
-			AddComponent(Id<TComponent>(), component);
-			return this;
-		}
-
+		[PublicAPI]
 		public TComponent Create<TComponent>()
 			where TComponent : IComponent, new()
 			=> CreateComponent<TComponent>(Id<TComponent>());
 
+		[PublicAPI]
 		public TComponent Get<TComponent>()
 			where TComponent : IComponent, new()
-			=> (TComponent) GetComponent(Id<TComponent>());
+			=> (TComponent)GetComponent(Id<TComponent>());
 
+		[PublicAPI]
 		public bool Has<TComponent>()
 			where TComponent : IComponent, new()
 			=> HasComponent(Id<TComponent>());
 
-		public Entity<TScope> Replace<TComponent>(TComponent component)
-			where TComponent : IComponent, new()
-		{
-			ReplaceComponent(Id<TComponent>(), component);
-			return this;
-		}
-
+		[PublicAPI]
 		public Entity<TScope> Remove<TComponent>()
 			where TComponent : IComponent, new()
 		{
@@ -40,6 +33,8 @@
 			return this;
 		}
 
-		private static int Id<TComponent>() where TComponent : IComponent, new() => ComponentIndex<TScope, TComponent>.Id;
+		private static int Id<TComponent>()
+			where TComponent : IComponent, new()
+			=> ComponentIndex<TScope, TComponent>.Id;
 	}
 }

@@ -1,10 +1,12 @@
-﻿namespace Entitas.Generic
+﻿using JetBrains.Annotations;
+
+namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
-		where TScope : IScope
 	{
 		private static ScopeContext<TScope> Context => Contexts.Instance.Get<TScope>();
 
+		[PublicAPI]
 		public Entity<TScope> SetUnique<TComponent>(bool value)
 			where TComponent : IComponent, IUnique, new()
 		{
@@ -17,6 +19,7 @@
 			return this;
 		}
 
+		[PublicAPI]
 		public Entity<TScope> AddUnique<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 		{
@@ -24,6 +27,7 @@
 			return this;
 		}
 
+		[PublicAPI]
 		public Entity<TScope> RemoveUnique<TComponent>()
 			where TComponent : IComponent, IUnique, new()
 		{

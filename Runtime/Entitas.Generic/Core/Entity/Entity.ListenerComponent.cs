@@ -1,22 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
-		where TScope : IScope
 	{
+		[PublicAPI]
 		public Entity<TScope> AddListener<TComponent>(IListener<TScope, TComponent> value)
 			where TComponent : IComponent, new()
 		{
-			var listeners = Has<ListenerComponent<TScope, TComponent>>()
-				? Get<ListenerComponent<TScope, TComponent>>().Value
-				: new List<IListener<TScope, TComponent>>();
+			var listeners = GetOrDefault<ListenerComponent<TScope, TComponent>>()?.Value
+			                ?? new List<IListener<TScope, TComponent>>();
 
 			listeners.Add(value);
 			ReplaceListener(listeners);
 			return this;
 		}
 
+		[PublicAPI]
 		public Entity<TScope> ReplaceListener<TComponent>(List<IListener<TScope, TComponent>> newValue)
 			where TComponent : IComponent, new()
 		{
@@ -24,16 +26,18 @@ namespace Entitas.Generic
 			var component = CreateComponent<ListenerComponent<TScope, TComponent>>(index);
 			component.Value = newValue;
 			ReplaceComponent(index, component);
+
 			return this;
 		}
 
-		public Entity<TScope> RemoveListener<TComponent>(IListener<TScope, TComponent> value, bool removeComponentWhenEmpty = true)
+		[PublicAPI]
+		public Entity<TScope> RemoveListener<TComponent>(IListener<TScope, TComponent> value, bool removeEmpty = true)
 			where TComponent : IComponent, new()
 		{
 			var listeners = Get<ListenerComponent<TScope, TComponent>>().Value;
 			listeners.Remove(value);
 
-			if (removeComponentWhenEmpty && listeners.Count == 0)
+			if (removeEmpty && !listeners.Any())
 				RemoveListener<TComponent>();
 			else
 				ReplaceListener(listeners);
@@ -41,6 +45,7 @@ namespace Entitas.Generic
 			return this;
 		}
 
+		[PublicAPI]
 		public Entity<TScope> RemoveListener<TComponent>()
 			where TComponent : IComponent, new()
 		{
