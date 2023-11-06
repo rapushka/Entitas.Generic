@@ -10,7 +10,7 @@
 		public void InitializeScope<TScope>()
 			where TScope : IScope
 		{
-			ComponentsLookup<TScope>.Initialize();
+			ComponentsLookup<TScope>.Instance.Initialize();
 			var context = new ScopeContext<TScope>(AERCFactories.SafeAERCFactory);
 
 			InitScopeObserver(context);

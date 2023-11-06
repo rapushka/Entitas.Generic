@@ -4,24 +4,29 @@ using System.Linq;
 
 namespace Entitas.Generic
 {
-	public static class ComponentsLookup<TScope>
+	public class ComponentsLookup<TScope>
 		where TScope : IScope
 	{
-		private static readonly List<Type> _componentTypes = new();
+		private readonly List<Type> _componentTypes = new();
 
-		private static int _lastComponentIndex;
-		private static bool _initialized;
+		private int _lastComponentIndex;
+		private bool _initialized;
 
-		public static string[] ComponentNames { get; private set; }
+		private static ComponentsLookup<TScope> _instance;
+		public static ComponentsLookup<TScope> Instance => _instance ??= new ComponentsLookup<TScope>();
 
-		public static Type[] ComponentTypes { get; private set; }
+		private ComponentsLookup() { }
 
-		public static int TotalComponents => _componentTypes.Count;
+		public string[] ComponentNames { get; private set; }
+
+		public Type[] ComponentTypes { get; private set; }
+
+		public int TotalComponents => _componentTypes.Count;
 
 		private static IEnumerable<Type> AllTypes
 			=> AppDomain.CurrentDomain.GetAssemblies().SelectMany((a) => a.GetTypes());
 
-		public static void Initialize()
+		public void Initialize()
 		{
 			if (_initialized)
 				return;
@@ -34,7 +39,7 @@ namespace Entitas.Generic
 			_initialized = true;
 		}
 
-		private static void RegisterAllTypes()
+		private void RegisterAllTypes()
 		{
 			foreach (var type in AllTypes)
 			{
@@ -49,10 +54,10 @@ namespace Entitas.Generic
 			}
 		}
 
-		private static void RegisterListener(Type componentType)
+		private void RegisterListener(Type componentType)
 			=> Register(typeof(ListenerComponent<,>).MakeGenericType(typeof(TScope), componentType));
 
-		private static void Register(Type componentType)
+		private void Register(Type componentType)
 		{
 			var indexType = typeof(ComponentIndex<,>).MakeGenericType(typeof(TScope), componentType);
 

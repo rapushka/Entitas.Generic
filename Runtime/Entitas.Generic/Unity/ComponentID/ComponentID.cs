@@ -21,7 +21,7 @@ namespace Entitas.Generic
 
 		private int GetIndex()
 		{
-			var indexOf = ComponentsLookup<TScope>.ComponentNames.IndexOf(_name);
+			var indexOf = ComponentsLookup<TScope>.Instance.ComponentNames.IndexOf(_name);
 			Debug.Assert(indexOf != -1, $"the component {_name} is lost");
 
 			return indexOf;

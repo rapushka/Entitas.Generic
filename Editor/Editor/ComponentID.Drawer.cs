@@ -20,8 +20,8 @@ namespace Entitas.Generic
 		{
 			EditorGUI.BeginProperty(position, label, property);
 
-			ComponentsLookup<TScope>.Initialize();
-			var names = ComponentsLookup<TScope>.ComponentNames;
+			ComponentsLookup<TScope>.Instance.Initialize();
+			var names = ComponentsLookup<TScope>.Instance.ComponentNames;
 
 			_nameProperty ??= property.EnsurePropertyRelative("_name");
 
