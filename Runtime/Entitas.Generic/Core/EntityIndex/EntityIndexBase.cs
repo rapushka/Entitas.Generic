@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace Entitas.Generic
 {
 	public class EntityIndexBase<TScope, TComponent, TValue, TEntityIndexFactory, TEntityIndex>
@@ -16,6 +18,7 @@ namespace Entitas.Generic
 
 		protected static ScopeContext<TScope> Context => Contexts.Instance.Get<TScope>();
 
+		[PublicAPI]
 		public void Initialize()
 		{
 			Context.AddEntityIndex

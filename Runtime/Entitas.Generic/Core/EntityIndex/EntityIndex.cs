@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
@@ -8,6 +9,7 @@ namespace Entitas.Generic
 		where TScope : IScope
 		where TComponent : ValueComponent<TValue>, new()
 	{
+		[PublicAPI]
 		public HashSet<Entity<TScope>> GetEntities(TValue value)
 			=> ((EntityIndex<Entity<TScope>, TValue>)Context.GetEntityIndex(Name)).GetEntities(value);
 	}
