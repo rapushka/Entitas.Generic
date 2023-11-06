@@ -33,8 +33,9 @@ namespace Entitas.Generic
 			return this;
 		}
 
+		/// <summary> Id cuz Identify;) </summary>
 		private static int Id<TComponent>()
 			where TComponent : IComponent, new()
-			=> ComponentIndex<TScope, TComponent>.Id;
+			=> ComponentIndex<TScope, TComponent>.Value;
 	}
 }

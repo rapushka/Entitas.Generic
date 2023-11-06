@@ -12,7 +12,7 @@
 			{
 				if (_instance == null)
 				{
-					var index = ComponentIndex<TScope, TComponent>.Id;
+					var index = ComponentIndex<TScope, TComponent>.Value;
 					var matcher = (Matcher<Entity<TScope>>)Matcher<Entity<TScope>>.AllOf(index);
 					matcher.componentNames = ComponentsLookup<TScope>.Instance.ComponentNames;
 					_instance = matcher;

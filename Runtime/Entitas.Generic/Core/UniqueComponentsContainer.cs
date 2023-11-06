@@ -85,6 +85,6 @@ namespace Entitas.Generic
 
 		private static int Id<TComponent>()
 			where TComponent : IComponent, IUnique, new()
-			=> ComponentIndex<TScope, TComponent>.Id;
+			=> ComponentIndex<TScope, TComponent>.Value;
 	}
 }

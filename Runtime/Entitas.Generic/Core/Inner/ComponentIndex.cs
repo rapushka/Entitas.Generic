@@ -8,6 +8,6 @@ namespace Entitas.Generic
 		where TComponent : IComponent, new()
 	{
 		[UsedImplicitly]
-		public static int Id = -1;
+		public static int Value = -1;
 	}
 }
