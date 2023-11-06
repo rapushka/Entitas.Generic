@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
+
 namespace Entitas.Generic
 {
-	// ReSharper disable once UnusedTypeParameter - used as marker
+	[PublicAPI]
 	public interface ICleanup<TStrategy> where TStrategy : ICleanupStrategy { }
 
 	public interface ICleanupStrategy { }

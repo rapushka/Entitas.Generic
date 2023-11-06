@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
+
 namespace Entitas.Generic
 {
+	[PublicAPI]
 	public class PrimaryIndexComponent<TScope, TComponent, TValue> : ValueComponent<TValue>
 		where TScope : IScope
 		where TComponent : PrimaryIndexComponent<TScope, TComponent, TValue>, new()
