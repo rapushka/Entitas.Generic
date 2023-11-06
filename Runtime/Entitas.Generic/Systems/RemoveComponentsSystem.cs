@@ -8,7 +8,7 @@ namespace Entitas.Generic
 
 		public RemoveComponentsSystem(Contexts contexts)
 		{
-			_entities = contexts.GetGroup(Matcher<TScope>.Get<TComponent>());
+			_entities = contexts.GetGroup(ScopeMatcher<TScope>.Get<TComponent>());
 		}
 
 		public void Cleanup()

@@ -1,6 +1,6 @@
 ﻿namespace Entitas.Generic
 {
-	public class Matcher<TScope>
+	public class ScopeMatcher<TScope>
 		where TScope : IScope
 	{
 		public static IMatcher<Entity<TScope>> Get<TComponent>()

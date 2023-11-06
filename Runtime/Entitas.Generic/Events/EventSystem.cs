@@ -15,7 +15,7 @@ namespace Entitas.Generic
 		}
 
 		protected override ICollector<Entity<TScope>> GetTrigger(IContext<Entity<TScope>> context)
-			=> context.CreateCollector(Matcher<TScope>.Get<TComponent>().Added());
+			=> context.CreateCollector(ScopeMatcher<TScope>.Get<TComponent>().Added());
 
 		protected override bool Filter(Entity<TScope> entity)
 			=> entity.Has<TComponent>() && entity.Has<ListenerComponent<TScope, TComponent>>();
