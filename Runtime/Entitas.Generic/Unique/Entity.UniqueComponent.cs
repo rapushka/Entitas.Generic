@@ -8,12 +8,17 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public TSelf GetUnique<TSelf>()
-			where TSelf : IUnique<TSelf, IComponent>, new()
-			=> Get<UniqueComponent<TSelf>>().Value;
+			where TSelf : IUnique<TSelf>, new()
+			=> Get<UniqueComponent<TSelf>>().Self;
+
+		[PublicAPI]
+		public TValue GetUnique<TSelf, TValue>()
+			where TSelf : IUnique<TSelf, TValue>, new()
+			=> Get<UniqueComponent<TSelf, TValue>>().Value;
 
 		[PublicAPI]
 		public Entity<TScope> SetUnique<TSelf>(bool value)
-			where TSelf : IUnique<TSelf, IComponent>, new()
+			where TSelf : IUnique<TSelf>, new()
 		{
 			if (value && !Context.Unique.Has<TSelf>())
 				AddUnique<TSelf>();
@@ -26,17 +31,33 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public Entity<TScope> AddUnique<TSelf>()
-			where TSelf : IUnique<TSelf, IComponent>, new()
+			where TSelf : IUnique<TSelf>, new()
 		{
 			Context.Unique.Add<TSelf>(this);
 			return this;
 		}
 
 		[PublicAPI]
+		public Entity<TScope> AddUnique<TSelf, TValue>(TValue value = default)
+			where TSelf : IUnique<TSelf, TValue>, new()
+		{
+			Context.Unique.Add<TSelf, TValue>(this, value);
+			return this;
+		}
+
+		[PublicAPI]
 		public Entity<TScope> RemoveUnique<TSelf>()
-			where TSelf : IUnique<TSelf, IComponent>, new()
+			where TSelf : IUnique<TSelf>, new()
 		{
 			Context.Unique.Remove<TSelf>(this);
+			return this;
+		}
+
+		[PublicAPI]
+		public Entity<TScope> RemoveUnique<TSelf, TValue>()
+			where TSelf : IUnique<TSelf, TValue>, new()
+		{
+			Context.Unique.Remove<TSelf, TValue>(this);
 			return this;
 		}
 	}

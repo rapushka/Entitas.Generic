@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public bool Has<TSelf>()
-			where TSelf : IUnique<TSelf, IComponent>, new()
+			where TSelf : IUnique<TSelf>, new()
 			=> _uniqueEntities.ContainsKey(Id<TSelf>());
 	}
 }

@@ -6,13 +6,24 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public Entity<TScope> Add<TSelf>(Entity<TScope> entity)
-			where TSelf : IUnique<TSelf, IComponent>, new()
+			where TSelf : IUnique<TSelf>, new()
 		{
-			var uniqueComponent = entity.Create<UniqueComponent<TSelf>>();
-			uniqueComponent.Value = new TSelf();
-			entity.Add(uniqueComponent);
-
+			var component = entity.Create<UniqueComponent<TSelf>>();
+			entity.Add(component);
 			_uniqueEntities.Add(Id<TSelf>(), entity);
+
+			return entity;
+		}
+
+		[PublicAPI]
+		public Entity<TScope> Add<TSelf, TValue>(Entity<TScope> entity, TValue value = default)
+			where TSelf : IUnique<TSelf, TValue>, new()
+		{
+			var component = entity.Create<UniqueComponent<TSelf, TValue>>();
+			component.Value = value;
+			entity.Add(component);
+
+			_uniqueEntities.Add(Id<TSelf, TValue>(), entity);
 
 			return entity;
 		}

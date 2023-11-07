@@ -15,7 +15,11 @@ namespace Entitas.Generic
 		}
 
 		private static int Id<TSelf>()
-			where TSelf : IUnique<TSelf, IComponent>, new()
+			where TSelf : IUnique<TSelf>, new()
 			=> ComponentIndex<TScope, UniqueComponent<TSelf>>.Value;
+
+		private static int Id<TSelf, TValue>()
+			where TSelf : IUnique<TSelf, TValue>, new()
+			=> ComponentIndex<TScope, UniqueComponent<TSelf, TValue>>.Value;
 	}
 }

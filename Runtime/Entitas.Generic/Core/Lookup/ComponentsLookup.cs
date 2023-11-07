@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -60,7 +61,18 @@ namespace Entitas.Generic
 		}
 
 		private void RegisterUnique(Type componentType)
-			=> Register(typeof(UniqueComponent<>).MakeGenericType(componentType));
+		{
+			var @interface = componentType.GetInterface("UniqueComponent`1")
+			                 ?? componentType.GetInterface("UniqueComponent`2");
+			var generics = @interface.GetGenericArguments();
+
+			if (generics.Length == 1) // IUnique<TSelf>
+				Register(typeof(UniqueComponent<>).MakeGenericType(generics[0]));
+			else if (generics.Length == 2) // IUnique<TSelf, TValue>
+				Register(typeof(UniqueComponent<,>).MakeGenericType(generics[0], generics[1]));
+			else
+				throw new InvalidOperationException($"Unknown Unique component: {componentType}");
+		}
 
 		private void RegisterListener(Type componentType)
 			=> Register(typeof(ListenerComponent<,>).MakeGenericType(typeof(TScope), componentType));
