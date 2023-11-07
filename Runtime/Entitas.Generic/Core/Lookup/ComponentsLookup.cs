@@ -54,24 +54,7 @@ namespace Entitas.Generic
 
 				if (type.IsDerivedFrom<IEvent>())
 					RegisterListener(type);
-
-				if (type.IsDerivedFrom<IUnique>())
-					RegisterUnique(type);
 			}
-		}
-
-		private void RegisterUnique(Type componentType)
-		{
-			var @interface = componentType.GetInterface("UniqueComponent`1")
-			                 ?? componentType.GetInterface("UniqueComponent`2");
-			var generics = @interface.GetGenericArguments();
-
-			if (generics.Length == 1) // IUnique<TSelf>
-				Register(typeof(UniqueComponent<>).MakeGenericType(generics[0]));
-			else if (generics.Length == 2) // IUnique<TSelf, TValue>
-				Register(typeof(UniqueComponent<,>).MakeGenericType(generics[0], generics[1]));
-			else
-				throw new InvalidOperationException($"Unknown Unique component: {componentType}");
 		}
 
 		private void RegisterListener(Type componentType)

@@ -20,12 +20,17 @@ namespace Entitas.Generic
 				() => new Entity<TScope>()
 			)
 		{
-			Unique = new UniqueComponentsContainer<TScope>(CreateEntity);
+			Unique = new UniqueComponentsContainer<TScope>(this);
 			Instance = this;
 		}
 
 		public static ScopeContext<TScope> Instance { get; private set; }
 
 		public UniqueComponentsContainer<TScope> Unique { get; }
+
+		public Entity<TScope> SingleOrDefault(IMatcher<Entity<TScope>> matcher) => GetGroup(matcher).GetSingleEntity();
+
+		public Entity<TScope> Single(IMatcher<Entity<TScope>> matcher)
+			=> SingleOrDefault(matcher) ?? throw new NullReferenceException();
 	}
 }

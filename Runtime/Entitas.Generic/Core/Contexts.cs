@@ -30,6 +30,11 @@ namespace Entitas.Generic
 			where TScope : IScope
 			=> Get<TScope>().GetGroup(matcher);
 
+		[PublicAPI]
+		public Entity<TScope> SingleOrDefault<TScope>(IMatcher<Entity<TScope>> matcher)
+			where TScope : IScope
+			=> GetGroup(matcher).GetSingleEntity();
+
 		[UsedImplicitly]
 		private void InitScopeObserver(IContext context)
 		{

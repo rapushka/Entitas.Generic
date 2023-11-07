@@ -1,27 +1,17 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
 	public partial class UniqueComponentsContainer<TScope>
 	{
-		[PublicAPI]
-		public TSelf Get<TSelf>()
-			where TSelf : IUnique<TSelf>, new()
-			=> GetEntity<TSelf>().GetUnique<TSelf>();
+		public TComponent Get<TComponent>()
+			where TComponent : IComponent, IUnique, new()
+			=> GetEntity<TComponent>().Get<TComponent>();
 
-		[PublicAPI]
-		public TValue Get<TSelf, TValue>()
-			where TSelf : IUnique<TSelf, TValue>, new()
-			=> GetEntity<TSelf, TValue>().GetUnique<TSelf, TValue>();
+		public Entity<TScope> GetEntity<TComponent>()
+			where TComponent : IComponent, IUnique, new()
+			=> GetEntityOrDefault<TComponent>() ?? Create<TComponent>();
 
-		[PublicAPI]
-		public Entity<TScope> GetEntity<TSelf>()
-			where TSelf : IUnique<TSelf>, new()
-			=> _uniqueEntities[Id<TSelf>()];
-
-		[PublicAPI]
-		public Entity<TScope> GetEntity<TSelf, TValue>()
-			where TSelf : IUnique<TSelf, TValue>, new()
-			=> _uniqueEntities[Id<TSelf, TValue>()];
+		public Entity<TScope> GetEntityOrDefault<TComponent>()
+			where TComponent : IComponent, IUnique, new()
+			=> _context.SingleOrDefault(ScopeMatcher<TScope>.Get<TComponent>());
 	}
 }
