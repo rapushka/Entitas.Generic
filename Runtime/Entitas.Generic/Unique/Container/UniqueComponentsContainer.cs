@@ -9,9 +9,5 @@
 		{
 			_context = context;
 		}
-
-		private static int Id<TComponent>()
-			where TComponent : IComponent, new()
-			=> ComponentIndex<TScope, TComponent>.Value;
 	}
 }
