@@ -1,7 +1,10 @@
+using JetBrains.Annotations;
+
 namespace Entitas.Generic
 {
 	public partial class UniqueComponentsContainer<TScope>
 	{
+		[PublicAPI]
 		public void Set<TComponent>(bool value)
 			where TComponent : FlagComponent, IUnique, new()
 		{
@@ -14,8 +17,9 @@ namespace Entitas.Generic
 				Remove<TComponent>();
 		}
 
+		[PublicAPI]
 		public void Set<TComponent, TValue>(TValue value)
 			where TComponent : ValueComponent<TValue>, IUnique, new()
-			=> GetEntity<TComponent>().Replace<TComponent, TValue>(value);
+			=> EnsureEntity<TComponent>().Replace<TComponent, TValue>(value);
 	}
 }
