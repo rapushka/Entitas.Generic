@@ -10,7 +10,7 @@ namespace Entitas.Generic
 
 		public string ToString<TComponent, TValue>(string prefix = "", string postfix = "", string defaultValue = "")
 			where TComponent : ValueComponent<TValue>, new()
-			=> Has<TComponent>() ? $"{prefix}{Get<TComponent, TValue>().ToString()}{postfix}" : defaultValue;
+			=> Has<TComponent>() ? $"{prefix}{Get<TComponent, TValue>()}{postfix}" : defaultValue;
 
 		public override string ToString() => Formatter?.ToString(this) ?? base.ToString();
 	}
