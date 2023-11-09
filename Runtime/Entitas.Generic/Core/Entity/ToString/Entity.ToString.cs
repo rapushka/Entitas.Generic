@@ -14,10 +14,4 @@ namespace Entitas.Generic
 
 		public override string ToString() => Formatter?.ToString(this) ?? base.ToString();
 	}
-
-	public interface IEntityFormatter<TScope>
-		where TScope : IScope
-	{
-		string ToString(Entity<TScope> entity);
-	}
 }
