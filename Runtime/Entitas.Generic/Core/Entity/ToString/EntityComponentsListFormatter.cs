@@ -7,7 +7,9 @@ namespace Entitas.Generic
 		where TScope : IScope
 	{
 		public string ToString(Entity<TScope> entity)
-			=> string.Join(" ", CreateList(entity).Where((s) => !string.IsNullOrEmpty(s)));
+			=> string.Join(Separator, CreateList(entity).Where((s) => !string.IsNullOrEmpty(s)));
+
+		protected virtual string Separator => " ";
 
 		protected abstract IEnumerable<string> CreateList(Entity<TScope> entity);
 	}
