@@ -5,6 +5,13 @@ namespace Entitas.Generic
 {
 	public abstract class EntityBehaviour : MonoBehaviour
 	{
+		[PublicAPI]
+		public void Register(Contexts contexts)
+		{
+			CreateEntity(contexts);
+			Register();
+		}
+
 		public abstract void CreateEntity(Contexts contexts);
 		public abstract void Register();
 
