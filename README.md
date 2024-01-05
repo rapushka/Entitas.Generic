@@ -2,8 +2,8 @@
 [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) fork (as you can see on your own. _.)  
 Plus:
 - My subjective preferences — like codestyle, naming, etc
-- Functionality from original [sschmid/Entitas](https://github.com/sschmid/Entitas), which wasn't present in the [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) — see [What works]([#what-works](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#what-works))
-- Some additional stuff — like `ComponentID`s, or `EntityBehaviour`s; see [Addons]([#addons](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#addons))
+- Functionality from original [sschmid/Entitas](https://github.com/sschmid/Entitas), which wasn't present in the [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) — see [What works](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#what-works)
+- Some additional stuff — like `ComponentID`s, or `EntityBehaviour`s; see [Addons](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#addons)
 
 Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), but with simpler API. Works perfectly with Native Entitas VisualDebug
 
