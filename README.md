@@ -2,8 +2,8 @@
 [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) fork (as you can see on your own. _.)  
 Plus:
 - My subjective preferences — like codestyle, naming, etc
-- Functionality from original [sschmid/Entitas](https://github.com/sschmid/Entitas), which wasn't present in the [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) — see [What works](#what-works)
-- Some additional stuff — like `ComponentID`s, or `EntityBehaviour`s; see [Addons](#addons)
+- Functionality from original [sschmid/Entitas](https://github.com/sschmid/Entitas), which wasn't present in the [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) — see [What works]([#what-works](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#what-works))
+- Some additional stuff — like `ComponentID`s, or `EntityBehaviour`s; see [Addons]([#addons](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#addons))
 
 Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), but with simpler API. Works perfectly with Native Entitas VisualDebug
 
@@ -26,7 +26,7 @@ There is the [Samples~](https://github.com/rapushka/Entitas.Generic/tree/master/
 # Use Guide
 TODO: wiki
 
-# What works? (#what-works)
+# What works?
 Almost all of the original [sschmid/Entitas](https://github.com/sschmid/Entitas) functionality has been implemented (at least what makes sense imho), including:
 - `EntityIndex` and `PrimaryEntityIndex`
 - `EventAttribute`
@@ -34,7 +34,7 @@ Almost all of the original [sschmid/Entitas](https://github.com/sschmid/Entitas)
 - `CleanupAttribute`
 - `UniqueAttribute`
 
-## Addons (#addons)
+## Addons
 Also i've added some additional stuff, that i needed in the original Entitas, including:
 - EntitytBehaviour and ComponentBehaviour (aka. Blueprints)
 - ComponentID (dropdown to pick desired component in unity as value)
