@@ -7,13 +7,12 @@ Plus:
 
 Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), but with simpler API. Works perfectly with Native Entitas VisualDebug
 
-> ❗ I've applied the [fix](https://github.com/sschmid/Entitas/issues/1067#issuecomment-1623734894) for Entitas.VisualDebug in Unity 2022.2+  
-> ❗ So if you wanna use this library with older unity – you need to revert the [commit](https://github.com/rapushka/Entitas.Generic/commit/598154ca6e7079e9a9a3d79a9002f93ed931f86f).. somehow:^
-
 # How to install
 ## Unity
 - Put `https://github.com/rapushka/Entitas.Generic.git` in Window -> Package Manager -> + -> Add package from git URL...
 - [More info](https://docs.unity3d.com/Manual/upm-git.html)
+> ❗ I've applied the [fix](https://github.com/sschmid/Entitas/issues/1067#issuecomment-1623734894) for Entitas.VisualDebug in Unity 2022.2+  
+> ❗ So if you wanna use this library with older unity – you need to revert this [commit](https://github.com/rapushka/Entitas.Generic/commit/598154ca6e7079e9a9a3d79a9002f93ed931f86f).. somehow:^
 
 ## Pure C# (...why?)
 - Just clone the repo to your project, i guess:^)
