@@ -26,7 +26,7 @@ Sometimes I will add wiki..
 Almost all of the original Entitas functionality has been implemented (at least what makes sense imho), including:
 - EntityIndex and PrimaryEntityIndex
 - EventAttribute
-  - except [its parameters](https://github.com/sschmid/Entitas/wiki/Attributes#parameters) (`EventTarget`, `EventType`, priority)
+  - except [some of its parameters](https://github.com/sschmid/Entitas/wiki/Attributes#parameters) (`EventType`, priority)
 - CleanupAttribute
 - UniqueAttribute
 
