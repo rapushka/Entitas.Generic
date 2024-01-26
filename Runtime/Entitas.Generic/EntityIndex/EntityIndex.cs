@@ -7,7 +7,7 @@ namespace Entitas.Generic
 		: EntityIndexBase<TScope, TComponent, TValue, EntityIndexFactory<Entity<TScope>, TValue>,
 			EntityIndex<TScope, TComponent, TValue>>
 		where TScope : IScope
-		where TComponent : ValueComponent<TValue>, new()
+		where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 	{
 		[PublicAPI]
 		public HashSet<Entity<TScope>> GetEntities(TValue value)

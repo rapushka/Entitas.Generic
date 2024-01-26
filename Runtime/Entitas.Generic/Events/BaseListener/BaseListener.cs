@@ -16,7 +16,7 @@ namespace Entitas.Generic
 	public abstract class BaseListener<TScope, TComponent>
 		: UnityEngine.MonoBehaviour, IRegistrableListener<TScope, TComponent>
 		where TScope : IScope
-		where TComponent : IComponent, IEvent, new()
+		where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 	{
 		[PublicAPI]
 		public Entity<TScope> Entity { get; private set; }

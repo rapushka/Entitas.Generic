@@ -2,7 +2,7 @@
 
 namespace Entitas.Generic
 {
-	public class ListenerComponent<TScope, TComponent> : IComponent
+	public class ListenerComponent<TScope, TComponent> : IComponent, IInScope<TScope>
 		where TScope : IScope
 		where TComponent : IComponent, IEvent
 	{

@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public Entity<TScope> Add<TComponent, TValue>(TValue value)
-			where TComponent : ValueComponent<TValue>, new()
+			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 		{
 			var component = Create<TComponent>();
 			component.Value = value;
@@ -16,7 +16,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public Entity<TScope> Replace<TComponent, TValue>(TValue value)
-			where TComponent : ValueComponent<TValue>, new()
+			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 		{
 			var component = Create<TComponent>();
 			component.Value = value;
@@ -26,7 +26,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public TValue Get<TComponent, TValue>()
-			where TComponent : ValueComponent<TValue>, new()
+			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 			=> Get<TComponent>().Value;
 	}
 }
