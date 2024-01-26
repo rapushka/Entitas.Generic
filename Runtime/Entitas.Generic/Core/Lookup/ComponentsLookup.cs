@@ -45,7 +45,10 @@ namespace Entitas.Generic
 		{
 			foreach (var type in AllTypes)
 			{
-				if (type.IsDerivedFrom<IComponent>() && type.IsDerivedFrom<IInScope<TScope>>())
+				if (!type.IsDerivedFrom<IInScope<TScope>>())
+					continue;
+
+				if (type.IsDerivedFrom<IComponent>())
 					Register(type);
 
 				if (type.IsDerivedFrom<IEvent>())
