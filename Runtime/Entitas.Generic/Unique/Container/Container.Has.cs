@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public bool Has<TComponent>()
-			where TComponent : IComponent, IUnique, new()
+			where TComponent : IComponent, IUnique, IInScope<TScope>, new()
 			=> GetEntityOrDefault<TComponent>() is not null;
 	}
 }

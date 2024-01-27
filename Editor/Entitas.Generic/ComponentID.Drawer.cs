@@ -7,14 +7,6 @@ namespace Entitas.Generic
 	public class ComponentIDDrawer<TScope> : PropertyDrawer
 		where TScope : IScope
 	{
-		private SerializedProperty _nameProperty;
-
-		private string NameValue
-		{
-			get => _nameProperty!.stringValue;
-			set => _nameProperty!.stringValue = value;
-		}
-
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
 			EditorGUI.BeginProperty(position, label, property);
@@ -22,11 +14,11 @@ namespace Entitas.Generic
 			ComponentsLookup<TScope>.Instance.Initialize();
 			var names = ComponentsLookup<TScope>.Instance.ComponentNames;
 
-			_nameProperty ??= property.EnsurePropertyRelative("_name");
+			var nameProperty = property.EnsurePropertyRelative("_name");
 
-			var selectedIndex = names.IndexOf(NameValue, clamp: true);
+			var selectedIndex = names.IndexOf(nameProperty.stringValue, clamp: true);
 			selectedIndex.GuiPopup(names, position, label.text);
-			NameValue = names[selectedIndex];
+			nameProperty.stringValue = names[selectedIndex];
 
 			EditorGUI.EndProperty();
 		}

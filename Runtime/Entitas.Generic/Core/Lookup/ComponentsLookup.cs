@@ -45,7 +45,7 @@ namespace Entitas.Generic
 		{
 			foreach (var type in AllTypes)
 			{
-				if (!type.HasAttribute<TScope>())
+				if (!type.IsDerivedFrom<IInScope<TScope>>())
 					continue;
 
 				if (type.IsDerivedFrom<IComponent>())
@@ -63,11 +63,11 @@ namespace Entitas.Generic
 		{
 			var indexType = typeof(ComponentIndex<,>).MakeGenericType(typeof(TScope), componentType);
 
-			if (_componentTypes.Contains(componentType))
-				return;
-
-			_componentTypes.Add(componentType);
-			indexType.SetStaticField("Value", _lastComponentIndex++);
+			if (!_componentTypes.Contains(componentType))
+			{
+				_componentTypes.Add(componentType);
+				indexType.SetStaticField("Value", _lastComponentIndex++);
+			}
 		}
 	}
 }

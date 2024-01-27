@@ -26,5 +26,7 @@ namespace Entitas.Generic
 
 			return indexOf;
 		}
+
+		public override string ToString() => ComponentsLookup<TScope>.Instance.ComponentNames[Index];
 	}
 }
