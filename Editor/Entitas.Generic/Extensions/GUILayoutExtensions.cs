@@ -17,9 +17,9 @@ namespace Entitas.Generic
 			@this = GUILayout.Toggle(@this, text);
 		}
 
-		internal static void GuiField(this SerializedProperty @this, string text)
+		internal static void GuiField(this SerializedProperty @this)
 		{
-			EditorGUILayout.PropertyField(@this, new GUIContent(text));
+			EditorGUILayout.PropertyField(@this);
 		}
 	}
 }

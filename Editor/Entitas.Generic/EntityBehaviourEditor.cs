@@ -29,8 +29,8 @@ namespace Entitas.Generic
 			_foldout = EditorGUILayout.BeginFoldoutHeaderGroup(_foldout, "Options");
 			if (_foldout)
 			{
-				_collectInChildren.GuiField(nameof(_collectInChildren).Pretty());
-				_interruptChildEntities.GuiField(nameof(_interruptChildEntities).Pretty());
+				_collectInChildren.GuiField();
+				_interruptChildEntities.GuiField();
 			}
 
 			EditorGUILayout.EndFoldoutHeaderGroup();
