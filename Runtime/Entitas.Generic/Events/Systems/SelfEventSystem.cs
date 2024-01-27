@@ -30,7 +30,7 @@ namespace Entitas.Generic
 				_listenerBuffer.AddRange(e.Get<ListenerComponent<TScope, TComponent>>().Value);
 
 				foreach (var listener in _listenerBuffer)
-					listener.OnValueChanged(e, e.Get<TComponent>());
+					listener.OnValueChanged(e, e.GetOrDefault<TComponent>());
 			}
 		}
 	}
