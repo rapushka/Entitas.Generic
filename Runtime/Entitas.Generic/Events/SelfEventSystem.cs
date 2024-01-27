@@ -4,13 +4,13 @@ using JetBrains.Annotations;
 namespace Entitas.Generic
 {
 	[PublicAPI]
-	public sealed class EventSystem<TScope, TComponent> : ReactiveSystem<Entity<TScope>>
+	public sealed class SelfEventSystem<TScope, TComponent> : ReactiveSystem<Entity<TScope>>
 		where TScope : IScope
-		where TComponent : class, IComponent, IEvent, IInScope<TScope>, new()
+		where TComponent : class, IComponent, IEvent<Self>, IInScope<TScope>, new()
 	{
 		private readonly List<IListener<TScope, TComponent>> _listenerBuffer;
 
-		public EventSystem(Contexts contexts)
+		public SelfEventSystem(Contexts contexts)
 			: base(contexts.Get<TScope>())
 		{
 			_listenerBuffer = new List<IListener<TScope, TComponent>>();

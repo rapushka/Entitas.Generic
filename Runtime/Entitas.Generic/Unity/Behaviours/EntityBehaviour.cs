@@ -1,10 +1,19 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Entitas.Generic
 {
 	public abstract class EntityBehaviour : MonoBehaviour
 	{
-		public abstract void Register(Contexts contexts);
+		[PublicAPI]
+		public void Register(Contexts contexts)
+		{
+			CreateEntity(contexts);
+			Register();
+		}
+
+		public abstract void CreateEntity(Contexts contexts);
+		public abstract void Register();
 
 		public abstract void CollectComponents();
 	}
@@ -16,6 +25,7 @@ namespace Entitas.Generic
 
 		private Entity<TScope> _entity;
 
+		[PublicAPI]
 		public Entity<TScope> Entity => _entity;
 
 		protected override ComponentBehaviourBase<TScope>[] ComponentBehaviours
@@ -24,10 +34,13 @@ namespace Entitas.Generic
 			set => _componentBehaviours = value;
 		}
 
-		public override void Register(Contexts contexts)
+		public override void CreateEntity(Contexts contexts)
 		{
 			_entity = contexts.Get<TScope>().CreateEntity();
+		}
 
+		public override void Register()
+		{
 			foreach (var component in ComponentBehaviours)
 				component.Add(ref _entity);
 		}

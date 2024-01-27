@@ -17,7 +17,10 @@ namespace Entitas.Generic
 		public void Initialize()
 		{
 			foreach (var behaviour in _behaviours)
-				behaviour.Register(_contexts);
+				behaviour.CreateEntity(_contexts);
+
+			foreach (var behaviour in _behaviours)
+				behaviour.Register();
 		}
 	}
 }

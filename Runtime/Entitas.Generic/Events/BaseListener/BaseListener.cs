@@ -13,15 +13,22 @@ namespace Entitas.Generic
 		where TScope : IScope
 		where TComponent : IComponent, IEvent, IInScope<TScope>, new() { }
 
+	public abstract class BaseListener<TScope>
+		: UnityEngine.MonoBehaviour, IRegistrableListener<TScope>
+		where TScope : IScope
+	{
+		public abstract void Register(Entity<TScope> entity);
+	}
+
 	public abstract class BaseListener<TScope, TComponent>
-		: UnityEngine.MonoBehaviour, IRegistrableListener<TScope, TComponent>
+		: BaseListener<TScope>, IRegistrableListener<TScope, TComponent>
 		where TScope : IScope
 		where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 	{
 		[PublicAPI]
 		public Entity<TScope> Entity { get; private set; }
 
-		public void Register(Entity<TScope> entity)
+		public override void Register(Entity<TScope> entity)
 		{
 			Entity = entity;
 			entity.AddListener(this);
