@@ -8,7 +8,7 @@ namespace Entitas.Generic
 	{
 #if DEBUG
 		[HideInInspector] [SerializeField] private bool _collectInChildren;
-		[HideInInspector] [SerializeField] private bool _interruptChildrenEntities = true;
+		[HideInInspector] [SerializeField] private bool _interruptChildEntities = true;
 #endif
 
 		protected abstract ComponentBehaviourBase<TScope>[] ComponentBehaviours { get; set; }
@@ -36,7 +36,7 @@ namespace Entitas.Generic
 				? GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
 				: GetComponents<ComponentBehaviourBase<TScope>>();
 
-			if (_collectInChildren && !_interruptChildrenEntities)
+			if (_collectInChildren && !_interruptChildEntities)
 			{
 				var childrenComponents = GetComponentsInChildren<EntityBehaviour<TScope>>()
 					.SelectMany((e) => e.GetComponentsInChildren<ComponentBehaviourBase<TScope>>());
