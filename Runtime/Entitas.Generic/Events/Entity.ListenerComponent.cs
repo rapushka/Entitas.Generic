@@ -8,7 +8,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public Entity<TScope> AddListener<TComponent>(IListener<TScope, TComponent> value)
-			where TComponent : IComponent, IEvent, new()
+			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
 			var listeners = GetOrDefault<ListenerComponent<TScope, TComponent>>()?.Value
 			                ?? new List<IListener<TScope, TComponent>>();
@@ -20,7 +20,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public Entity<TScope> ReplaceListener<TComponent>(List<IListener<TScope, TComponent>> newValue)
-			where TComponent : IComponent, IEvent, new()
+			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
 			var index = Id<ListenerComponent<TScope, TComponent>>();
 			var component = CreateComponent<ListenerComponent<TScope, TComponent>>(index);
@@ -32,7 +32,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public Entity<TScope> RemoveListener<TComponent>(IListener<TScope, TComponent> value, bool removeEmpty = true)
-			where TComponent : IComponent, IEvent, new()
+			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
 			var listeners = Get<ListenerComponent<TScope, TComponent>>().Value;
 			listeners.Remove(value);
@@ -47,7 +47,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public Entity<TScope> RemoveListener<TComponent>()
-			where TComponent : IComponent, IEvent, new()
+			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
 			RemoveComponent(Id<ListenerComponent<TScope, TComponent>>());
 			return this;

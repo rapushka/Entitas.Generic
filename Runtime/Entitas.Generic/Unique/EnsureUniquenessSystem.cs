@@ -5,7 +5,7 @@ namespace Entitas.Generic
 {
 	public class EnsureUniquenessSystem<TScope, TComponent> : ReactiveSystem<Entity<TScope>>
 		where TScope : IScope
-		where TComponent : IComponent, IUnique, new()
+		where TComponent : IComponent, IUnique, IInScope<TScope>, new()
 	{
 		private readonly IGroup<Entity<TScope>> _entities;
 
