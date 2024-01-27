@@ -15,11 +15,13 @@ namespace Entitas.Generic
 			where TComponent : IComponent, IInScope<TScope>, new()
 			=> CreateComponent<TComponent>(Id<TComponent>());
 
+		[Pure]
 		[PublicAPI]
 		public TComponent Get<TComponent>()
 			where TComponent : IComponent, IInScope<TScope>, new()
 			=> (TComponent)GetComponent(Id<TComponent>());
 
+		[Pure]
 		[PublicAPI]
 		public bool Has<TComponent>()
 			where TComponent : IComponent, IInScope<TScope>, new()

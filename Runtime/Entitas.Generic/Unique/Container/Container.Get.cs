@@ -8,7 +8,12 @@ namespace Entitas.Generic
 		[PublicAPI]
 		public TComponent Get<TComponent>()
 			where TComponent : IComponent, IUnique, IInScope<TScope>, new()
-			=> EnsureEntity<TComponent>().Get<TComponent>();
+			=> GetEntity<TComponent>().Get<TComponent>();
+
+		[PublicAPI]
+		public TValue Get<TComponent, TValue>()
+			where TComponent : ValueComponent<TValue>, IUnique, IInScope<TScope>, new()
+			=> GetEntity<TComponent>().Get<TComponent>().Value;
 
 		[PublicAPI]
 		public Entity<TScope> EnsureEntity<TComponent>()
