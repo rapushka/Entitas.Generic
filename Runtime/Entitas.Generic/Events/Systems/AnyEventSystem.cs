@@ -29,7 +29,7 @@ namespace Entitas.Generic
 		{
 			foreach (var e in entities)
 			{
-				var component = e.Get<TComponent>();
+				var component = e.GetOrDefault<TComponent>();
 				foreach (var listenerEntity in _listeners.GetEntities(_entityBuffer))
 				{
 					_listenerBuffer.Clear();
