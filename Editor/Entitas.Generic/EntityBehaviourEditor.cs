@@ -15,7 +15,7 @@ namespace Entitas.Generic
 		private void OnEnable()
 		{
 			_collectInChildren = serializedObject.FindProperty("_collectInChildren");
-			_interruptChildrenEntities = serializedObject.FindProperty("_interruptChildrenEntities");
+			_interruptChildrenEntities = serializedObject.FindProperty("_interruptChildEntities");
 		}
 
 		public override void OnInspectorGUI()
