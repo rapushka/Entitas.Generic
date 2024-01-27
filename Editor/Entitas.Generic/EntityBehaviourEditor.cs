@@ -8,12 +8,15 @@ namespace Entitas.Generic
 	{
 		private EntityBehaviour Target => (EntityBehaviour)target;
 
+		private SerializedProperty _ensureComponentsCount;
 		private SerializedProperty _collectInChildren;
 		private SerializedProperty _interruptChildEntities;
+
 		private bool _foldout;
 
 		private void OnEnable()
 		{
+			_ensureComponentsCount = serializedObject.FindProperty("_ensureComponentsCountOnAwake");
 			_collectInChildren = serializedObject.FindProperty("_collectInChildren");
 			_interruptChildEntities = serializedObject.FindProperty("_interruptChildEntities");
 		}
@@ -36,6 +39,7 @@ namespace Entitas.Generic
 			EditorGUILayout.EndFoldoutHeaderGroup();
 
 			GUILayout.Button(nameof(Target.CollectComponents).Pretty()).OnClick(CollectComponents);
+			_ensureComponentsCount.GuiField();
 
 			serializedObject.ApplyModifiedProperties();
 		}

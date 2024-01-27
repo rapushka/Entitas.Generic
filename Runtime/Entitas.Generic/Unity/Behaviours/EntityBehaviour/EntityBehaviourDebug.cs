@@ -7,6 +7,7 @@ namespace Entitas.Generic
 	public abstract class EntityBehaviourDebug<TScope> : EntityBehaviour where TScope : IScope
 	{
 #if DEBUG
+		[HideInInspector] [SerializeField] private bool _ensureComponentsCountOnAwake = true;
 		[HideInInspector] [SerializeField] private bool _collectInChildren;
 		[HideInInspector] [SerializeField] private bool _interruptChildEntities = true;
 #endif
@@ -24,7 +25,7 @@ namespace Entitas.Generic
 			var actualComponents = Collect().OrderBy((a) => a.GetInstanceID());
 			var setComponents = ComponentBehaviours.OrderBy((a) => a.GetInstanceID());
 
-			if (!actualComponents.SequenceEqual(setComponents))
+			if (_ensureComponentsCountOnAwake && !actualComponents.SequenceEqual(setComponents))
 				Debug.LogWarning("Actual components don't match the currently set!", this);
 		}
 #endif
