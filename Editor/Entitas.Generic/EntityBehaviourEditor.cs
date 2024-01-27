@@ -9,13 +9,13 @@ namespace Entitas.Generic
 		private EntityBehaviour Target => (EntityBehaviour)target;
 
 		private SerializedProperty _collectInChildren;
-		private SerializedProperty _interruptChildrenEntities;
+		private SerializedProperty _interruptChildEntities;
 		private bool _foldout;
 
 		private void OnEnable()
 		{
 			_collectInChildren = serializedObject.FindProperty("_collectInChildren");
-			_interruptChildrenEntities = serializedObject.FindProperty("_interruptChildEntities");
+			_interruptChildEntities = serializedObject.FindProperty("_interruptChildEntities");
 		}
 
 		public override void OnInspectorGUI()
@@ -30,13 +30,20 @@ namespace Entitas.Generic
 			if (_foldout)
 			{
 				_collectInChildren.GuiField(nameof(_collectInChildren).Pretty());
-				_interruptChildrenEntities.GuiField(nameof(_interruptChildrenEntities).Pretty());
+				_interruptChildEntities.GuiField(nameof(_interruptChildEntities).Pretty());
 			}
+
 			EditorGUILayout.EndFoldoutHeaderGroup();
 
-			GUILayout.Button(nameof(Target.CollectComponents).Pretty()).OnClick(Target.CollectComponents);
+			GUILayout.Button(nameof(Target.CollectComponents).Pretty()).OnClick(CollectComponents);
 
 			serializedObject.ApplyModifiedProperties();
+		}
+
+		private void CollectComponents()
+		{
+			Target.CollectComponents();
+			EditorUtility.SetDirty(Target);
 		}
 	}
 }
