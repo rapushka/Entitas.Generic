@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	[PublicAPI]
 	public sealed class SelfEventSystem<TScope, TComponent> : ReactiveSystem<Entity<TScope>>
 		where TScope : IScope
-		where TComponent : class, IComponent, IEvent<Self>, new()
+		where TComponent : class, IComponent, IEvent<Self>, IInScope<TScope>, new()
 	{
 		private readonly List<IListener<TScope, TComponent>> _listenerBuffer;
 

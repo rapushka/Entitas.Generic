@@ -12,7 +12,7 @@ namespace Entitas.Generic
 	[PublicAPI]
 	public abstract class ComponentBehaviour<TScope, TComponent> : ComponentBehaviourBase<TScope>
 		where TScope : IScope
-		where TComponent : FlagComponent, new()
+		where TComponent : FlagComponent, IInScope<TScope>, new()
 	{
 		public override void Add(ref Entity<TScope> entity)
 		{
@@ -23,7 +23,7 @@ namespace Entitas.Generic
 	[PublicAPI]
 	public abstract class ComponentBehaviour<TScope, TComponent, TValue> : ComponentBehaviourBase<TScope>
 		where TScope : IScope
-		where TComponent : ValueComponent<TValue>, new()
+		where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 	{
 		[SerializeField] private TValue _value;
 

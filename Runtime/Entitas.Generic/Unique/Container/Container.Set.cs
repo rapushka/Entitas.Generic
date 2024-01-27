@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public void Set<TComponent>(bool value)
-			where TComponent : FlagComponent, IUnique, new()
+			where TComponent : FlagComponent, IUnique, IInScope<TScope>, new()
 		{
 			if (Has<TComponent>() == value)
 				return;
@@ -19,7 +19,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public void Set<TComponent, TValue>(TValue value)
-			where TComponent : ValueComponent<TValue>, IUnique, new()
+			where TComponent : ValueComponent<TValue>, IUnique, IInScope<TScope>, new()
 			=> EnsureEntity<TComponent>().Replace<TComponent, TValue>(value);
 	}
 }

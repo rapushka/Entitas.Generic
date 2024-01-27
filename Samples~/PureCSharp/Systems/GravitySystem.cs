@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2012-2022 FuryLion Group. All Rights Reserved.
-
-using static Entitas.Generic.Matcher<Entitas.Generic.Sample.PureCSharp.GameScope>;
+﻿using static Entitas.Generic.Matcher<Entitas.Generic.Sample.PureCSharp.GameScope>;
 
 namespace Entitas.Generic.Sample.PureCSharp
 {

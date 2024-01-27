@@ -3,9 +3,9 @@ using UnityEditor;
 
 namespace Entitas.Generic
 {
-	public static class SerializedPropertyExtensions
+	internal static class SerializedPropertyExtensions
 	{
-		public static SerializedProperty EnsurePropertyRelative(this SerializedProperty @this, string name)
+		internal static SerializedProperty EnsurePropertyRelative(this SerializedProperty @this, string name)
 			=> @this.FindPropertyRelative(name)
 			   ?? throw new NullReferenceException($"{@this} doesn't contain {name}");
 	}
