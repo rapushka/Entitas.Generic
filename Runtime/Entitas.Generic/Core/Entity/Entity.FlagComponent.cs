@@ -4,6 +4,7 @@ namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
 	{
+		[Pure]
 		[PublicAPI]
 		public bool Is<TComponent>()
 			where TComponent : FlagComponent, IInScope<TScope>, new()
