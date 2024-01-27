@@ -14,9 +14,6 @@ namespace Entitas.Generic
 			base.OnInspectorGUI();
 
 			GUILayout.Button(nameof(CollectAll).Pretty()).OnClick(CollectAll);
-
-			GUILayout.Button(nameof(ForceAllEntitiesToCollectAllComponents).Pretty())
-			         .OnClick(ForceAllEntitiesToCollectAllComponents);
 		}
 
 		public void CollectAll()
@@ -27,15 +24,6 @@ namespace Entitas.Generic
 
 			Target.SetPrivateFieldValue("_behaviours", behaviours);
 			EditorUtility.SetDirty(Target);
-		}
-
-		public void ForceAllEntitiesToCollectAllComponents()
-		{
-			foreach (var behaviour in FindObjectsOfType<EntityBehaviour>())
-			{
-				behaviour.CollectAll();
-				EditorUtility.SetDirty(behaviour);
-			}
 		}
 	}
 }
