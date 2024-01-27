@@ -6,12 +6,12 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public bool Is<TComponent>()
-			where TComponent : FlagComponent, new()
+			where TComponent : FlagComponent, IInScope<TScope>, new()
 			=> Has<TComponent>();
 
 		[PublicAPI]
 		public Entity<TScope> Is<TComponent>(bool value)
-			where TComponent : FlagComponent, new()
+			where TComponent : FlagComponent, IInScope<TScope>, new()
 		{
 			if (value)
 				AddSafety<TComponent>();

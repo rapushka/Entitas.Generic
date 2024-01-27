@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		private Entity<TScope> Add<TComponent, TValue>(TValue value)
-			where TComponent : ValueComponent<TValue>, IUnique, new()
+			where TComponent : ValueComponent<TValue>, IUnique, IInScope<TScope>, new()
 		{
 			if (Has<TComponent>())
 				throw AlreadyHasComponentException<TComponent>();

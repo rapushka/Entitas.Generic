@@ -5,7 +5,7 @@ namespace Entitas.Generic
 	[PublicAPI]
 	public class RemoveComponentsSystem<TComponent, TScope> : ICleanupSystem
 		where TScope : IScope
-		where TComponent : IComponent, ICleanup<RemoveComponent>, new()
+		where TComponent : IComponent, ICleanup<RemoveComponent>, IInScope<TScope>, new()
 	{
 		private readonly IGroup<Entity<TScope>> _entities;
 

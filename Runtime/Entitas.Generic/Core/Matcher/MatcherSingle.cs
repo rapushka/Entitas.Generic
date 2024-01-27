@@ -2,7 +2,7 @@
 {
 	public class MatcherSingle<TScope, TComponent>
 		where TScope : IScope
-		where TComponent : IComponent, new()
+		where TComponent : IComponent, IInScope<TScope>, new()
 	{
 		private static IMatcher<Entity<TScope>> _instance;
 

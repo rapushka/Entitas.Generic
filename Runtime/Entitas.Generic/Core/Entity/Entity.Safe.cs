@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public Entity<TScope> AddSafety<TComponent>()
-			where TComponent : IComponent, new()
+			where TComponent : IComponent, IInScope<TScope>, new()
 		{
 			if (!Has<TComponent>())
 				Add<TComponent>();
@@ -16,12 +16,12 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public TComponent GetOrDefault<TComponent>()
-			where TComponent : IComponent, new()
+			where TComponent : IComponent, IInScope<TScope>, new()
 			=> Has<TComponent>() ? Get<TComponent>() : default;
 
 		[PublicAPI]
 		public Entity<TScope> RemoveSafety<TComponent>()
-			where TComponent : IComponent, new()
+			where TComponent : IComponent, IInScope<TScope>, new()
 		{
 			if (Has<TComponent>())
 				Remove<TComponent>();
