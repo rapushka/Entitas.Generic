@@ -27,7 +27,7 @@ namespace Entitas.Generic
 
 			base.OnInspectorGUI();
 
-			GUILayout.Label("Auto Collect (debug only)");
+			GUILayout.Label("Auto Collect");
 
 			_foldout = EditorGUILayout.BeginFoldoutHeaderGroup(_foldout, "Options");
 			if (_foldout)
@@ -38,7 +38,7 @@ namespace Entitas.Generic
 
 			EditorGUILayout.EndFoldoutHeaderGroup();
 
-			GUILayout.Button(nameof(Target.CollectComponents).Pretty()).OnClick(CollectComponents);
+			GUILayout.Button(nameof(Target.CollectAll).Pretty()).OnClick(CollectComponents);
 			_ensureComponentsCount.GuiField();
 
 			serializedObject.ApplyModifiedProperties();
@@ -46,7 +46,7 @@ namespace Entitas.Generic
 
 		private void CollectComponents()
 		{
-			Target.CollectComponents();
+			Target.CollectAll();
 			EditorUtility.SetDirty(Target);
 		}
 	}

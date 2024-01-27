@@ -33,7 +33,7 @@ namespace Entitas.Generic
 		{
 			foreach (var behaviour in FindObjectsOfType<EntityBehaviour>())
 			{
-				behaviour.CollectComponents();
+				behaviour.CollectAll();
 				EditorUtility.SetDirty(behaviour);
 			}
 		}

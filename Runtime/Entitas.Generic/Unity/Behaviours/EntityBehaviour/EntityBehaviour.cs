@@ -15,13 +15,14 @@ namespace Entitas.Generic
 		public abstract void CreateEntity(Contexts contexts);
 		public abstract void Register();
 
-		public abstract void CollectComponents();
+		public abstract void CollectAll();
 	}
 
 	public class EntityBehaviour<TScope> : EntityBehaviourDebug<TScope>
 		where TScope : IScope
 	{
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
+		[SerializeField] private BaseListener<TScope>[] _listeners;
 
 		private Entity<TScope> _entity;
 
@@ -43,6 +44,9 @@ namespace Entitas.Generic
 		{
 			foreach (var component in ComponentBehaviours)
 				component.Add(ref _entity);
+
+			foreach (var listener in _listeners)
+				listener.Register(_entity);
 		}
 	}
 }

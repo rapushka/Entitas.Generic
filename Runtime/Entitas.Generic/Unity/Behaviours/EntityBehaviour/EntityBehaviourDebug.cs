@@ -14,15 +14,15 @@ namespace Entitas.Generic
 
 		protected abstract ComponentBehaviourBase<TScope>[] ComponentBehaviours { get; set; }
 
-		public override void CollectComponents()
+		public override void CollectAll()
 		{
-			ComponentBehaviours = Collect();
+			ComponentBehaviours = CollectComponents();
 		}
 
 #if DEBUG
 		private void Awake()
 		{
-			var actualComponents = Collect().OrderBy((a) => a.GetInstanceID());
+			var actualComponents = CollectComponents().OrderBy((a) => a.GetInstanceID());
 			var setComponents = ComponentBehaviours.OrderBy((a) => a.GetInstanceID());
 
 			if (_ensureComponentsCountOnAwake && !actualComponents.SequenceEqual(setComponents))
@@ -30,7 +30,7 @@ namespace Entitas.Generic
 		}
 #endif
 
-		protected virtual ComponentBehaviourBase<TScope>[] Collect()
+		protected virtual ComponentBehaviourBase<TScope>[] CollectComponents()
 		{
 #if DEBUG
 			var componentBehaviours = _collectInChildren
@@ -51,7 +51,7 @@ namespace Entitas.Generic
 
 			return componentBehaviours;
 #else
-			throw new System.NotImplementedException($"Call the {nameof(Collect)} in DEBUG only, or override it");
+			throw new System.NotImplementedException($"Call this method in DEBUG only, or override it");
 #endif
 		}
 	}
