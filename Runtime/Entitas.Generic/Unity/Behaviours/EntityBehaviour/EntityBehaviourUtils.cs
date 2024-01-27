@@ -57,10 +57,8 @@ namespace Entitas.Generic
 
 		private static ComponentBehaviourBase<TScope>[] ComponentBehaviours<TScope>(this EntityBehaviour<TScope> @this)
 			where TScope : IScope
-		{
-			var fieldName = EntityBehaviour<TScope>.NameOf.ComponentBehaviours;
-			return @this.GetPrivateFieldValue<ComponentBehaviourBase<TScope>[]>(fieldName);
-		}
+			=> @this.GetProperty(EntityBehaviour<TScope>.NameOf.ComponentBehaviours)
+			        .GetArray<ComponentBehaviourBase<TScope>>();
 
 		private static SerializedProperty GetProperty(this Object @this, string path)
 			=> new SerializedObject(@this).FindProperty(path);
