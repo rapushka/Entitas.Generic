@@ -26,12 +26,16 @@ namespace Entitas.Generic
 			                 .ToArray();
 
 			Target.SetPrivateFieldValue("_behaviours", behaviours);
+			EditorUtility.SetDirty(Target);
 		}
 
 		public void ForceAllEntitiesToCollectAllComponents()
 		{
 			foreach (var behaviour in FindObjectsOfType<EntityBehaviour>())
+			{
 				behaviour.CollectComponents();
+				EditorUtility.SetDirty(behaviour);
+			}
 		}
 	}
 }
