@@ -12,6 +12,8 @@ namespace Entitas.Generic
 			Register();
 		}
 
+		// Split into two methods to allow referencing to other Behaviour's Entity without running into null
+		// If you wanna register it on your own – better call `void Register(Contexts contexts)`
 		public abstract void CreateEntity(Contexts contexts);
 		public abstract void Register();
 	}
