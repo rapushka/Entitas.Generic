@@ -16,7 +16,10 @@ namespace Entitas.Generic
 			=> @this.GetPrivateField(fieldName).SetValue(@this, value);
 
 		internal static T GetStaticField<T>(this Type @this, string fieldName)
-			=> (T)@this.EnsureField(fieldName, Static | Public).GetValue(null);
+			=> (T)@this.GetStaticField(fieldName);
+
+		internal static object GetStaticField(this Type @this, string fieldName)
+			=> @this.EnsureField(fieldName, Static | Public).GetValue(null);
 
 		internal static void SetStaticField<T>(this Type @this, string fieldName, T value)
 			=> @this.EnsureField(fieldName, Static | Public).SetValue(null, value);
