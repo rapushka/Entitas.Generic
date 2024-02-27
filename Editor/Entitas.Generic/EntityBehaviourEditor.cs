@@ -1,17 +1,14 @@
+using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 namespace Entitas.Generic
 {
-	/// <summary>
-	/// Inherit for concrete Scope and add the attribute:
-	/// [CustomEditor(typeof(EntityBehaviour&lt;TScope&gt;))]
-	/// </summary>
-	public class EntityBehaviourEditor<TScope> : Editor
-		where TScope : IScope
+	[CustomEditor(typeof(EntityBehaviour<>), editorForChildClasses: true)]
+	public class EntityBehaviourEditor : Editor
 	{
-		private EntityBehaviour<TScope> Target => (EntityBehaviour<TScope>)target;
-
 		private SerializedProperty _componentBehavioursProperty;
 		private SerializedProperty _listenersProperty;
 
@@ -21,30 +18,16 @@ namespace Entitas.Generic
 
 		private bool _foldout;
 
-		private ComponentBehaviourBase<TScope>[] ComponentBehaviours
-		{
-			get => _componentBehavioursProperty.GetArray<ComponentBehaviourBase<TScope>>();
-			set => _componentBehavioursProperty.SetArray(value);
-		}
-
-		private BaseListener<TScope>[] Listeners
-		{
-			get => _listenersProperty.GetArray<BaseListener<TScope>>();
-			set => _listenersProperty.SetArray(value);
-		}
+		private Type ScopeType => target.GetScopeType();
 
 		private void OnEnable()
 		{
-			_ensureComponentsCountProperty = serializedObject
-				.FindProperty(EntityBehaviour<TScope>.NameOf.EnsureComponentsCountOnAwake);
-			_collectInChildrenProperty = serializedObject
-				.FindProperty(EntityBehaviour<TScope>.NameOf.CollectInChildren);
-			_interruptChildEntitiesProperty = serializedObject
-				.FindProperty(EntityBehaviour<TScope>.NameOf.InterruptChildEntities);
+			_ensureComponentsCountProperty = serializedObject.FindProperty("_ensureComponentsCountOnAwake");
+			_collectInChildrenProperty = serializedObject.FindProperty("_collectInChildren");
+			_interruptChildEntitiesProperty = serializedObject.FindProperty("_interruptChildEntities");
 
-			_componentBehavioursProperty = serializedObject
-				.FindProperty(EntityBehaviour<TScope>.NameOf.ComponentBehaviours);
-			_listenersProperty = serializedObject.FindProperty(EntityBehaviour<TScope>.NameOf.Listeners);
+			_componentBehavioursProperty = serializedObject.FindProperty("_componentBehaviours");
+			_listenersProperty = serializedObject.FindProperty("_listeners");
 		}
 
 		public override void OnInspectorGUI()
@@ -72,10 +55,14 @@ namespace Entitas.Generic
 
 		private void CollectAll()
 		{
-			ComponentBehaviours = EntityBehaviourUtils.CollectComponents(Target);
+			// EntityBehaviourUtils.CollectComponents<TScope>(target);
+			typeof(EntityBehaviourUtils)
+				.GetMethod(nameof(EntityBehaviourUtils.FillWitComponents))
+				!.MakeGenericMethod(ScopeType)
+				.Invoke(null, new object[] { serializedObject });
 			// TODO: Collect Listeners
 
-			EditorUtility.SetDirty(Target);
+			EditorUtility.SetDirty(target);
 		}
 	}
 }

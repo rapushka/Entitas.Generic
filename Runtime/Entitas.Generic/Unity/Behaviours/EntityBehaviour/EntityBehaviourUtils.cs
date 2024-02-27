@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,6 +22,19 @@ namespace Entitas.Generic
 				Debug.LogError($"Actual components don't match the currently set on {target.name}!", target);
 		}
 
+		public static void FillWitComponents<TScope>(SerializedObject serializedObject)
+			where TScope : IScope
+		{
+			var propertyPath = EntityBehaviour<TScope>.NameOf.ComponentBehaviours;
+			var target = (EntityBehaviour<TScope>)serializedObject.targetObject;
+
+			var componentBehavioursProperty = serializedObject.FindProperty(propertyPath);
+
+			var value = CollectComponents(target);
+			componentBehavioursProperty.SetArray(value);
+		}
+
+		[Pure]
 		public static ComponentBehaviourBase<TScope>[] CollectComponents<TScope>(EntityBehaviour<TScope> target)
 			where TScope : IScope
 		{
