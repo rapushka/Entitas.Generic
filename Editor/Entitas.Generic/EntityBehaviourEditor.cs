@@ -7,9 +7,6 @@ namespace Entitas.Generic
 	[CustomEditor(typeof(EntityBehaviour<>), editorForChildClasses: true)]
 	public class EntityBehaviourEditor : Editor
 	{
-		private SerializedProperty _componentBehavioursProperty;
-		private SerializedProperty _listenersProperty;
-
 		private SerializedProperty _ensureComponentsCountProperty;
 		private SerializedProperty _collectInChildrenProperty;
 		private SerializedProperty _interruptChildEntitiesProperty;
@@ -23,9 +20,6 @@ namespace Entitas.Generic
 			_ensureComponentsCountProperty = serializedObject.FindProperty("_ensureComponentsCountOnAwake");
 			_collectInChildrenProperty = serializedObject.FindProperty("_collectInChildren");
 			_interruptChildEntitiesProperty = serializedObject.FindProperty("_interruptChildEntities");
-
-			_componentBehavioursProperty = serializedObject.FindProperty("_componentBehaviours");
-			_listenersProperty = serializedObject.FindProperty("_listeners");
 		}
 
 		public override void OnInspectorGUI()
