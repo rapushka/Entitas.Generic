@@ -53,12 +53,11 @@ namespace Entitas.Generic
 
 		private void CollectAll()
 		{
-			// EntityBehaviourUtils.CollectComponents<TScope>(target);
+			// EntityBehaviourUtils.FillAll<TScope>(target);
 			typeof(EntityBehaviourUtils)
 				.GetMethod(nameof(EntityBehaviourUtils.FillAll))
 				!.MakeGenericMethod(ScopeType)
 				.Invoke(null, new object[] { serializedObject });
-			// TODO: Collect Listeners
 
 			EditorUtility.SetDirty(target);
 		}

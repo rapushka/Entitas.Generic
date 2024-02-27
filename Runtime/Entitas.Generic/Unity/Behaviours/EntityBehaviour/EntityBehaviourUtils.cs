@@ -26,12 +26,24 @@ namespace Entitas.Generic
 		public static void FillAll<TScope>(SerializedObject serializedObject)
 			where TScope : IScope
 		{
-			var propertyPath = EntityBehaviour<TScope>.NameOf.ComponentBehaviours;
+			FillObject<ComponentBehaviourBase<TScope>>(EntityBehaviour<TScope>.NameOf.ComponentBehaviours);
+			FillObject<BaseListener<TScope>>(EntityBehaviour<TScope>.NameOf.Listeners);
+			return;
+
+			void FillObject<TTarget>(string path)
+				where TTarget : Object
+				=> Fill<TScope, TTarget>(serializedObject, path);
+		}
+
+		private static void Fill<TScope, TTarget>(SerializedObject serializedObject, string propertyPath)
+			where TScope : IScope
+			where TTarget : Object
+		{
 			var target = (EntityBehaviour<TScope>)serializedObject.targetObject;
 
 			var componentBehavioursProperty = serializedObject.FindProperty(propertyPath);
 
-			var components = Collect<TScope, ComponentBehaviourBase<TScope>>(target);
+			var components = Collect<TScope, TTarget>(target);
 			componentBehavioursProperty.SetArray(components);
 		}
 
@@ -39,7 +51,7 @@ namespace Entitas.Generic
 		public static TTarget[] Collect<TScope, TTarget>(EntityBehaviour<TScope> target)
 			where TScope : IScope
 		{
-			var componentBehaviours = target.CollectInChildren()
+			var components = target.CollectInChildren()
 				? target.GetComponentsInChildren<TTarget>()
 				: target.GetComponents<TTarget>();
 
@@ -49,10 +61,10 @@ namespace Entitas.Generic
 				                            .SelectMany(CollectChildComponents);
 				var ourComponents = target.GetComponents<TTarget>();
 
-				componentBehaviours = componentBehaviours.Except(childComponents).Concat(ourComponents).ToArray();
+				components = components.Except(childComponents).Concat(ourComponents).ToArray();
 			}
 
-			return componentBehaviours;
+			return components;
 
 			IEnumerable<TTarget> CollectChildComponents(EntityBehaviour<TScope> e)
 				=> e.GetComponentsInChildren<TTarget>();
