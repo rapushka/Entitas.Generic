@@ -55,7 +55,7 @@ namespace Entitas.Generic
 		{
 			// EntityBehaviourUtils.CollectComponents<TScope>(target);
 			typeof(EntityBehaviourUtils)
-				.GetMethod(nameof(EntityBehaviourUtils.FillWitComponents))
+				.GetMethod(nameof(EntityBehaviourUtils.FillAll))
 				!.MakeGenericMethod(ScopeType)
 				.Invoke(null, new object[] { serializedObject });
 			// TODO: Collect Listeners

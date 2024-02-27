@@ -15,14 +15,15 @@ namespace Entitas.Generic
 			if (!target.EnsureComponentsCount())
 				return;
 
-			var actualComponents = CollectComponents(target).OrderBy((a) => a.GetInstanceID());
+			var actualComponents = Collect<TScope, ComponentBehaviourBase<TScope>>(target)
+				.OrderBy((a) => a.GetInstanceID());
 			var setComponents = target.ComponentBehaviours().OrderBy((a) => a.GetInstanceID());
 
 			if (!actualComponents.SequenceEqual(setComponents))
 				Debug.LogError($"Actual components don't match the currently set on {target.name}!", target);
 		}
 
-		public static void FillWitComponents<TScope>(SerializedObject serializedObject)
+		public static void FillAll<TScope>(SerializedObject serializedObject)
 			where TScope : IScope
 		{
 			var propertyPath = EntityBehaviour<TScope>.NameOf.ComponentBehaviours;
@@ -30,31 +31,31 @@ namespace Entitas.Generic
 
 			var componentBehavioursProperty = serializedObject.FindProperty(propertyPath);
 
-			var value = CollectComponents(target);
-			componentBehavioursProperty.SetArray(value);
+			var components = Collect<TScope, ComponentBehaviourBase<TScope>>(target);
+			componentBehavioursProperty.SetArray(components);
 		}
 
 		[Pure]
-		public static ComponentBehaviourBase<TScope>[] CollectComponents<TScope>(EntityBehaviour<TScope> target)
+		public static TTarget[] Collect<TScope, TTarget>(EntityBehaviour<TScope> target)
 			where TScope : IScope
 		{
 			var componentBehaviours = target.CollectInChildren()
-				? target.GetComponentsInChildren<ComponentBehaviourBase<TScope>>()
-				: target.GetComponents<ComponentBehaviourBase<TScope>>();
+				? target.GetComponentsInChildren<TTarget>()
+				: target.GetComponents<TTarget>();
 
 			if (target.CollectInChildren() && !target.InterruptChildren())
 			{
 				var childComponents = target.GetComponentsInChildren<EntityBehaviour<TScope>>()
 				                            .SelectMany(CollectChildComponents);
-				var ourComponents = target.GetComponents<ComponentBehaviourBase<TScope>>();
+				var ourComponents = target.GetComponents<TTarget>();
 
 				componentBehaviours = componentBehaviours.Except(childComponents).Concat(ourComponents).ToArray();
 			}
 
 			return componentBehaviours;
 
-			IEnumerable<ComponentBehaviourBase<TScope>> CollectChildComponents(EntityBehaviour<TScope> e)
-				=> e.GetComponentsInChildren<ComponentBehaviourBase<TScope>>();
+			IEnumerable<TTarget> CollectChildComponents(EntityBehaviour<TScope> e)
+				=> e.GetComponentsInChildren<TTarget>();
 		}
 
 		private static bool EnsureComponentsCount<TScope>(this EntityBehaviour<TScope> @this)
