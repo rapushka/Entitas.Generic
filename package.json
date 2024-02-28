@@ -1,6 +1,6 @@
 {
   "name": "com.rapuska.entitas-generic",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "displayName": "Entitas Generic",
   "description": "Library to use Entitas without code generation",
   "unity": "2022.3",
