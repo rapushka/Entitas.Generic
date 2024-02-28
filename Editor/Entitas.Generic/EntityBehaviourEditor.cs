@@ -8,18 +8,14 @@ namespace Entitas.Generic
 	public class EntityBehaviourEditor : Editor
 	{
 		private SerializedProperty _ensureComponentsCountProperty;
-		private SerializedProperty _collectInChildrenProperty;
-		private SerializedProperty _interruptChildEntitiesProperty;
-
-		private bool _foldout;
+		private SerializedProperty _forceSubEntitiesAutoCollectProperty;
 
 		private Type ScopeType => target.GetScopeType();
 
 		private void OnEnable()
 		{
 			_ensureComponentsCountProperty = serializedObject.FindProperty("_ensureComponentsCountOnAwake");
-			_collectInChildrenProperty = serializedObject.FindProperty("_collectInChildren");
-			_interruptChildEntitiesProperty = serializedObject.FindProperty("_interruptChildEntities");
+			_forceSubEntitiesAutoCollectProperty = serializedObject.FindProperty("_forceSubEntitiesAutoCollect");
 		}
 
 		public override void OnInspectorGUI()
@@ -30,16 +26,9 @@ namespace Entitas.Generic
 
 			GUILayout.Label("Auto Collect");
 
-			_foldout = EditorGUILayout.BeginFoldoutHeaderGroup(_foldout, "Options");
-			if (_foldout)
-			{
-				_collectInChildrenProperty.GuiField();
-				_interruptChildEntitiesProperty.GuiField();
-			}
-
-			EditorGUILayout.EndFoldoutHeaderGroup();
-
 			GUILayout.Button(nameof(CollectAll).Pretty()).OnClick(CollectAll);
+			_forceSubEntitiesAutoCollectProperty.GuiField();
+			GUILayout.Space(5f);
 			_ensureComponentsCountProperty.GuiField();
 
 			serializedObject.ApplyModifiedProperties();

@@ -20,7 +20,7 @@ namespace Entitas.Generic
 				behaviour.CreateEntity(_contexts);
 
 			foreach (var behaviour in _behaviours)
-				behaviour.Register();
+				behaviour.Initialize();
 		}
 	}
 }

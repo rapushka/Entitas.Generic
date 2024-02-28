@@ -4,6 +4,9 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
+
+// ReSharper disable SuggestBaseTypeForParameter – no it can't
 
 namespace Entitas.Generic
 {
@@ -28,6 +31,9 @@ namespace Entitas.Generic
 		{
 			FillObject<ComponentBehaviourBase<TScope>>(EntityBehaviour<TScope>.NameOf.ComponentBehaviours);
 			FillObject<BaseListener<TScope>>(EntityBehaviour<TScope>.NameOf.Listeners);
+			FillSubEntities<TScope>(serializedObject);
+
+			LogInfo<TScope>(serializedObject);
 			return;
 
 			void FillObject<TTarget>(string path)
@@ -35,52 +41,89 @@ namespace Entitas.Generic
 				=> Fill<TScope, TTarget>(serializedObject, path);
 		}
 
+		private static void LogInfo<TScope>(SerializedObject serializedObject) where TScope : IScope
+		{
+			var path = EntityBehaviour<TScope>.NameOf.ComponentBehaviours;
+			var componentBehavioursCount = serializedObject.FindProperty(path).arraySize;
+			var listenersCount = serializedObject.FindProperty(EntityBehaviour<TScope>.NameOf.Listeners).arraySize;
+			var subEntitiesCount = serializedObject.FindProperty(EntityBehaviour<TScope>.NameOf.SubEntities).arraySize;
+
+			Debug.Log
+			(
+				$"{serializedObject.targetObject.name} has been filled! "
+				+ $"(componentBehaviours: {componentBehavioursCount}, "
+				+ $"listeners: {listenersCount}, "
+				+ $"subEntities: {subEntitiesCount})"
+			);
+		}
+
+		private static void FillSubEntities<TScope>(SerializedObject serializedObject)
+			where TScope : IScope
+		{
+			var target = (EntityBehaviour<TScope>)serializedObject.targetObject;
+			var property = serializedObject.FindProperty(EntityBehaviour<TScope>.NameOf.SubEntities);
+
+			property.SetArray(GetSubEntities(target).ToArray());
+
+			ForceFillSubEntities(target);
+		}
+
+		private static void ForceFillSubEntities<TScope>(EntityBehaviour<TScope> target)
+			where TScope : IScope
+		{
+			if (!target.ForceSubEntitiesAutoCollect())
+				return;
+
+			foreach (var subEntity in GetSubEntities(target))
+			{
+				var serializedSubEntity = new SerializedObject(subEntity);
+				FillAll<TScope>(serializedSubEntity);
+				serializedSubEntity.ApplyModifiedProperties();
+			}
+		}
+
+		private static IEnumerable<EntityBehaviour<TScope>> GetSubEntities<TScope>(EntityBehaviour<TScope> target)
+			where TScope : IScope
+			=> target.GetComponentsInChildren<EntityBehaviour<TScope>>(true).Skip(1);
+
 		private static void Fill<TScope, TTarget>(SerializedObject serializedObject, string propertyPath)
 			where TScope : IScope
 			where TTarget : Object
 		{
 			var target = (EntityBehaviour<TScope>)serializedObject.targetObject;
-
-			var componentBehavioursProperty = serializedObject.FindProperty(propertyPath);
+			var property = serializedObject.FindProperty(propertyPath);
 
 			var components = Collect<TScope, TTarget>(target);
-			componentBehavioursProperty.SetArray(components);
+			property.SetArray(components);
 		}
 
 		[Pure]
 		public static TTarget[] Collect<TScope, TTarget>(EntityBehaviour<TScope> target)
 			where TScope : IScope
 		{
-			var components = target.CollectInChildren()
-				? target.GetComponentsInChildren<TTarget>()
-				: target.GetComponents<TTarget>();
+			var components = target.GetComponentsInChildren<TTarget>(true).ToList();
 
-			if (target.CollectInChildren() && !target.InterruptChildren())
-			{
-				var childComponents = target.GetComponentsInChildren<EntityBehaviour<TScope>>()
-				                            .SelectMany(CollectChildComponents);
-				var ourComponents = target.GetComponents<TTarget>();
+			// foreach (var subEntity in GetSubEntities(target))
+			// foreach (var collidedComponent in subEntity.GetComponentsInChildren<TTarget>())
+			//     components.Remove(collidedComponent);
 
-				components = components.Except(childComponents).Concat(ourComponents).ToArray();
-			}
+			components.RemoveAll(CollidedComponents);
 
-			return components;
+			return components.ToArray();
 
-			IEnumerable<TTarget> CollectChildComponents(EntityBehaviour<TScope> e)
-				=> e.GetComponentsInChildren<TTarget>();
+			bool CollidedComponents(TTarget component)
+				=> GetSubEntities(target)
+				   .SelectMany(e => e.GetComponentsInChildren<TTarget>())
+				   .Contains(component);
 		}
 
 		private static bool EnsureComponentsCount<TScope>(this EntityBehaviour<TScope> @this)
 			where TScope : IScope
 			=> @this.GetProperty(EntityBehaviour<TScope>.NameOf.EnsureComponentsCountOnAwake).boolValue;
 
-		private static bool CollectInChildren<TScope>(this EntityBehaviour<TScope> @this)
+		private static bool ForceSubEntitiesAutoCollect<TScope>(this EntityBehaviour<TScope> @this)
 			where TScope : IScope
-			=> @this.GetProperty(EntityBehaviour<TScope>.NameOf.CollectInChildren).boolValue;
-
-		private static bool InterruptChildren<TScope>(this EntityBehaviour<TScope> @this)
-			where TScope : IScope
-			=> @this.GetProperty(EntityBehaviour<TScope>.NameOf.InterruptChildEntities).boolValue;
+			=> @this.GetProperty(EntityBehaviour<TScope>.NameOf.ForceSubEntitiesAutoCollect).boolValue;
 
 		private static ComponentBehaviourBase<TScope>[] ComponentBehaviours<TScope>(this EntityBehaviour<TScope> @this)
 			where TScope : IScope

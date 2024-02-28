@@ -9,13 +9,13 @@ namespace Entitas.Generic
 		public void Register(Contexts contexts)
 		{
 			CreateEntity(contexts);
-			Register();
+			Initialize();
 		}
 
 		// Split into two methods to allow referencing to other Behaviour's Entity without running into null
 		// If you wanna register it on your own – better call `void Register(Contexts contexts)`
 		public abstract void CreateEntity(Contexts contexts);
-		public abstract void Register();
+		public abstract void Initialize();
 	}
 
 	public class EntityBehaviour<TScope> : EntityBehaviour
@@ -23,11 +23,11 @@ namespace Entitas.Generic
 	{
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
 		[SerializeField] private BaseListener<TScope>[] _listeners;
+		[SerializeField] private EntityBehaviour<TScope>[] _subEntities;
 
 #if UNITY_EDITOR
 		[HideInInspector] [SerializeField] private bool _ensureComponentsCountOnAwake = true;
-		[HideInInspector] [SerializeField] private bool _collectInChildren;
-		[HideInInspector] [SerializeField] private bool _interruptChildEntities = true;
+		[HideInInspector] [SerializeField] private bool _forceSubEntitiesAutoCollect = true;
 #endif
 
 		private Entity<TScope> _entity;
@@ -46,15 +46,21 @@ namespace Entitas.Generic
 		public override void CreateEntity(Contexts contexts)
 		{
 			_entity = contexts.Get<TScope>().CreateEntity();
+
+			foreach (var subEntity in _subEntities)
+				subEntity.CreateEntity(contexts);
 		}
 
-		public override void Register()
+		public override void Initialize()
 		{
 			foreach (var component in _componentBehaviours)
 				component.Add(ref _entity);
 
 			foreach (var listener in _listeners)
 				listener.Register(_entity);
+
+			foreach (var subEntity in _subEntities)
+				subEntity.Initialize();
 		}
 
 #if UNITY_EDITOR
@@ -62,10 +68,10 @@ namespace Entitas.Generic
 		{
 			public const string ComponentBehaviours = nameof(_componentBehaviours);
 			public const string Listeners = nameof(_listeners);
+			public const string SubEntities = nameof(_subEntities);
 
 			public const string EnsureComponentsCountOnAwake = nameof(_ensureComponentsCountOnAwake);
-			public const string CollectInChildren = nameof(_collectInChildren);
-			public const string InterruptChildEntities = nameof(_interruptChildEntities);
+			public const string ForceSubEntitiesAutoCollect = nameof(_forceSubEntitiesAutoCollect);
 		}
 #endif
 	}
