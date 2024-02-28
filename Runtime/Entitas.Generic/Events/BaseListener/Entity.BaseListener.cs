@@ -13,7 +13,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public Entity<TScope> Register<TComponent>(IRegistrableListener<TScope, TComponent> value)
-			where TComponent : IComponent, IEvent, new()
+			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
 			if (!Has<ListenerComponent<TScope, TComponent>>())
 				value.Register(this);

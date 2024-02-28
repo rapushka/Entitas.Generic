@@ -3,10 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace Entitas.Generic
 {
-	public static class StringExtensions
+	internal static class StringExtensions
 	{
 		/// <summary> _fewWordsField -&gt; Few Words Field </summary>
-		public static string Pretty(this string @this)
+		internal static string Pretty(this string @this)
 			=> @this.RemovePrefix("_").FirstToUpper().PascalCaseToSpaces();
 
 		private static string PascalCaseToSpaces(this string @this) => Regex.Replace(@this, "(\\B[A-Z])", " $1");

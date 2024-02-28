@@ -1,21 +1,21 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
 namespace Entitas.Generic
 {
-	[CustomEditor(typeof(EntityBehaviour), editorForChildClasses: true)]
+	[CustomEditor(typeof(EntityBehaviour<>), editorForChildClasses: true)]
 	public class EntityBehaviourEditor : Editor
 	{
-		private EntityBehaviour Target => (EntityBehaviour)target;
+		private SerializedProperty _ensureComponentsCountProperty;
+		private SerializedProperty _forceSubEntitiesAutoCollectProperty;
 
-		private SerializedProperty _collectInChildren;
-		private SerializedProperty _interruptChildrenEntities;
-		private bool _foldout;
+		private Type ScopeType => target.GetScopeType();
 
 		private void OnEnable()
 		{
-			_collectInChildren = serializedObject.FindProperty("_collectInChildren");
-			_interruptChildrenEntities = serializedObject.FindProperty("_interruptChildrenEntities");
+			_ensureComponentsCountProperty = serializedObject.FindProperty("_ensureComponentsCountOnAwake");
+			_forceSubEntitiesAutoCollectProperty = serializedObject.FindProperty("_forceSubEntitiesAutoCollect");
 		}
 
 		public override void OnInspectorGUI()
@@ -24,19 +24,25 @@ namespace Entitas.Generic
 
 			base.OnInspectorGUI();
 
-			GUILayout.Label("Auto Collect (debug only)");
+			GUILayout.Label("Auto Collect");
 
-			_foldout = EditorGUILayout.BeginFoldoutHeaderGroup(_foldout, "Options");
-			if (_foldout)
-			{
-				_collectInChildren.GuiField(nameof(_collectInChildren).Pretty());
-				_interruptChildrenEntities.GuiField(nameof(_interruptChildrenEntities).Pretty());
-			}
-			EditorGUILayout.EndFoldoutHeaderGroup();
-
-			GUILayout.Button(nameof(Target.CollectComponents).Pretty()).OnClick(Target.CollectComponents);
+			GUILayout.Button(nameof(CollectAll).Pretty()).OnClick(CollectAll);
+			_forceSubEntitiesAutoCollectProperty.GuiField();
+			GUILayout.Space(5f);
+			_ensureComponentsCountProperty.GuiField();
 
 			serializedObject.ApplyModifiedProperties();
+		}
+
+		private void CollectAll()
+		{
+			// EntityBehaviourUtils.FillAll<TScope>(target);
+			typeof(EntityBehaviourUtils)
+				.GetMethod(nameof(EntityBehaviourUtils.FillAll))
+				!.MakeGenericMethod(ScopeType)
+				.Invoke(null, new object[] { serializedObject });
+
+			EditorUtility.SetDirty(target);
 		}
 	}
 }

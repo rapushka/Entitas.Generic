@@ -3,9 +3,9 @@ using JetBrains.Annotations;
 namespace Entitas.Generic
 {
 	[PublicAPI]
-	public class DestroyEntitySystem<TComponent, TScope> : ICleanupSystem
+	public class DestroyEntitySystem<TScope, TComponent> : ICleanupSystem
 		where TScope : IScope
-		where TComponent : IComponent, ICleanup<DestroyEntity>, new()
+		where TComponent : IComponent, ICleanup<DestroyEntity>, IInScope<TScope>, new()
 	{
 		private readonly IGroup<Entity<TScope>> _entities;
 

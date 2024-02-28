@@ -6,7 +6,7 @@ namespace Entitas.Generic
 		: EntityIndexBase<TScope, TComponent, TValue, PrimaryEntityIndexFactory<Entity<TScope>, TValue>,
 			PrimaryEntityIndex<TScope, TComponent, TValue>>
 		where TScope : IScope
-		where TComponent : ValueComponent<TValue>, new()
+		where TComponent : PrimaryIndexComponent<TValue>, IInScope<TScope>, new()
 	{
 		[PublicAPI]
 		public TComponent Get(TValue value) => GetEntity(value).Get<TComponent>();
@@ -17,5 +17,12 @@ namespace Entitas.Generic
 		[PublicAPI]
 		public Entity<TScope> GetEntity(TValue value)
 			=> ((PrimaryEntityIndex<Entity<TScope>, TValue>)Context.GetEntityIndex(Name)).GetEntity(value);
+
+		[PublicAPI]
+		public bool TryGetEntity(TValue value, out Entity<TScope> entity)
+		{
+			entity = GetEntity(value);
+			return entity is not null;
+		}
 	}
 }

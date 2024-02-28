@@ -5,9 +5,9 @@ namespace Entitas.Generic
 {
 	public class BehavioursCollector : MonoBehaviour
 	{
-		[SerializeField] private EntityBehaviour[] _behaviours;
+		[SerializeField] private EntityBehaviourBase[] _behaviours;
 
 		[PublicAPI]
-		public EntityBehaviour[] Behaviours => _behaviours;
+		public EntityBehaviourBase[] Behaviours => _behaviours;
 	}
 }

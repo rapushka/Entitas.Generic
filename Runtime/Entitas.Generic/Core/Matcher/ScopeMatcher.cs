@@ -7,7 +7,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public static IMatcher<Entity<TScope>> Get<TComponent>()
-			where TComponent : IComponent, new()
+			where TComponent : IComponent, IInScope<TScope>, new()
 			=> MatcherSingle<TScope, TComponent>.Instance;
 
 		[PublicAPI]

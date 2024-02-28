@@ -6,7 +6,7 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public Entity<TScope> Add<TComponent>(TComponent component)
-			where TComponent : IComponent, new()
+			where TComponent : IComponent, IInScope<TScope>, new()
 		{
 			AddComponent(Id<TComponent>(), component);
 			return this;
@@ -14,7 +14,7 @@ namespace Entitas.Generic
 
 		[PublicAPI]
 		public Entity<TScope> Replace<TComponent>(TComponent component)
-			where TComponent : IComponent, new()
+			where TComponent : IComponent, IInScope<TScope>, new()
 		{
 			ReplaceComponent(Id<TComponent>(), component);
 			return this;

@@ -6,9 +6,9 @@ namespace Entitas.Generic
 	public sealed class RegisterBehavioursSystem : IInitializeSystem
 	{
 		private readonly Contexts _contexts;
-		private readonly EntityBehaviour[] _behaviours;
+		private readonly EntityBehaviourBase[] _behaviours;
 
-		public RegisterBehavioursSystem(Contexts contexts, EntityBehaviour[] behaviours)
+		public RegisterBehavioursSystem(Contexts contexts, EntityBehaviourBase[] behaviours)
 		{
 			_contexts = contexts;
 			_behaviours = behaviours;
@@ -17,7 +17,10 @@ namespace Entitas.Generic
 		public void Initialize()
 		{
 			foreach (var behaviour in _behaviours)
-				behaviour.Register(_contexts);
+				behaviour.CreateEntity(_contexts);
+
+			foreach (var behaviour in _behaviours)
+				behaviour.Initialize();
 		}
 	}
 }
