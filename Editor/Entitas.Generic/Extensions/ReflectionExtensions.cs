@@ -37,6 +37,6 @@ namespace Entitas.Generic
 		internal static bool IsDerivedFrom(this Type @this, Type other) => other.IsAssignableFrom(@this);
 
 		private static string NoField(string fieldName, MemberInfo type, BindingFlags flags)
-			=> $"Type {type.Name} doesn't contain {flags} {fieldName} field";
+			=> $"Type {type.Name} doesn't contain {flags} \"{fieldName}\" field";
 	}
 }

@@ -17,5 +17,16 @@ namespace Entitas.Generic
 
 			return type.GenericTypeArguments[0];
 		}
+
+		internal static bool TryGetScopeType(this object @this, out Type scopeType)
+		{
+			var type = @this.GetType();
+
+			while (type is not null && !type.GenericTypeArguments.FirstOrDefault().IsDerivedFrom<IScope>())
+				type = type.BaseType;
+
+			scopeType = type?.GenericTypeArguments[0];
+			return type is not null;
+		}
 	}
 }

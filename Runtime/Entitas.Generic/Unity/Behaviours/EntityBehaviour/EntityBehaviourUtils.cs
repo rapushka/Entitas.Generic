@@ -50,7 +50,7 @@ namespace Entitas.Generic
 
 			Debug.Log
 			(
-				$"{serializedObject.targetObject.name} has been filled! "
+				$"{serializedObject.targetObject.name} has been filled. "
 				+ $"(componentBehaviours: {componentBehavioursCount}, "
 				+ $"listeners: {listenersCount}, "
 				+ $"subEntities: {subEntitiesCount})"
@@ -74,7 +74,7 @@ namespace Entitas.Generic
 			if (!target.ForceSubEntitiesAutoCollect())
 				return;
 
-			foreach (var subEntity in GetSubEntities(target))
+			foreach (var subEntity in GetSubEntities(target).OfType<EntityBehaviour<TScope>>())
 			{
 				var serializedSubEntity = new SerializedObject(subEntity);
 				FillAll<TScope>(serializedSubEntity);
@@ -82,9 +82,8 @@ namespace Entitas.Generic
 			}
 		}
 
-		private static IEnumerable<EntityBehaviour<TScope>> GetSubEntities<TScope>(EntityBehaviour<TScope> target)
-			where TScope : IScope
-			=> target.GetComponentsInChildren<EntityBehaviour<TScope>>(true).Skip(1);
+		private static IEnumerable<EntityBehaviourBase> GetSubEntities(EntityBehaviourBase target)
+			=> target.GetComponentsInChildren<EntityBehaviourBase>(true).Skip(1);
 
 		private static void Fill<TScope, TTarget>(SerializedObject serializedObject, string propertyPath)
 			where TScope : IScope
@@ -102,11 +101,6 @@ namespace Entitas.Generic
 			where TScope : IScope
 		{
 			var components = target.GetComponentsInChildren<TTarget>(true).ToList();
-
-			// foreach (var subEntity in GetSubEntities(target))
-			// foreach (var collidedComponent in subEntity.GetComponentsInChildren<TTarget>())
-			//     components.Remove(collidedComponent);
-
 			components.RemoveAll(CollidedComponents);
 
 			return components.ToArray();
@@ -129,6 +123,11 @@ namespace Entitas.Generic
 			where TScope : IScope
 			=> @this.GetProperty(EntityBehaviour<TScope>.NameOf.ComponentBehaviours)
 			        .GetArray<ComponentBehaviourBase<TScope>>();
+
+		internal static EntityBehaviour<TScope>[] SubEntities<TScope>(this EntityBehaviour<TScope> @this)
+			where TScope : IScope
+			=> @this.GetProperty(EntityBehaviour<TScope>.NameOf.SubEntities)
+			        .GetArray<EntityBehaviour<TScope>>();
 
 		private static SerializedProperty GetProperty(this Object @this, string path)
 			=> new SerializedObject(@this).FindProperty(path);

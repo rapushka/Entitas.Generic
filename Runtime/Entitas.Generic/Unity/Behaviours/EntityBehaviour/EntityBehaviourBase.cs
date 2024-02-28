@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Entitas.Generic
 {
-	public abstract class EntityBehaviour : MonoBehaviour
+	public abstract class EntityBehaviourBase : MonoBehaviour
 	{
 		[PublicAPI]
 		public void Register(Contexts contexts)
@@ -18,12 +18,12 @@ namespace Entitas.Generic
 		public abstract void Initialize();
 	}
 
-	public class EntityBehaviour<TScope> : EntityBehaviour
+	public class EntityBehaviour<TScope> : EntityBehaviourBase
 		where TScope : IScope
 	{
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
 		[SerializeField] private BaseListener<TScope>[] _listeners;
-		[SerializeField] private EntityBehaviour<TScope>[] _subEntities;
+		[SerializeField] private EntityBehaviourBase[] _subEntities;
 
 #if UNITY_EDITOR
 		[HideInInspector] [SerializeField] private bool _ensureComponentsCountOnAwake = true;
