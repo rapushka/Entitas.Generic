@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEditor;
 
@@ -14,27 +16,42 @@ namespace Entitas.Generic
 			base.OnInspectorGUI();
 
 			GUILayout.Button(nameof(CollectAll).Pretty()).OnClick(CollectAll);
-
-			GUILayout.Button(nameof(ForceAllEntitiesToCollectAllComponents).Pretty())
-			         .OnClick(ForceAllEntitiesToCollectAllComponents);
 		}
 
 		public void CollectAll()
 		{
-			var behaviours = FindObjectsOfType<EntityBehaviour>()
+			var behaviours = FindObjectsOfType<EntityBehaviourBase>()
 			                 .Where((e) => e is not ISelfRegistry)
-			                 .ToArray();
+			                 .ToList();
 
-			Target.SetPrivateFieldValue("_behaviours", behaviours);
+			RemoveCollisions(ref behaviours);
+
+			Target.SetPrivateFieldValue("_behaviours", behaviours.ToArray());
 			EditorUtility.SetDirty(Target);
+
+			Debug.Log($"Collected {behaviours.Count} entities.");
 		}
 
-		public void ForceAllEntitiesToCollectAllComponents()
+		private static void RemoveCollisions(ref List<EntityBehaviourBase> behaviours)
 		{
-			foreach (var behaviour in FindObjectsOfType<EntityBehaviour>())
+			var allBehaviours = behaviours.ToList();
+			foreach (var entityBehaviour in allBehaviours)
 			{
-				behaviour.CollectComponents();
-				EditorUtility.SetDirty(behaviour);
+				var type = entityBehaviour.GetType();
+
+				if (!entityBehaviour.TryGetScopeType(out var scopeType))
+					continue;
+
+				var closedType = typeof(EntityBehaviour<>).MakeGenericType(scopeType);
+				if (!type.IsDerivedFrom(closedType))
+					continue;
+
+				var subEntities = closedType
+				                  .GetField("_subEntities", BindingFlags.NonPublic | BindingFlags.Instance)
+				                  !.GetValue(entityBehaviour);
+
+				foreach (var subEntity in (EntityBehaviourBase[])subEntities)
+					behaviours.Remove(subEntity);
 			}
 		}
 	}

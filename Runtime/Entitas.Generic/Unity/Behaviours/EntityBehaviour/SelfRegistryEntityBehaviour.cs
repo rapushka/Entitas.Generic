@@ -7,8 +7,7 @@ namespace Entitas.Generic
 	{
 		private void Start()
 		{
-			CreateEntity(Contexts.Instance);
-			Register();
+			Register(Contexts.Instance);
 		}
 	}
 }
