@@ -18,7 +18,19 @@ namespace Entitas.Generic
 		public abstract void Initialize();
 	}
 
-	public class EntityBehaviour<TScope> : EntityBehaviourBase
+	public abstract class EntityBehaviourBase<TScope> : EntityBehaviourBase
+		where TScope : IScope
+	{
+		[PublicAPI]
+		public Entity<TScope> Entity { get; private set; }
+
+		public override void CreateEntity(Contexts contexts)
+		{
+			Entity = contexts.Get<TScope>().CreateEntity();
+		}
+	}
+
+	public class EntityBehaviour<TScope> : EntityBehaviourBase<TScope>
 		where TScope : IScope
 	{
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
@@ -30,11 +42,6 @@ namespace Entitas.Generic
 		[HideInInspector] [SerializeField] private bool _forceSubEntitiesAutoCollect = true;
 #endif
 
-		private Entity<TScope> _entity;
-
-		[PublicAPI]
-		public Entity<TScope> Entity => _entity;
-
 #if UNITY_EDITOR
 		private void Awake()
 		{
@@ -45,7 +52,7 @@ namespace Entitas.Generic
 
 		public override void CreateEntity(Contexts contexts)
 		{
-			_entity = contexts.Get<TScope>().CreateEntity();
+			base.CreateEntity(contexts);
 
 			foreach (var subEntity in _subEntities)
 				subEntity.CreateEntity(contexts);
@@ -53,11 +60,13 @@ namespace Entitas.Generic
 
 		public override void Initialize()
 		{
+			var entity = Entity;
+
 			foreach (var component in _componentBehaviours)
-				component.Add(ref _entity);
+				component.Add(ref entity);
 
 			foreach (var listener in _listeners)
-				listener.Register(_entity);
+				listener.Register(entity);
 
 			foreach (var subEntity in _subEntities)
 				subEntity.Initialize();
