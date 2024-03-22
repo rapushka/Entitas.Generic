@@ -11,6 +11,6 @@ namespace Entitas.Generic
 	{
 		[PublicAPI]
 		public HashSet<Entity<TScope>> GetEntities(TValue value)
-			=> ((EntityIndex<Entity<TScope>, TValue>)Context.GetEntityIndex(Name)).GetEntities(value);
+			=> ((EntityIndex<Entity<TScope>, TValue>)Index).GetEntities(value);
 	}
 }
