@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EnableCodeGeneration>k__BackingField: 1
   <GenerateOnRecompile>k__BackingField: 1
-  <OutputPath>k__BackingField: Assets/Code/Generated
+  <OutputPath>k__BackingField: Assets/Code/Generated/
   <CustomOutputEditorPath>k__BackingField: 0
-  <OutputEditorPath>k__BackingField: Assets/Code/Generated/Editor/
+  <OutputEditorPath>k__BackingField: Assets/Code/Generated//Editor/
   <Generators>k__BackingField:
   - rid: 2851124348604645385
+  <BaseNamespace>k__BackingField: Code
   references:
     version: 2
     RefIds:

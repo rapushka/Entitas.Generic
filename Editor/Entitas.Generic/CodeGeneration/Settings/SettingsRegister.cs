@@ -14,6 +14,7 @@ namespace Entitas.Generic
 		private static SerializedProperty _customOutputEditorPathProperty;
 		private static SerializedProperty _outputEditorPathProperty;
 		private static SerializedProperty _generatorsProperty;
+		private static SerializedProperty _namespaceProperty;
 
 		private static bool EnableCodeGeneration => _enableCodeGenerationProperty.boolValue;
 
@@ -21,17 +22,21 @@ namespace Entitas.Generic
 		{
 			_settings = Settings.SerializedSettings;
 
-			_enableCodeGenerationProperty = _settings.FindProperty(nameof(Settings.EnableCodeGeneration).WrapSerializedProperty());
-			_generateOnRecompileProperty = _settings.FindProperty(nameof(Settings.GenerateOnRecompile).WrapSerializedProperty());
-			_outputPathProperty = _settings.FindProperty(nameof(Settings.OutputPath).WrapSerializedProperty());
-			_customOutputEditorPathProperty = _settings.FindProperty(nameof(Settings.CustomOutputEditorPath).WrapSerializedProperty());
-			_outputEditorPathProperty = _settings.FindProperty(nameof(Settings.OutputEditorPath).WrapSerializedProperty());
-			_generatorsProperty = _settings.FindProperty(nameof(Settings.Generators).WrapSerializedProperty());
+			_enableCodeGenerationProperty = Find(nameof(Settings.EnableCodeGeneration));
+			_generateOnRecompileProperty = Find(nameof(Settings.GenerateOnRecompile));
+			_outputPathProperty = Find(nameof(Settings.OutputPath));
+			_customOutputEditorPathProperty = Find(nameof(Settings.CustomOutputEditorPath));
+			_outputEditorPathProperty = Find(nameof(Settings.OutputEditorPath));
+			_generatorsProperty = Find(nameof(Settings.Generators));
+			_namespaceProperty = Find(nameof(Settings.BaseNamespace));
 
 			var generators = _generatorsProperty.GetBoxedArray<GeneratorBase>().ToList();
 			CollectGenerators(ref generators);
 			_generatorsProperty.SetBoxedArray(generators.ToArray());
 		}
+
+		private static SerializedProperty Find(string propertyName)
+			=> _settings.FindProperty(propertyName.WrapSerializedProperty());
 
 		private static void OnGUI(string searchContext)
 		{
@@ -61,6 +66,7 @@ namespace Entitas.Generic
 
 			DrawPathsFields();
 			DrawEnabledGeneratorsList();
+			EditorGUILayout.PropertyField(_namespaceProperty);
 		}
 
 		private static void DrawPathsFields()

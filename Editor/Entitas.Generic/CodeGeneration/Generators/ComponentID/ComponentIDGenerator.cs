@@ -1,5 +1,6 @@
+using System.IO;
+using System.Text;
 using JetBrains.Annotations;
-using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -10,7 +11,21 @@ namespace Entitas.Generic
 
 		public override void Generate()
 		{
-			Debug.Log(nameof(ComponentIDGenerator) + " Generated!");
+			var scopes = ReflectionUtils.FindAllChildrenInAllAssemblies<IScope>();
+
+			var code = new StringBuilder();
+			using var file = File.CreateText(Settings.Instance.OutputPath + "ComponendIDs.cs");
+
+			foreach (var scope in scopes)
+			{
+				var componentID = ComponentIDTemplates.ComponentID(scope);
+				code.AppendLine(componentID);
+				code.AppendLine();
+			}
+
+			code.Set(CommonTemplates.WrapNamespace(Settings.Instance.BaseNamespace, code.ToString()));
+
+			file.Write(code.ToString());
 		}
 	}
 }

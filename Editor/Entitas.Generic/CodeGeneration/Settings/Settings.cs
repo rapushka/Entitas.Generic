@@ -17,6 +17,8 @@ namespace Entitas.Generic
 		[field: SerializeReference]
 		[field: SerializeField] public GeneratorBase[] Generators { get; private set; }
 
+		[field: SerializeField] public string BaseNamespace { get; private set; }
+
 		private static Settings _instance;
 
 		internal static Settings Instance => _instance ??= ScriptableObjectUtils.LoadOrCreate<Settings>(Constants.Path.Settings);
