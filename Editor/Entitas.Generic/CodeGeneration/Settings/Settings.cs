@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entitas.Generic
 {
 	[CreateAssetMenu(fileName = FileName, menuName = "Entitas/Generic/Settings")]
-	public class Settings : ScriptableObject
+	internal class Settings : ScriptableObject
 	{
 		public const string Path = "Packages/com.rapuska.entitas-generic/Editor/Entitas.Generic/CodeGeneration/Settings/" + FileName + ".asset";
 		public const string PathInWindow = "+375/Entitas.Generic/Code Generation";
@@ -13,20 +13,10 @@ namespace Entitas.Generic
 		[field: SerializeField] public bool EnableCodeGeneration { get; private set; }
 		[field: SerializeField] public bool GenerateOnRecompile  { get; private set; }
 
-		internal static Settings GetOrCreateSettings()
-		{
-			var settings = AssetDatabase.LoadAssetAtPath<Settings>(Path);
-			if (settings == null)
-			{
-				settings = CreateInstance<Settings>();
+		private static Settings _instance;
 
-				AssetDatabase.CreateAsset(settings, Path);
-				AssetDatabase.SaveAssets();
-			}
+		internal static Settings Instance => _instance ??= ScriptableObjectUtils.LoadOrCreate<Settings>(Path);
 
-			return settings;
-		}
-
-		internal static SerializedObject GetSerializedSettings() => new(GetOrCreateSettings());
+		internal static SerializedObject SerializedSettings => new(Instance);
 	}
 }

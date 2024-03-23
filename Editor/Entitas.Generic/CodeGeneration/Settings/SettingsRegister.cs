@@ -1,36 +1,44 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Entitas.Generic
 {
-	internal static class SettingsRegister
+	internal static partial class SettingsRegister
 	{
-		[SettingsProvider]
-		public static SettingsProvider CreateMyCustomSettingsProvider()
-		{
-			var provider = new SettingsProvider(Settings.PathInWindow, SettingsScope.Project)
-			{
-				guiHandler = OnGUI,
-				keywords = new HashSet<string>(new[] { "Entitas.Generic", "Code Generation" }),
-			};
+		private static SerializedObject _settings;
 
-			return provider;
+		private static SerializedProperty _enableCodeGenerationProperty;
+		private static SerializedProperty _generateOnRecompileProperty;
+
+		private static bool EnableCodeGeneration => _enableCodeGenerationProperty.boolValue;
+
+		private static void OnActivate(string searchContext, VisualElement rootElement)
+		{
+			_settings = Settings.SerializedSettings;
+
+			_enableCodeGenerationProperty = _settings.FindProperty(nameof(Settings.EnableCodeGeneration).WrapSerializedProperty());
+			_generateOnRecompileProperty = _settings.FindProperty(nameof(Settings.GenerateOnRecompile).WrapSerializedProperty());
 		}
 
 		private static void OnGUI(string searchContext)
 		{
-			var settings = Settings.GetSerializedSettings();
-
-			var enableCodeGenerationProperty = settings.FindProperty(nameof(Settings.EnableCodeGeneration).WrapSerializedProperty());
-			var generateOnRecompileProperty = settings.FindProperty(nameof(Settings.GenerateOnRecompile).WrapSerializedProperty());
-
 			using var changeScope = new EditorGUI.ChangeCheckScope();
 
-			EditorGUILayout.PropertyField(enableCodeGenerationProperty);
-			EditorGUILayout.PropertyField(generateOnRecompileProperty);
+			using (var enableCodeGenerationCheckScope = new EditorGUI.ChangeCheckScope())
+			{
+				EditorGUILayout.PropertyField(_enableCodeGenerationProperty);
+
+				if (enableCodeGenerationCheckScope.changed)
+					UpdateDefines();
+			}
+
+			using (new EditorGUI.DisabledScope(disabled: !EnableCodeGeneration))
+				EditorGUILayout.PropertyField(_generateOnRecompileProperty);
 
 			if (changeScope.changed)
-				settings.ApplyModifiedProperties();
+				_settings.ApplyModifiedProperties();
 		}
 	}
 }
