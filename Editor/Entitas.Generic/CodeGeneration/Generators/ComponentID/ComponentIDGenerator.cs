@@ -23,7 +23,9 @@ namespace Entitas.Generic
 				code.AppendLine();
 			}
 
+			code.RemoveLast(2);
 			code.Set(CommonTemplates.WrapNamespace(Settings.Instance.BaseNamespace, code.ToString()));
+			code.Insert(0, CommonTemplates.HeaderGenerated);
 
 			file.Write(code.ToString());
 		}
