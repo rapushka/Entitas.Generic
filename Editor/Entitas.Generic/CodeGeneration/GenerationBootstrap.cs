@@ -13,7 +13,7 @@ namespace Entitas.Generic
 		}
 
 #if ENTITAS_GENERIC_CODE_GENERATION
-		[MenuItem("Tools/+375/Entitas.Generic/Generate")]
+		[MenuItem("Tools/" + Constants.MenuItem.Root + "Generate")]
 #endif
 		private static void Generate()
 		{

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5a7d916b014ae394b40e34730bfef9, type: 3}
   m_Name: Entitas.Generic Settings
   m_EditorClassIdentifier: 
-  <EnableCodeGeneration>k__BackingField: 0
-  <GenerateOnRecompile>k__BackingField: 0
+  <EnableCodeGeneration>k__BackingField: 1
+  <GenerateOnRecompile>k__BackingField: 1
+  <OutputPath>k__BackingField: Assets/Code/Generated
+  <CustomOutputEditorPath>k__BackingField: 0
+  <OutputEditorPath>k__BackingField: Assets/Code/Generated/Editor/
