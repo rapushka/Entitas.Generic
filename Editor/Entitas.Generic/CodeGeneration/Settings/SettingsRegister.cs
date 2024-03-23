@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Entitas.Generic
@@ -88,9 +86,7 @@ namespace Entitas.Generic
 			for (var i = 0; i < _generatorsProperty.arraySize; i++)
 			{
 				var generator = (GeneratorBase)_generatorsProperty.GetArrayElementAtIndex(i).boxedValue;
-
 				generator.Enabled = EditorGUILayout.ToggleLeft(generator.Name, generator.Enabled);
-				// _generatorsProperty.GetArrayElementAtIndex(i).boxedValue = generator; 
 			}
 		}
 	}

@@ -1,5 +1,5 @@
+using System.Linq;
 using UnityEditor;
-using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -17,7 +17,8 @@ namespace Entitas.Generic
 #endif
 		private static void Generate()
 		{
-			Debug.Log("Generated");
+			foreach (var generator in Settings.Instance.Generators.Where((g) => g.Enabled))
+				generator.Generate();
 		}
 	}
 }

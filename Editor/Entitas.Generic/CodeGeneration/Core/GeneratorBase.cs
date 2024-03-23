@@ -10,6 +10,8 @@ namespace Entitas.Generic
 
 		public abstract string Name { get; }
 
+		public abstract void Generate();
+
 		public override bool Equals(object obj) => obj is GeneratorBase other && Equals(other);
 
 		protected bool Equals(GeneratorBase other) => Name == other.Name;
