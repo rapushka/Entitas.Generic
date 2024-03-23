@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Entitas.Generic
@@ -12,6 +15,7 @@ namespace Entitas.Generic
 		private static SerializedProperty _outputPathProperty;
 		private static SerializedProperty _customOutputEditorPathProperty;
 		private static SerializedProperty _outputEditorPathProperty;
+		private static SerializedProperty _generatorsProperty;
 
 		private static bool EnableCodeGeneration => _enableCodeGenerationProperty.boolValue;
 
@@ -24,6 +28,11 @@ namespace Entitas.Generic
 			_outputPathProperty = _settings.FindProperty(nameof(Settings.OutputPath).WrapSerializedProperty());
 			_customOutputEditorPathProperty = _settings.FindProperty(nameof(Settings.CustomOutputEditorPath).WrapSerializedProperty());
 			_outputEditorPathProperty = _settings.FindProperty(nameof(Settings.OutputEditorPath).WrapSerializedProperty());
+			_generatorsProperty = _settings.FindProperty(nameof(Settings.Generators).WrapSerializedProperty());
+
+			var generators = _generatorsProperty.GetBoxedArray<GeneratorBase>().ToList();
+			CollectGenerators(ref generators);
+			_generatorsProperty.SetBoxedArray(generators.ToArray());
 		}
 
 		private static void OnGUI(string searchContext)
@@ -53,6 +62,7 @@ namespace Entitas.Generic
 			EditorGUILayout.PropertyField(_generateOnRecompileProperty);
 
 			DrawPathsFields();
+			DrawEnabledGeneratorsList();
 		}
 
 		private static void DrawPathsFields()
@@ -64,9 +74,23 @@ namespace Entitas.Generic
 			using (new EditorGUI.DisabledScope(disabled: !useCustomPathForEditorOutput))
 			{
 				if (!useCustomPathForEditorOutput)
-					_outputEditorPathProperty.stringValue = $"{_outputPathProperty.stringValue}/Editor/";
+					DuplicatePaths();
 
 				EditorGUILayout.PropertyField(_outputEditorPathProperty);
+			}
+		}
+
+		private static void DrawEnabledGeneratorsList()
+		{
+			EditorGUILayout.LabelField("Generators:");
+			using var scope = new EditorGUI.IndentLevelScope(increment: 1);
+
+			for (var i = 0; i < _generatorsProperty.arraySize; i++)
+			{
+				var generator = (GeneratorBase)_generatorsProperty.GetArrayElementAtIndex(i).boxedValue;
+
+				generator.Enabled = EditorGUILayout.ToggleLeft(generator.Name, generator.Enabled);
+				// _generatorsProperty.GetArrayElementAtIndex(i).boxedValue = generator; 
 			}
 		}
 	}

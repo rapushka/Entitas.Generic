@@ -17,3 +17,12 @@ MonoBehaviour:
   <OutputPath>k__BackingField: Assets/Code/Generated
   <CustomOutputEditorPath>k__BackingField: 0
   <OutputEditorPath>k__BackingField: Assets/Code/Generated/Editor/
+  <Generators>k__BackingField:
+  - rid: 2851124348604645385
+  references:
+    version: 2
+    RefIds:
+    - rid: 2851124348604645385
+      type: {class: ComponentIDGenerator, ns: Entitas.Generic, asm: com.rapuska.entitas-generic.editor}
+      data:
+        <Enabled>k__BackingField: 1

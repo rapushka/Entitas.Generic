@@ -17,6 +17,16 @@ namespace Entitas.Generic
 			return array;
 		}
 
+		internal static T[] GetBoxedArray<T>(this SerializedProperty property)
+		{
+			var array = new T[property.arraySize];
+
+			for (var i = 0; i < property.arraySize; i++)
+				array[i] = (T)property.GetArrayElementAtIndex(i).boxedValue;
+
+			return array;
+		}
+
 		internal static void SetArray<T>(this SerializedProperty @this, T[] value)
 			where T : Object
 		{
@@ -25,6 +35,15 @@ namespace Entitas.Generic
 
 			for (var i = 0; i < value.Length; i++)
 				@this.GetArrayElementAtIndex(i).objectReferenceValue = value[i];
+		}
+
+		internal static void SetBoxedArray<T>(this SerializedProperty @this, T[] value)
+		{
+			@this.ClearArray();
+			@this.arraySize = value.Length;
+
+			for (var i = 0; i < value.Length; i++)
+				@this.GetArrayElementAtIndex(i).boxedValue = value[i];
 		}
 	}
 }

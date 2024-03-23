@@ -14,6 +14,9 @@ namespace Entitas.Generic
 		[field: SerializeField] public bool   CustomOutputEditorPath { get; private set; }
 		[field: SerializeField] public string OutputEditorPath       { get; private set; }
 
+		[field: SerializeReference]
+		[field: SerializeField] public GeneratorBase[] Generators { get; private set; }
+
 		private static Settings _instance;
 
 		internal static Settings Instance => _instance ??= ScriptableObjectUtils.LoadOrCreate<Settings>(Constants.Path.Settings);
