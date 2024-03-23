@@ -17,6 +17,8 @@ namespace Entitas.Generic
 
 		private int? _cashedIndex;
 
+		protected ComponentID() { }
+
 		public override int Index => _cashedIndex ??= IndexOf();
 
 		public Type Type => Lookup.ComponentTypes[Index];
