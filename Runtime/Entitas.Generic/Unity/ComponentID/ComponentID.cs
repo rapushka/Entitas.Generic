@@ -15,8 +15,6 @@ namespace Entitas.Generic
 	{
 		[SerializeField] private string _name;
 
-		// TODO: mb private ctor?
-
 		private int? _cashedIndex;
 
 		public override int Index => _cashedIndex ??= IndexOf();

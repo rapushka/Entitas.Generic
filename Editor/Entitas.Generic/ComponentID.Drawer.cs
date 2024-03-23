@@ -12,6 +12,9 @@ namespace Entitas.Generic
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
+			Debug.Log($"property = {property}");
+			return;
+			
 			_scopeType ??= property.boxedValue.GetScopeType();
 			_names ??= GetNamesArray();
 
