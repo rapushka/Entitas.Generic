@@ -17,11 +17,21 @@ namespace Entitas.Generic
 
 		private int? _cashedIndex;
 
+		protected ComponentID() { }
+
 		public override int Index => _cashedIndex ??= IndexOf();
+
+		public Type Type => Lookup.ComponentTypes[Index];
+
+		private static ComponentsLookup<TScope> Lookup => ComponentsLookup<TScope>.Instance;
+
+		public static ComponentID<TScope> Create<TComponent>()
+			where TComponent : IComponent, IInScope<TScope>, new()
+			=> new() { _name = typeof(TComponent).Name, };
 
 		private int IndexOf()
 		{
-			var indexOf = ComponentsLookup<TScope>.Instance.ComponentNames.IndexOf(_name);
+			var indexOf = Lookup.ComponentNames.IndexOf(_name);
 			Debug.Assert(indexOf != -1, $"the component {_name} is lost");
 
 			return indexOf;
