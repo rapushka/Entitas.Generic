@@ -42,5 +42,8 @@ namespace Entitas.Generic
 
 			previous = previous.OrderBy((g) => g.Name).ToList();
 		}
+
+		private static void DuplicateNamespaces()
+			=> _editorNamespaceProperty.stringValue = $"{_namespaceProperty.stringValue}.Editor";
 	}
 }

@@ -15,6 +15,8 @@ namespace Entitas.Generic
 		private static SerializedProperty _outputEditorPathProperty;
 		private static SerializedProperty _generatorsProperty;
 		private static SerializedProperty _namespaceProperty;
+		private static SerializedProperty _customNamespaceProperty;
+		private static SerializedProperty _editorNamespaceProperty;
 
 		private static bool EnableCodeGeneration => _enableCodeGenerationProperty.boolValue;
 
@@ -29,6 +31,8 @@ namespace Entitas.Generic
 			_outputEditorPathProperty = Find(nameof(Settings.OutputEditorPath));
 			_generatorsProperty = Find(nameof(Settings.Generators));
 			_namespaceProperty = Find(nameof(Settings.BaseNamespace));
+			_customNamespaceProperty = Find(nameof(Settings.CustomNamespace));
+			_editorNamespaceProperty = Find(nameof(Settings.EditorNamespace));
 
 			var generators = _generatorsProperty.GetBoxedArray<GeneratorBase>().ToList();
 			CollectGenerators(ref generators);
@@ -66,7 +70,7 @@ namespace Entitas.Generic
 
 			DrawPathsFields();
 			DrawEnabledGeneratorsList();
-			EditorGUILayout.PropertyField(_namespaceProperty);
+			DrawNamespacesFields();
 		}
 
 		private static void DrawPathsFields()
@@ -93,6 +97,21 @@ namespace Entitas.Generic
 			{
 				var generator = (GeneratorBase)_generatorsProperty.GetArrayElementAtIndex(i).boxedValue;
 				generator.Enabled = EditorGUILayout.ToggleLeft(generator.Name, generator.Enabled);
+			}
+		}
+
+		private static void DrawNamespacesFields()
+		{
+			EditorGUILayout.PropertyField(_namespaceProperty);
+			EditorGUILayout.PropertyField(_customNamespaceProperty);
+			var useCustomNamespaceForEditor = _customNamespaceProperty.boolValue;
+
+			using (new EditorGUI.DisabledScope(disabled: !useCustomNamespaceForEditor))
+			{
+				if (!useCustomNamespaceForEditor)
+					DuplicateNamespaces();
+
+				EditorGUILayout.PropertyField(_editorNamespaceProperty);
 			}
 		}
 	}

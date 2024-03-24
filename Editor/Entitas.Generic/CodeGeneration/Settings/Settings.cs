@@ -17,7 +17,9 @@ namespace Entitas.Generic
 		[field: SerializeReference]
 		[field: SerializeField] public GeneratorBase[] Generators { get; private set; }
 
-		[field: SerializeField] public string BaseNamespace { get; private set; }
+		[field: SerializeField] public string BaseNamespace   { get; private set; }
+		[field: SerializeField] public bool   CustomNamespace { get; private set; }
+		[field: SerializeField] public string EditorNamespace { get; private set; }
 
 		private static Settings _instance;
 
