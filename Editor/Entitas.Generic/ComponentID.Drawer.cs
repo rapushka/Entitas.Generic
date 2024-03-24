@@ -1,38 +1,26 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
 namespace Entitas.Generic
 {
-	[CustomPropertyDrawer(typeof(ComponentID<>), useForChildren: true)]
-	public class ComponentIDDrawer : PropertyDrawer
+	/// Implement for your scopes
+	/// [CustomPropertyDrawer(typeof(ComponentID&lt;TScope&gt;), true)]
+	public class ComponentIDDrawer<TScope> : PropertyDrawer
+		where TScope : IScope
 	{
-		private string[] _names;
-		private Type _scopeType;
+		private static string[] ComponentNames => ComponentsLookup<TScope>.Instance.ComponentNames;
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			_scopeType ??= property.boxedValue.GetScopeType();
-			_names ??= GetNamesArray();
-
 			EditorGUI.BeginProperty(position, label, property);
 
 			var nameProperty = property.EnsurePropertyRelative("_name");
 
-			var selectedIndex = _names.IndexOf(nameProperty.stringValue, clamp: true);
-			selectedIndex.GuiPopup(_names, position, label.text);
-			nameProperty.stringValue = _names[selectedIndex];
+			var selectedIndex = ComponentNames.IndexOf(nameProperty.stringValue, clamp: true);
+			ComponentNames.GuiPopup(ref selectedIndex, position, label.text);
+			nameProperty.stringValue = ComponentNames[selectedIndex];
 
 			EditorGUI.EndProperty();
-		}
-
-		private dynamic GetNamesArray()
-		{
-			var lookupType = typeof(ComponentsLookup<>).MakeGenericType(_scopeType);
-			var instance = (dynamic)lookupType.GetProperty("Instance")!.GetValue(null);
-
-			instance.Initialize();
-			return instance.ComponentNames;
 		}
 	}
 }

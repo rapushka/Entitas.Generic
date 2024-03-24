@@ -5,6 +5,12 @@ namespace Entitas.Generic
 {
 	internal static class StringExtensions
 	{
+		/// <summary>
+		/// Gives opportunity to use SerializedObject.FindProperty for serialized property 
+		/// </summary>
+		internal static string WrapSerializedProperty(this string name)
+			=> $"<{name}>k__BackingField";
+
 		/// <summary> _fewWordsField -&gt; Few Words Field </summary>
 		internal static string Pretty(this string @this)
 			=> @this.RemovePrefix("_").FirstToUpper().PascalCaseToSpaces();

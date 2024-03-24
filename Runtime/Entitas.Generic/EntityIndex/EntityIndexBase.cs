@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 
 namespace Entitas.Generic
@@ -14,9 +15,27 @@ namespace Entitas.Generic
 		public static TEntityIndex Instance
 			=> _instance ??= new TEntityIndex();
 
-		protected static string Name => typeof(TComponent).Name;
+		private static string Name => typeof(TComponent).Name;
 
-		protected static ScopeContext<TScope> Context => Contexts.Instance.Get<TScope>();
+		private static ScopeContext<TScope> Context => Contexts.Instance.Get<TScope>();
+
+		private static InvalidOperationException NotInitializedException
+			=> new($"Entity Index for component {Name} in context {Context} wasn't initialized!");
+
+		protected IEntityIndex Index
+		{
+			get
+			{
+				try
+				{
+					return Context.GetEntityIndex(Name);
+				}
+				catch (ContextEntityIndexDoesNotExistException)
+				{
+					throw NotInitializedException;
+				}
+			}
+		}
 
 		[PublicAPI]
 		public void Initialize()

@@ -5,9 +5,7 @@ namespace Entitas.Generic
 {
 	internal static class GUIExtensions
 	{
-		internal static void GuiPopup(this ref int @this, string[] options, Rect position, string text)
-		{
-			@this = EditorGUI.Popup(position, text, @this, options);
-		}
+		internal static void GuiPopup(this string[] @this, ref int selectedIndex, Rect position, string text)
+			=> selectedIndex = EditorGUI.Popup(position, text, selectedIndex, @this);
 	}
 }
