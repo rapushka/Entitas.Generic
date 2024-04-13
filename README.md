@@ -14,6 +14,27 @@ Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/
 > ❗ I've applied the [fix](https://github.com/sschmid/Entitas/issues/1067#issuecomment-1623734894) for Entitas.VisualDebug in Unity 2022.2+  
 > ❗ So if you wanna use this library with older unity – you need to revert this [commit](https://github.com/rapushka/Entitas.Generic/commit/598154ca6e7079e9a9a3d79a9002f93ed931f86f).. somehow:^
 
+## Godot
+- Clone the [godot/dev](https://github.com/rapushka/Entitas.Generic/tree/godot/dev) branch anywhere within your project folder
+- In the `.csproj` file add references to the following `.dll`s:
+  - In Rider you can do it by right clicking on your project > Add > Add reference....
+  - othervise add next lines for each library in `<ItemGroup>`
+    ```
+    <Reference Include="DllName">
+      <HintPath>path/to/DllName.dll</HintPath>
+    </Reference>
+    ```
+    - `Entitas/DesperateDevs/DesperateDevs.Caching.dll`
+    - `Entitas/DesperateDevs/DesperateDevs.Extensions.dll`
+    - `Entitas/DesperateDevs/DesperateDevs.Reflection.dll`
+    - `Entitas/DesperateDevs/DesperateDevs.Serialization.dll`
+    - `Entitas/DesperateDevs/DesperateDevs.Threading.dll`
+    - `Entitas/Entitas/Entitas.dll`
+- More info about Godot-Entitas integration:
+  - https://github.com/PanMadzior/GodotEntitas
+  - https://github.com/Guendeli/godot-entitas-template
+
+
 ## Pure C# (...why?)
 - Just clone the repo to your project, i guess:^)
 - And remove files, that constains `UnityEngine` mention
