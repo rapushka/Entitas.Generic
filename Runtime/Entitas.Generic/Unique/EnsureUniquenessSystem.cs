@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -22,7 +22,8 @@ namespace Entitas.Generic
 
 		protected override void Execute(List<Entity<TScope>> entities)
 		{
-			Debug.Assert(_entities.count <= 1, "There is more, than one Unique entity!");
+			if (_entities.count > 1)
+				throw new InvalidOperationException("There is more, than one Unique entity!");
 		}
 	}
 }

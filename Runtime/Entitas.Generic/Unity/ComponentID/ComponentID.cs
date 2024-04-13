@@ -32,7 +32,8 @@ namespace Entitas.Generic
 		private int IndexOf()
 		{
 			var indexOf = Lookup.ComponentNames.IndexOf(_name);
-			Debug.Assert(indexOf != -1, $"the component {_name} is lost");
+			if (indexOf == -1)
+				throw new InvalidOperationException($"the component {_name} is lost");
 
 			return indexOf;
 		}
