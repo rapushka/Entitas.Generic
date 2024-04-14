@@ -32,12 +32,4 @@ namespace Entitas.Generic
 			return index.GetEntity(Get<TComponent>().Value);
 		}
 	}
-	// 	public static class RequestExtensions
-	// {
-	// 	public static Entity<Requests> AddTarget(this Entity<Requests> @this, Entity<Game> target)
-	// 		=> @this.Add<Component.Target, int>(target.EnsureID());
-
-	// 	public static Entity<Game> GetTarget(this Entity<Requests> @this)
-	// 		=> @this.GetEntityByID<Requests, Component.Target>();
-	// }
 }
