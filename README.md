@@ -35,10 +35,6 @@ Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/
   - https://github.com/PanMadzior/GodotEntitas
   - https://github.com/Guendeli/godot-entitas-template
 
-
-## Other
-- It has to work as is, but if it doesn't [let me know](https://github.com/rapushka/Entitas.Generic/issues/new)
-
 # Code samples
 TODO: wiki  
 But you can check my other projects, where i used this library by myself!
