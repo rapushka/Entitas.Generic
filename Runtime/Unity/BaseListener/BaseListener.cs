@@ -1,4 +1,8 @@
-﻿namespace Entitas.Generic
+﻿#if GODOT
+using Godot;
+#endif
+
+namespace Entitas.Generic
 {
 	public interface IRegistrableListener<TScope>
 		where TScope : IScope
@@ -18,7 +22,7 @@
 		public abstract void Register(Entity<TScope> entity);
 	}
 #elif GODOT
-	public abstract partial class BaseListener<TScope> : Godot.Node, IRegistrableListener<TScope>
+	public abstract partial class BaseListener<TScope> : Node, IRegistrableListener<TScope>
 		where TScope : IScope
 	{
 		public abstract void Register(Entity<TScope> entity);
