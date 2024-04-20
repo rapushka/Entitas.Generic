@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,7 +18,9 @@ namespace Entitas.Generic
 
 			var nameProperty = property.EnsurePropertyRelative("_name");
 
-			var selectedIndex = ComponentNames.IndexOf(nameProperty.stringValue, clamp: true);
+			var index = Array.IndexOf(ComponentNames, nameProperty.stringValue);
+			var selectedIndex = Math.Clamp(index, min: 0, max: ComponentNames.Length);
+
 			ComponentNames.GuiPopup(ref selectedIndex, position, label.text);
 			nameProperty.stringValue = ComponentNames[selectedIndex];
 

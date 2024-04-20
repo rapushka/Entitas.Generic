@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine.UIElements;
@@ -7,6 +8,9 @@ namespace Entitas.Generic
 {
 	internal static partial class SettingsRegister
 	{
+		private static NotImplementedException NoBoxedValueException
+			=> new("There's no `.boxedValue` in Unity before Unity 2022");
+
 		private static SerializedObject _settings;
 
 		private static SerializedProperty _enableCodeGenerationProperty;
@@ -94,11 +98,15 @@ namespace Entitas.Generic
 			EditorGUILayout.LabelField("Generators:");
 			using var scope = new EditorGUI.IndentLevelScope(increment: 1);
 
+#if UNITY_2022_1_OR_NEWER
 			for (var i = 0; i < _generatorsProperty.arraySize; i++)
 			{
 				var generator = (GeneratorBase)_generatorsProperty.GetArrayElementAtIndex(i).boxedValue;
 				generator.Enabled = EditorGUILayout.ToggleLeft(generator.Name, generator.Enabled);
 			}
+#else
+			throw NoBoxedValueException;
+#endif
 		}
 
 		private static void DrawNamespacesFields()

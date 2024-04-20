@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -27,7 +28,7 @@ namespace Entitas.Generic
 
 			RemoveCollisions(ref behaviours);
 
-			Target.SetPrivateFieldValue("_behaviours", behaviours.ToArray());
+			ReflectionUtils.SetPrivateFieldValue(Target, "_behaviours", behaviours.ToArray());
 			EditorUtility.SetDirty(Target);
 
 			Debug.Log($"Collected {behaviours.Count} entities.");
@@ -44,7 +45,7 @@ namespace Entitas.Generic
 					continue;
 
 				var closedType = typeof(EntityBehaviour<>).MakeGenericType(scopeType);
-				if (!type.IsDerivedFrom(closedType))
+				if (!ReflectionUtils.IsDerivedFrom(type, closedType))
 					continue;
 
 				var subEntities = closedType
