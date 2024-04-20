@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xafgjc4e4yy1"
-path="res://.godot/imported/EntitasEntityErrorHierarchyIcon.png-441a51ec21760a91155bcb3630c6d68c.ctex"
+uid="uid://dtu24bu4k3bpa"
+path="res://.godot/imported/EntitasContextErrorHierarchyIcon.png-7dff557e7e81512df8cd437c1049e55b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/Entitas.Generic/Runtime/Dependencies/Entitas.1.14.1/Entitas/Editor/Images/EntitasEntityErrorHierarchyIcon.png"
-dest_files=["res://.godot/imported/EntitasEntityErrorHierarchyIcon.png-441a51ec21760a91155bcb3630c6d68c.ctex"]
+source_file="res://addons/Entitas.Generic/Dependencies/Entitas.1.14.1/Entitas/Editor/Images/EntitasContextErrorHierarchyIcon.png"
+dest_files=["res://.godot/imported/EntitasContextErrorHierarchyIcon.png-7dff557e7e81512df8cd437c1049e55b.ctex"]
 
 [params]
 

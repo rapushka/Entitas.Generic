@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://betjl7bp5ei8d"
-path="res://.godot/imported/EntitasSystemsHierarchyIcon.png-48c219fbcc15cff068ca5401d026aefd.ctex"
+uid="uid://dgocyfklkgh8s"
+path="res://.godot/imported/EntitasEntityLinkWarnHierarchyIcon.png-6248cf5b38e1113781caa85334b57e50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/Entitas.Generic/Runtime/Dependencies/Entitas.1.14.1/Entitas/Editor/Images/EntitasSystemsHierarchyIcon.png"
-dest_files=["res://.godot/imported/EntitasSystemsHierarchyIcon.png-48c219fbcc15cff068ca5401d026aefd.ctex"]
+source_file="res://addons/Entitas.Generic/Dependencies/Entitas.1.14.1/Entitas/Editor/Images/EntitasEntityLinkWarnHierarchyIcon.png"
+dest_files=["res://.godot/imported/EntitasEntityLinkWarnHierarchyIcon.png-6248cf5b38e1113781caa85334b57e50.ctex"]
 
 [params]
 
