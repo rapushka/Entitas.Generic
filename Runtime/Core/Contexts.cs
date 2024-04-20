@@ -41,6 +41,8 @@ namespace Entitas.Generic
 				var observer = new ContextObserver(context);
 				UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
 			}
+#elif GODOT_VISUAL_DEBUGGER && (DEVELOPMENT_BUILD || DEBUG)
+			Godot.ContextsDrawer.Observe(context);
 #endif
 		}
 	}
