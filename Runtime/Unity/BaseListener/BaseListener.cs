@@ -11,7 +11,7 @@
 		where TScope : IScope
 		where TComponent : IComponent, IEvent, IInScope<TScope>, new() { }
 
-#if UNITY
+#if ENTITAS_GENERIC_UNITY_SUPPORT
 	public abstract class BaseListener<TScope> : UnityEngine.MonoBehaviour, IRegistrableListener<TScope>
 		where TScope : IScope
 	{

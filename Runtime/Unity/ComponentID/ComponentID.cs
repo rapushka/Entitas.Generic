@@ -12,7 +12,7 @@ namespace Entitas.Generic
 	public class ComponentID<TScope> : ComponentIDBase
 		where TScope : IScope
 	{
-#if UNITY
+#if ENTITAS_GENERIC_UNITY_SUPPORT
 		[UnityEngine.SerializeField] public string Name { get; private set;}
 #elif GODOT
 		[Godot.Export] private string Name { get; set; }

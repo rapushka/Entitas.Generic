@@ -1,4 +1,4 @@
-﻿#if UNITY
+﻿#if ENTITAS_GENERIC_UNITY_SUPPORT
 namespace Entitas.Generic
 {
 	public sealed class RegisterBehavioursSystem : IInitializeSystem
