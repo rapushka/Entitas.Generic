@@ -1,11 +1,10 @@
-﻿using JetBrains.Annotations;
+﻿#if UNITY
 using UnityEngine;
 
 namespace Entitas.Generic
 {
 	public abstract class EntityBehaviourBase : MonoBehaviour
 	{
-		[PublicAPI]
 		public void Register(Contexts contexts)
 		{
 			CreateEntity(contexts);
@@ -21,7 +20,6 @@ namespace Entitas.Generic
 	public abstract class EntityBehaviourBase<TScope> : EntityBehaviourBase
 		where TScope : IScope
 	{
-		[PublicAPI]
 		public Entity<TScope> Entity { get; private set; }
 
 		public override void CreateEntity(Contexts contexts)
@@ -85,3 +83,4 @@ namespace Entitas.Generic
 #endif
 	}
 }
+#endif

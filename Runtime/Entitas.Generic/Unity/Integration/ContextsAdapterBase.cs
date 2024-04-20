@@ -1,3 +1,4 @@
+#if UNITY
 using UnityEngine;
 
 namespace Entitas.Generic
@@ -9,3 +10,4 @@ namespace Entitas.Generic
 		protected abstract void Initialize(Contexts contexts);
 	}
 }
+#endif

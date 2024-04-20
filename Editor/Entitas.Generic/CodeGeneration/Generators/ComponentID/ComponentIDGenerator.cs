@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.IO;
 using System.Text;
 using JetBrains.Annotations;
@@ -31,3 +32,4 @@ namespace Entitas.Generic
 		}
 	}
 }
+#endif

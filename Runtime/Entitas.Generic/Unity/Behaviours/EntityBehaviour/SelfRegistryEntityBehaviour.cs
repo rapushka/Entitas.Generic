@@ -1,3 +1,4 @@
+#if UNITY
 namespace Entitas.Generic
 {
 	public interface ISelfRegistry { }
@@ -11,3 +12,4 @@ namespace Entitas.Generic
 		}
 	}
 }
+#endif

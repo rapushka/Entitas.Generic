@@ -1,10 +1,7 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
 	{
-		[PublicAPI]
 		public void SwapValues<TComponent, TValue>(Entity<TScope> target)
 			where TComponent : PrimaryIndexComponent<TValue>, IInScope<TScope>, new()
 		{
@@ -19,7 +16,6 @@ namespace Entitas.Generic
 		}
 
 		/// <summary> Can be used for the situation where one of entities has the component, and other isn't </summary>
-		[PublicAPI]
 		public void SwapValuesSafety<TComponent, TValue>(Entity<TScope> target)
 			where TComponent : PrimaryIndexComponent<TValue>, IInScope<TScope>, new()
 		{

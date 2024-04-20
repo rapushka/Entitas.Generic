@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using UnityEngine;
 
@@ -19,3 +20,4 @@ namespace Entitas.Generic
 		public override int GetHashCode() => HashCode.Combine(Name);
 	}
 }
+#endif

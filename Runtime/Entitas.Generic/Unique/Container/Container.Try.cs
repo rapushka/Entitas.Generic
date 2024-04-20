@@ -1,10 +1,7 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
 	public partial class UniqueComponentsContainer<TScope>
 	{
-		[PublicAPI]
 		public bool TryGet<TComponent>(out TComponent component)
 			where TComponent : IComponent, IUnique, IInScope<TScope>, new()
 		{
@@ -14,7 +11,6 @@ namespace Entitas.Generic
 			return has;
 		}
 
-		[PublicAPI]
 		public bool TryGet<TComponent, TValue>(out TValue value)
 			where TComponent : ValueComponent<TValue>, IUnique, IInScope<TScope>, new()
 		{

@@ -1,12 +1,8 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
 		where TScope : IScope
 	{
-		[Pure]
-		[PublicAPI]
 		public bool TryGet<TComponent>(out TComponent component)
 			where TComponent : IComponent, IInScope<TScope>, new()
 		{
@@ -16,8 +12,6 @@ namespace Entitas.Generic
 			return has;
 		}
 
-		[Pure]
-		[PublicAPI]
 		public bool TryGet<TComponent, TValue>(out TValue value)
 			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 		{

@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿#if UNITY
 using UnityEngine;
 
 namespace Entitas.Generic
@@ -7,7 +7,7 @@ namespace Entitas.Generic
 	{
 		[SerializeField] private EntityBehaviourBase[] _behaviours;
 
-		[PublicAPI]
 		public EntityBehaviourBase[] Behaviours => _behaviours;
 	}
 }
+#endif

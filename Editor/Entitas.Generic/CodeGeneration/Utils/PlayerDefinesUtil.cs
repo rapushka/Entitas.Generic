@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using static UnityEditor.EditorUserBuildSettings;
 
@@ -35,3 +36,4 @@ namespace Entitas.Generic
 		}
 	}
 }
+#endif

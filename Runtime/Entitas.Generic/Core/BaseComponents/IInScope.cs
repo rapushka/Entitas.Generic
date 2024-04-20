@@ -1,7 +1,6 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
-	public interface IInScope<[UsedImplicitly] TScope>
+	// ReSharper disable once UnusedTypeParameter - Used Implicitly
+	public interface IInScope<TScope>
 		where TScope : IScope { }
 }

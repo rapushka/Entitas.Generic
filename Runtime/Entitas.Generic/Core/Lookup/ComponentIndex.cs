@@ -1,13 +1,10 @@
-﻿using JetBrains.Annotations;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
-	[UsedImplicitly]
+	// ReSharper disable once UnusedTypeParameter – Used implicitly
 	public class ComponentIndex<TScope, TComponent>
 		where TScope : IScope
 		where TComponent : IComponent, IInScope<TScope>, new()
 	{
-		[UsedImplicitly]
 		public static int Value = -1;
 	}
 }

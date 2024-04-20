@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿#if UNITY
 using UnityEngine;
 
 namespace Entitas.Generic
@@ -9,7 +9,6 @@ namespace Entitas.Generic
 		public abstract void Add(ref Entity<TScope> entity);
 	}
 
-	[PublicAPI]
 	public abstract class ComponentBehaviour<TScope, TComponent> : ComponentBehaviourBase<TScope>
 		where TScope : IScope
 		where TComponent : FlagComponent, IInScope<TScope>, new()
@@ -20,7 +19,6 @@ namespace Entitas.Generic
 		}
 	}
 
-	[PublicAPI]
 	public abstract class ComponentBehaviour<TScope, TComponent, TValue> : ComponentBehaviourBase<TScope>
 		where TScope : IScope
 		where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
@@ -33,3 +31,4 @@ namespace Entitas.Generic
 		}
 	}
 }
+#endif

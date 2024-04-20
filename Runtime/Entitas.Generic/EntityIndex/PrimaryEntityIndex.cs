@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
 	public class PrimaryEntityIndex<TScope, TComponent, TValue>
@@ -8,17 +6,13 @@ namespace Entitas.Generic
 		where TScope : IScope
 		where TComponent : PrimaryIndexComponent<TValue>, IInScope<TScope>, new()
 	{
-		[PublicAPI]
 		public TComponent Get(TValue value) => GetEntity(value).Get<TComponent>();
 
-		[PublicAPI]
 		public bool HasEntity(TValue value) => GetEntity(value) is not null;
 
-		[PublicAPI]
 		public Entity<TScope> GetEntity(TValue value)
 			=> ((PrimaryEntityIndex<Entity<TScope>, TValue>)Index).GetEntity(value);
 
-		[PublicAPI]
 		public bool TryGetEntity(TValue value, out Entity<TScope> entity)
 		{
 			entity = GetEntity(value);

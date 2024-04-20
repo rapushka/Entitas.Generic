@@ -1,5 +1,4 @@
 using System;
-using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
@@ -37,7 +36,6 @@ namespace Entitas.Generic
 			}
 		}
 
-		[PublicAPI]
 		public void Initialize()
 		{
 			Context.AddEntityIndex

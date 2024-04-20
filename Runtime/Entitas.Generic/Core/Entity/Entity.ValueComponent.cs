@@ -1,10 +1,7 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
 	{
-		[PublicAPI]
 		public Entity<TScope> Add<TComponent, TValue>(TValue value)
 			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 		{
@@ -14,7 +11,6 @@ namespace Entitas.Generic
 			return Add(component);
 		}
 
-		[PublicAPI]
 		public Entity<TScope> Replace<TComponent, TValue>(TValue value)
 			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 		{
@@ -24,7 +20,6 @@ namespace Entitas.Generic
 			return Replace(component);
 		}
 
-		[PublicAPI]
 		public TValue Get<TComponent, TValue>()
 			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 			=> Get<TComponent>().Value;

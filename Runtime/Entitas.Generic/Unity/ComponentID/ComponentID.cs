@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace Entitas.Generic
 {
@@ -13,7 +12,13 @@ namespace Entitas.Generic
 	public class ComponentID<TScope> : ComponentIDBase
 		where TScope : IScope
 	{
-		[SerializeField] private string _name;
+#if UNITY
+		[UnityEngine.SerializeField] public string Name { get; private set;}
+#elif GODOT
+		[Godot.Export] private string Name { get; set; }
+#else
+		public string Name;
+#endif
 
 		private int? _cashedIndex;
 
@@ -27,13 +32,13 @@ namespace Entitas.Generic
 
 		public static ComponentID<TScope> Create<TComponent>()
 			where TComponent : IComponent, IInScope<TScope>, new()
-			=> new() { _name = typeof(TComponent).Name, };
+			=> new() { Name = typeof(TComponent).Name, };
 
 		private int IndexOf()
 		{
-			var indexOf = Lookup.ComponentNames.IndexOf(_name);
+			var indexOf = Lookup.ComponentNames.IndexOf(Name);
 			if (indexOf == -1)
-				throw new InvalidOperationException($"the component {_name} is lost");
+				throw new InvalidOperationException($"the component {Name} is lost");
 
 			return indexOf;
 		}

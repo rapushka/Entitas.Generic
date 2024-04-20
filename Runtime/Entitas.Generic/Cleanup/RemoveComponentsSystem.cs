@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
-
 namespace Entitas.Generic
 {
-	[PublicAPI]
 	public class RemoveComponentsSystem<TScope, TComponent> : ICleanupSystem
 		where TScope : IScope
 		where TComponent : IComponent, ICleanup<RemoveComponent>, IInScope<TScope>, new()

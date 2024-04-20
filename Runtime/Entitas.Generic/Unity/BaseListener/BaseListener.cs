@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace Entitas.Generic
+﻿namespace Entitas.Generic
 {
 	public interface IRegistrableListener<TScope>
 		where TScope : IScope
@@ -13,19 +11,31 @@ namespace Entitas.Generic
 		where TScope : IScope
 		where TComponent : IComponent, IEvent, IInScope<TScope>, new() { }
 
-	public abstract class BaseListener<TScope>
-		: UnityEngine.MonoBehaviour, IRegistrableListener<TScope>
+#if UNITY
+	public abstract class BaseListener<TScope> : UnityEngine.MonoBehaviour, IRegistrableListener<TScope>
 		where TScope : IScope
 	{
 		public abstract void Register(Entity<TScope> entity);
 	}
+#elif GODOT
+	public abstract partial class BaseListener<TScope> : Godot.Node, IRegistrableListener<TScope>
+		where TScope : IScope
+	{
+		public abstract void Register(Entity<TScope> entity);
+	}
+#else
+	public abstract class BaseListener<TScope> : IRegistrableListener<TScope>
+		where TScope : IScope
+	{
+		public abstract void Register(Entity<TScope> entity);
+	}
+#endif
 
-	public abstract class BaseListener<TScope, TComponent>
+	public abstract partial class BaseListener<TScope, TComponent>
 		: BaseListener<TScope>, IRegistrableListener<TScope, TComponent>
 		where TScope : IScope
 		where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 	{
-		[PublicAPI]
 		public Entity<TScope> Entity { get; private set; }
 
 		public override void Register(Entity<TScope> entity)

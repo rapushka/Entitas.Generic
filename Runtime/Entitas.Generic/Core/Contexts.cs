@@ -1,5 +1,6 @@
-﻿using Entitas.VisualDebugging.Unity;
-using JetBrains.Annotations;
+﻿#if UNITY_EDITOR
+using Entitas.VisualDebugging.Unity;
+#endif
 
 namespace Entitas.Generic
 {
@@ -10,7 +11,6 @@ namespace Entitas.Generic
 
 		private Contexts() { }
 
-		[PublicAPI]
 		public void InitializeScope<TScope>()
 			where TScope : IScope
 		{
@@ -20,22 +20,19 @@ namespace Entitas.Generic
 			InitScopeObserver(context);
 		}
 
-		[PublicAPI]
 		public ScopeContext<TScope> Get<TScope>()
 			where TScope : IScope
 			=> ScopeContext<TScope>.Instance;
 
-		[PublicAPI]
 		public IGroup<Entity<TScope>> GetGroup<TScope>(IMatcher<Entity<TScope>> matcher)
 			where TScope : IScope
 			=> Get<TScope>().GetGroup(matcher);
 
-		[PublicAPI]
 		public Entity<TScope> SingleOrDefault<TScope>(IMatcher<Entity<TScope>> matcher)
 			where TScope : IScope
 			=> GetGroup(matcher).GetSingleEntity();
 
-		[UsedImplicitly]
+		// ReSharper disable once UnusedParameter.Local – Used in defines
 		private void InitScopeObserver(IContext context)
 		{
 #if UNITY_EDITOR

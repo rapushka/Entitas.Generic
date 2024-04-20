@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
-	[PublicAPI]
 	public sealed class AnyEventSystem<TScope, TComponent> : ReactiveSystem<Entity<TScope>>
 		where TScope : IScope
 		where TComponent : class, IComponent, IEvent<Any>, IInScope<TScope>, new()

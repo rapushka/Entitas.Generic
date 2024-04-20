@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
 	public partial class Entity<TScope>
 	{
-		[PublicAPI]
 		public Entity<TScope> AddListener<TComponent>(IListener<TScope, TComponent> value)
 			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
@@ -18,7 +16,6 @@ namespace Entitas.Generic
 			return this;
 		}
 
-		[PublicAPI]
 		public Entity<TScope> ReplaceListener<TComponent>(List<IListener<TScope, TComponent>> newValue)
 			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
@@ -30,7 +27,6 @@ namespace Entitas.Generic
 			return this;
 		}
 
-		[PublicAPI]
 		public Entity<TScope> RemoveListener<TComponent>(IListener<TScope, TComponent> value, bool removeEmpty = true)
 			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{
@@ -45,7 +41,6 @@ namespace Entitas.Generic
 			return this;
 		}
 
-		[PublicAPI]
 		public Entity<TScope> RemoveListener<TComponent>()
 			where TComponent : IComponent, IEvent, IInScope<TScope>, new()
 		{

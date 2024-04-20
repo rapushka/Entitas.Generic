@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -9,3 +10,4 @@ namespace Entitas.Generic
 			=> selectedIndex = EditorGUI.Popup(position, text, selectedIndex, @this);
 	}
 }
+#endif
