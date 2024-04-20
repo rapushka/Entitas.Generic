@@ -24,24 +24,24 @@ namespace Entitas.Generic
 		internal static bool IsDerivedFrom(Type @this, Type other) => other.IsAssignableFrom(@this);
 
 		internal static T GetPrivateFieldValue<T>(this object @this, string fieldName)
-			=> (T)@this.GetPrivateFieldValue(fieldName);
+			=> (T)GetPrivateFieldValue(@this, fieldName);
 
-		internal static object GetPrivateFieldValue(this object @this, string fieldName)
-			=> @this.GetPrivateField(fieldName).GetValue(@this);
+		internal static object GetPrivateFieldValue(object @this, string fieldName)
+			=> GetPrivateField(@this, fieldName).GetValue(@this);
 
 		internal static void SetPrivateFieldValue<T>(object @this, string fieldName, T value)
-			=> @this.GetPrivateField(fieldName).SetValue(@this, value);
+			=> GetPrivateField(@this, fieldName).SetValue(@this, value);
 
-		internal static T GetStaticField<T>(this Type @this, string fieldName)
-			=> (T)@this.EnsureField(fieldName, BindingFlags.Static | BindingFlags.Public).GetValue(null);
+		internal static T GetStaticField<T>(Type @this, string fieldName)
+			=> (T)EnsureField(@this, fieldName, BindingFlags.Static | BindingFlags.Public).GetValue(null);
 
-		internal static void SetStaticField<T>(this Type @this, string fieldName, T value)
-			=> @this.EnsureField(fieldName, BindingFlags.Static | BindingFlags.Public).SetValue(null, value);
+		internal static void SetStaticField<T>(Type @this, string fieldName, T value)
+			=> EnsureField(@this, fieldName, BindingFlags.Static | BindingFlags.Public).SetValue(null, value);
 
-		private static FieldInfo GetPrivateField(this object @this, string fieldName)
-			=> @this.GetType().EnsureField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+		private static FieldInfo GetPrivateField(object @this, string fieldName)
+			=> EnsureField(@this.GetType(), fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
 
-		private static FieldInfo EnsureField(this Type @this, string fieldName, BindingFlags flags)
+		private static FieldInfo EnsureField(Type @this, string fieldName, BindingFlags flags)
 			=> @this.GetField(fieldName, flags) ?? throw NoFieldException(fieldName, @this, flags);
 
 		private static Exception NoFieldException(string fieldName, MemberInfo type, BindingFlags flags)
