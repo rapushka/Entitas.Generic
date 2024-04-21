@@ -1,4 +1,4 @@
 namespace Entitas.Generic
 {
-	public class FlagComponent : IComponent { }
+	public class FlagComponent : IComponent;
 }

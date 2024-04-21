@@ -13,7 +13,7 @@ namespace Entitas.Generic
 	public interface IRegistrableListener<TScope, in TComponent>
 		: IRegistrableListener<TScope>, IListener<TScope, TComponent>
 		where TScope : IScope
-		where TComponent : IComponent, IEvent, IInScope<TScope>, new() { }
+		where TComponent : IComponent, IEvent, IInScope<TScope>, new();
 
 #if ENTITAS_GENERIC_UNITY_SUPPORT
 	public abstract class BaseListener<TScope> : UnityEngine.MonoBehaviour, IRegistrableListener<TScope>

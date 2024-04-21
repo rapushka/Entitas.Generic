@@ -2,6 +2,7 @@ namespace Entitas.Generic
 {
 	public partial class UniqueComponentsContainer<TScope>
 	{
+		// ReSharper disable once UnusedMember.Local – Public API
 		private Entity<TScope> Add<TComponent, TValue>(TValue value)
 			where TComponent : ValueComponent<TValue>, IUnique, IInScope<TScope>, new()
 		{
