@@ -1,9 +1,17 @@
 ﻿#if ENTITAS_GENERIC_UNITY_SUPPORT
 using UnityEngine;
+#elif GODOT
+using Godot;
+#endif
 
 namespace Entitas.Generic
 {
-	public abstract class EntityBehaviourBase : MonoBehaviour
+	public abstract partial class EntityBehaviourBase
+#if ENTITAS_GENERIC_UNITY_SUPPORT
+		: MonoBehaviour
+#elif GODOT
+		: Node
+#endif
 	{
 		public void Register(Contexts contexts)
 		{
@@ -17,7 +25,7 @@ namespace Entitas.Generic
 		public abstract void Initialize();
 	}
 
-	public abstract class EntityBehaviourBase<TScope> : EntityBehaviourBase
+	public abstract partial class EntityBehaviourBase<TScope> : EntityBehaviourBase
 		where TScope : IScope
 	{
 		public Entity<TScope> Entity { get; private set; }
@@ -28,12 +36,18 @@ namespace Entitas.Generic
 		}
 	}
 
-	public class EntityBehaviour<TScope> : EntityBehaviourBase<TScope>
+	public partial class EntityBehaviour<TScope> : EntityBehaviourBase<TScope>
 		where TScope : IScope
 	{
+#if ENTITAS_GENERIC_UNITY_SUPPORT
 		[SerializeField] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
 		[SerializeField] private BaseListener<TScope>[] _listeners;
 		[SerializeField] private EntityBehaviourBase[] _subEntities;
+#elif GODOT
+		[Export] private ComponentBehaviourBase<TScope>[] _componentBehaviours;
+		[Export] private BaseListener<TScope>[] _listeners;
+		[Export] private EntityBehaviourBase[] _subEntities;
+#endif
 
 #if UNITY_EDITOR
 		[HideInInspector] [SerializeField] private bool _ensureComponentsCountOnAwake = true;
@@ -83,4 +97,3 @@ namespace Entitas.Generic
 #endif
 	}
 }
-#endif
