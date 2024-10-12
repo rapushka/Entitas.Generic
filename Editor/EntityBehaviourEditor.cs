@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+#if ENTITAS_GENERIC_UNITY_SUPPORT && UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEngine;

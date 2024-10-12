@@ -16,7 +16,7 @@ namespace Entitas.Generic
 		where TScope : IScope
 	{
 #if ENTITAS_GENERIC_UNITY_SUPPORT
-		[UnityEngine.SerializeField] public string Name { get; private set;}
+		[field: UnityEngine.SerializeField] public string Name { get; private set; }
 #elif GODOT
 		[Export] private string Name { get; set; }
 #else

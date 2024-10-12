@@ -2,7 +2,9 @@
 {
 	public interface IEvent : IComponent { }
 
-	public interface IEvent<TEventTarget> : IEvent where TEventTarget : IEventTarget { }
+	// ReSharper disable once UnusedTypeParameter - Used Implicitly
+	public interface IEvent<TEventTarget> : IEvent 
+		where TEventTarget : IEventTarget { }
 
 	public interface IEventTarget { }
 

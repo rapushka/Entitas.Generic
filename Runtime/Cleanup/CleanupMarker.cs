@@ -1,5 +1,6 @@
 namespace Entitas.Generic
 {
+	// ReSharper disable once UnusedTypeParameter – Used implicitly
 	public interface ICleanup<TStrategy> where TStrategy : ICleanupStrategy { }
 
 	public interface ICleanupStrategy { }
