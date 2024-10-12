@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 using UnityEditor;
-using static UnityEditor.EditorUserBuildSettings;
+using UnityEditor.Build;
 
 namespace Entitas.Generic
 {
@@ -8,9 +8,12 @@ namespace Entitas.Generic
 	{
 		private static string Defines
 		{
-			get => PlayerSettings.GetScriptingDefineSymbolsForGroup(selectedBuildTargetGroup);
-			set => PlayerSettings.SetScriptingDefineSymbolsForGroup(selectedBuildTargetGroup, value);
+			get => PlayerSettings.GetScriptingDefineSymbols(BuildTarget);
+			set => PlayerSettings.SetScriptingDefineSymbols(BuildTarget, value);
 		}
+
+		private static NamedBuildTarget BuildTarget
+			=> NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 
 		public static void AddDefineSymbol(string symbol)
 		{

@@ -1,11 +1,14 @@
-﻿#if ENTITAS_GENERIC_UNITY_SUPPORT
+﻿#if ENTITAS_GENERIC_UNITY_SUPPORT || GODOT
+#if ENTITAS_GENERIC_UNITY_SUPPORT
 using UnityEngine;
+
 #elif GODOT
 using Godot;
 #endif
 
 namespace Entitas.Generic
 {
+	// ReSharper disable once PartialTypeWithSinglePart - partial is for Godot
 	public abstract partial class EntityBehaviourBase
 #if ENTITAS_GENERIC_UNITY_SUPPORT
 		: MonoBehaviour
@@ -25,6 +28,7 @@ namespace Entitas.Generic
 		public abstract void Initialize();
 	}
 
+	// ReSharper disable once PartialTypeWithSinglePart - partial is for Godot
 	public abstract partial class EntityBehaviourBase<TScope> : EntityBehaviourBase
 		where TScope : IScope
 	{
@@ -36,6 +40,7 @@ namespace Entitas.Generic
 		}
 	}
 
+	// ReSharper disable once PartialTypeWithSinglePart - partial is for Godot
 	public partial class EntityBehaviour<TScope> : EntityBehaviourBase<TScope>
 		where TScope : IScope
 	{
@@ -52,9 +57,7 @@ namespace Entitas.Generic
 #if UNITY_EDITOR
 		[HideInInspector] [SerializeField] private bool _ensureComponentsCountOnAwake = true;
 		[HideInInspector] [SerializeField] private bool _forceSubEntitiesAutoCollect = true;
-#endif
 
-#if UNITY_EDITOR
 		private void Awake()
 		{
 			if (_ensureComponentsCountOnAwake)
@@ -97,3 +100,4 @@ namespace Entitas.Generic
 #endif
 	}
 }
+#endif

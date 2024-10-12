@@ -1,5 +1,4 @@
 #if UNITY_EDITOR
-using System;
 using UnityEditor;
 using Object = UnityEngine.Object;
 
@@ -7,8 +6,10 @@ namespace Entitas.Generic
 {
 	internal static class SerializedPropertyArrayExtensions
 	{
-		private static NotImplementedException NoBoxedValueException
+#if !UNITY_2022_1_OR_NEWER
+		private static System.NotImplementedException NoBoxedValueException
 			=> new("There's no `.boxedValue` in Unity before Unity 2022");
+#endif
 
 		internal static T[] GetArray<T>(this SerializedProperty property)
 			where T : Object
