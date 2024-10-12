@@ -1,23 +1,28 @@
 # What is this?
-[lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) fork (as you can see on your own. _.)  
+This is the fork of the [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) which is "Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic)"  
+and which gives you opportunity to use the [sschmid/Entitas](https://github.com/sschmid/Entitas) without Source-Code Generation! With power of c# Generics😼  
+
 Plus:
-- My subjective preferences — like codestyle, naming, etc
+- My subjective preferences — like codestyle, naming, etc.
 - Functionality from original [sschmid/Entitas](https://github.com/sschmid/Entitas), which wasn't present in the [lightjiao/Entitas.Generic](https://github.com/lightjiao/Entitas.Generic) — see [What works](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#what-works)
 - Some additional stuff — like `ComponentID`s, or `EntityBehaviour`s; see [Addons](https://github.com/rapushka/Entitas.Generic/blob/main/README.md#addons)
-
-Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/Entitas.Generic), but with simpler API. Works perfectly with Native Entitas VisualDebug
+- Reflection Backing
 
 # How to install
 - Just Clone this repo into your project's folder
 - Maybe you'll need some additional setup for your engine:
 
 ## Unity
-> ❗ I've applied the [fix](https://github.com/sschmid/Entitas/issues/1067#issuecomment-1623734894) for Entitas.VisualDebug in Unity 2022.2+  
-> ❗ So if you wanna use this library with older unity – you need to revert this [commit](https://github.com/rapushka/Entitas.Generic/commit/598154ca6e7079e9a9a3d79a9002f93ed931f86f) i guess
+- It should automatically add the `ENTITAS_GENERIC_UNITY_SUPPORT` define to your project in `Project Settings/Player/Other Settings/Script Compilation/Scripting Define Symbols`.  
+But if there compile errors - the define won't be added, and you can add it manually.  
+Or remove the `Editor/AutoDefineUnity.cs` if you don't want this define  
+
+> ❗ I've applied the [fix](https://github.com/sschmid/Entitas/issues/1067#issuecomment-1623734894) for Entitas.VisualDebug in Unity 2022.2+
+> So if you wanna use this library with older unity – you need to revert this [commit](https://github.com/rapushka/Entitas.Generic/commit/598154ca6e7079e9a9a3d79a9002f93ed931f86f) i guess
 
 ## Godot
 - In the `.csproj` file add references to the following `.dll`s:
-  - In Rider you can do it by right clicking on your project > Add > Add reference....
+  - In Rider you can do it by right clicking on your project > Add > Add reference...
   - othervise open the `.csproj` in a text editor add next lines for each library in `<ItemGroup>`
     ```
     <Reference Include="DLL_NAME">
@@ -35,14 +40,14 @@ Originally inspired by [yosadchyi/Entitas.Generic](https://github.com/yosadchyi/
   - https://github.com/PanMadzior/GodotEntitas
   - https://github.com/Guendeli/godot-entitas-template
 
-# Code samples
-TODO: wiki  
-But you can check my other projects, where i used this library by myself!
-- [the Bad Luck (Godot)](https://github.com/rapushka/RerollKnight-godot) – WIP
+# Examples
+There is not wiki yet:( but you can check my other projects, where i used this library by myself!
+- [Deck Scaler (Unity)](https://github.com/rapushka/deck_scaler) - currently working
+- [the Bad Luck (Godot)](https://github.com/rapushka/RerollKnight-godot) – deprecated
 - [the Bad Luck (Unity)](https://github.com/rapushka/RerollKnight) – deprecated
 - [Burned Jack (Unity)](https://github.com/rapushka/acerola-jam-0/tree/main/src/21-Deckbuilder) – a submission for [Acerola Jam 0](https://itch.io/jam/acerola-jam-0) (so the code is shittier than usual)
 
-# Use Guide
+# How to
 TODO: wiki
 
 # What works?
@@ -55,9 +60,9 @@ Almost all of the original [sschmid/Entitas](https://github.com/sschmid/Entitas)
 - `UniqueAttribute`
 
 ## Godot
-The core is working, but Visual Debugger and other editor things are WIP
+Runtime works, but not the Visual Debugger and other editor things
 
 ## Addons
-Also i've added some additional stuff, that i needed in the original Entitas, including:
-- EntitytBehaviour and ComponentBehaviour (aka. Blueprints)
-- ComponentID (dropdown to pick desired component in unity as value)
+I also added some additional features that i wish were in the original Entitas, including:
+- `EntitytBehaviour` and `ComponentBehaviour` (a.k.a. Blueprints) – Allow you to add your components as MonoBehaviours
+- `ComponentID` – dropdown to pick component in Unity
