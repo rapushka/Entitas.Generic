@@ -1,5 +1,4 @@
-#if UNITY_EDITOR
-using System;
+#if ENTITAS_GENERIC_UNITY_SUPPORT && UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -22,7 +21,7 @@ namespace Entitas.Generic
 
 		public void CollectAll()
 		{
-			var behaviours = FindObjectsOfType<EntityBehaviourBase>()
+			var behaviours = FindObjectsByType<EntityBehaviourBase>(FindObjectsSortMode.InstanceID)
 			                 .Where((e) => e is not ISelfRegistry)
 			                 .ToList();
 

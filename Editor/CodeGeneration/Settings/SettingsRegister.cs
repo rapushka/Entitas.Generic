@@ -1,5 +1,4 @@
 #if UNITY_EDITOR
-using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine.UIElements;
@@ -8,8 +7,10 @@ namespace Entitas.Generic
 {
 	internal static partial class SettingsRegister
 	{
-		private static NotImplementedException NoBoxedValueException
+#if !UNITY_2022_1_OR_NEWER
+		private static System.NotImplementedException NoBoxedValueException
 			=> new("There's no `.boxedValue` in Unity before Unity 2022");
+#endif
 
 		private static SerializedObject _settings;
 

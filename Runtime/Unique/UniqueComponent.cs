@@ -1,4 +1,4 @@
 namespace Entitas.Generic
 {
-	public interface IUnique;
+	public interface IUnique { }
 }

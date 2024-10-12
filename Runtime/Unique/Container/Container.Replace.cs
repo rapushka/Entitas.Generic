@@ -1,13 +1,14 @@
-namespace Entitas.Generic;
-
-public partial class UniqueComponentsContainer<TScope>
+namespace Entitas.Generic
 {
-	public void Replace<TComponent>(Entity<TScope> newUnique)
-		where TComponent : FlagComponent, IInScope<TScope>, IUnique, new()
+	public partial class UniqueComponentsContainer<TScope>
 	{
-		var oldUnique = GetEntityOrDefault<TComponent>();
-		oldUnique?.Is<TComponent>(false);
+		public void Replace<TComponent>(Entity<TScope> newUnique)
+			where TComponent : FlagComponent, IInScope<TScope>, IUnique, new()
+		{
+			var oldUnique = GetEntityOrDefault<TComponent>();
+			oldUnique?.Is<TComponent>(false);
 
-		newUnique.Is<TComponent>(true);
+			newUnique.Is<TComponent>(true);
+		}
 	}
 }
