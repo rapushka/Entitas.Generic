@@ -8,8 +8,8 @@ namespace Entitas.Generic
 	{
 		static GenerationBootstrap()
 		{
-			if (Settings.Instance.GenerateOnRecompile)
-				Generate();
+			// if (Settings.Instance.GenerateOnRecompile)
+			// 	Generate();
 		}
 
 #if ENTITAS_GENERIC_CODE_GENERATION
