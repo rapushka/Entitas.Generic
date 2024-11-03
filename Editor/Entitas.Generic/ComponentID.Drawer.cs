@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Entitas.Generic
 {
 	/// Implement for your scopes
-	/// [CustomPropertyDrawer(typeof(ComponentID&lt;TScope&gt;), true)]
+	/// [CustomPropertyDrawer(typeof(ComponentID&lt;TScope&gt;))]
 	public class ComponentIDDrawer<TScope> : PropertyDrawer
 		where TScope : IScope
 	{
