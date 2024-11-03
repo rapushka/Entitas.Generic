@@ -15,9 +15,9 @@ namespace Entitas.Generic
 			where TComponent : FlagComponent, IInScope<TScope>, new()
 		{
 			if (value)
-				AddSafety<TComponent>();
+				AddSafely<TComponent>();
 			else
-				RemoveSafety<TComponent>();
+				RemoveSafely<TComponent>();
 
 			return this;
 		}

@@ -10,7 +10,7 @@ namespace Entitas.Generic
 			=> GetEntity<TComponent>().Remove<TComponent>();
 
 		[PublicAPI]
-		private Entity<TScope> RemoveSafety<TComponent>()
+		private Entity<TScope> RemoveSafely<TComponent>()
 			where TComponent : IComponent, IUnique, IInScope<TScope>, new()
 			=> GetEntityOrDefault<TComponent>()?.Remove<TComponent>();
 	}

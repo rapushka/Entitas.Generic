@@ -20,7 +20,7 @@ namespace Entitas.Generic
 
 		/// <summary> Can be used for the situation where one of entities has the component, and other isn't </summary>
 		[PublicAPI]
-		public void SwapValuesSafety<TComponent, TValue>(Entity<TScope> target)
+		public void SwapValuesSafely<TComponent, TValue>(Entity<TScope> target)
 			where TComponent : PrimaryIndexComponent<TValue>, IInScope<TScope>, new()
 		{
 			var ourComponent = GetOrDefault<TComponent>();
@@ -29,8 +29,8 @@ namespace Entitas.Generic
 			var theirComponent = target.GetOrDefault<TComponent>();
 			var theirValue = theirComponent is null ? default : theirComponent.Value;
 
-			RemoveSafety<TComponent>();
-			target.RemoveSafety<TComponent>();
+			RemoveSafely<TComponent>();
+			target.RemoveSafely<TComponent>();
 
 			if (theirComponent is not null)
 				Replace<TComponent, TValue>(theirValue);
