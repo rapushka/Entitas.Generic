@@ -19,7 +19,7 @@ namespace Entitas.Generic
 			where TPrimaryIndexComponent : PrimaryIndexComponent<TValue>, IInScope<TResultScope>, new()
 		{
 			var index = Contexts.Instance.Get<TResultScope>().GetPrimaryIndex<TPrimaryIndexComponent, TValue>();
-			return index.GetEntity(Get<TIndexComponent>().Value);
+			return index.GetEntityOrDefault(Get<TIndexComponent>().Value);
 		}
 	}
 }
