@@ -16,6 +16,8 @@ namespace Entitas.Generic
         // If you wanna register it on your own – better call `void Register(Contexts contexts)`
         public abstract void CreateEntity(Contexts contexts);
         public abstract void Initialize();
+
+        public abstract void Unregister();
     }
 
     public abstract class EntityBehaviourBase<TScope> : EntityBehaviourBase
@@ -39,6 +41,12 @@ namespace Entitas.Generic
         {
             Entity = entity;
             Entity.Retain(this);
+        }
+
+        public override void Unregister()
+        {
+            Entity.Release(this);
+            Entity = null;
         }
     }
 
@@ -82,6 +90,22 @@ namespace Entitas.Generic
 
             foreach (var subEntity in _subEntities)
                 subEntity.Initialize();
+        }
+
+        public override void Unregister()
+        {
+            var entity = Entity;
+
+            foreach (var component in _componentBehaviours)
+                component.Remove(ref entity);
+
+            foreach (var listener in _listeners)
+                listener.Unregister();
+
+            foreach (var subEntity in _subEntities)
+                subEntity.Unregister();
+
+            base.Unregister();
         }
 
 #if UNITY_EDITOR
