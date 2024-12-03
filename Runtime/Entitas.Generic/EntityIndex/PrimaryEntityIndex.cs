@@ -18,7 +18,7 @@ namespace Entitas.Generic
         [PublicAPI]
         public Entity<TScope> GetEntity(TValue value)
             => GetEntityOrDefault(value)
-               ?? throw new NullReferenceException();
+                ?? throw new ArgumentException($"Has no Entity in index {typeof(TComponent).Name} for value {value}");
 
         [PublicAPI]
         public Entity<TScope> GetEntityOrDefault(TValue value)
