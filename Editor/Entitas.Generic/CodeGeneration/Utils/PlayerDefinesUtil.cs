@@ -1,37 +1,40 @@
 using UnityEditor;
-using static UnityEditor.EditorUserBuildSettings;
+using UnityEditor.Build;
 
 namespace Entitas.Generic
 {
-	public static class PlayerDefinesUtil
-	{
-		private static string Defines
-		{
-			get => PlayerSettings.GetScriptingDefineSymbolsForGroup(selectedBuildTargetGroup);
-			set => PlayerSettings.SetScriptingDefineSymbolsForGroup(selectedBuildTargetGroup, value);
-		}
+    public static class PlayerDefinesUtil
+    {
+        private static string Defines
+        {
+            get => PlayerSettings.GetScriptingDefineSymbols(BuildTarget);
+            set => PlayerSettings.SetScriptingDefineSymbols(BuildTarget, value);
+        }
 
-		public static void AddDefineSymbol(string symbol)
-		{
-			var defines = Defines;
+        private static NamedBuildTarget BuildTarget
+            => NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 
-			if (defines.Contains(symbol))
-				return;
+        public static void AddDefineSymbol(string symbol)
+        {
+            var defines = Defines;
 
-			defines += ";" + symbol;
-			Defines = defines;
-		}
+            if (defines.Contains(symbol))
+                return;
 
-		public static void RemoveDefineSymbol(string symbol)
-		{
-			var defines = Defines;
+            defines += ";" + symbol;
+            Defines = defines;
+        }
 
-			if (!defines.Contains(symbol))
-				return;
+        public static void RemoveDefineSymbol(string symbol)
+        {
+            var defines = Defines;
 
-			defines = defines.Replace(symbol, string.Empty);
-			defines = defines.Replace(";;", ";");
-			Defines = defines;
-		}
-	}
+            if (!defines.Contains(symbol))
+                return;
+
+            defines = defines.Replace(symbol, string.Empty);
+            defines = defines.Replace(";;", ";");
+            Defines = defines;
+        }
+    }
 }
