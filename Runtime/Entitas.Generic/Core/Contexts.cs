@@ -3,48 +3,55 @@ using JetBrains.Annotations;
 
 namespace Entitas.Generic
 {
-	public class Contexts
-	{
-		private static Contexts _instance;
-		public static Contexts Instance => _instance ??= new Contexts();
+    public class Contexts
+    {
+        private static Contexts _instance;
+        public static Contexts Instance => _instance ??= new Contexts();
 
-		private Contexts() { }
+        private Contexts() { }
 
-		[PublicAPI]
-		public void InitializeScope<TScope>()
-			where TScope : IScope
-		{
-			ComponentsLookup<TScope>.Instance.Initialize();
-			var context = new ScopeContext<TScope>((e) => new SafeAERC(e));
+        [PublicAPI]
+        public void InitializeScope<TScope>()
+            where TScope : IScope
+        {
+            ComponentsLookup<TScope>.Instance.Initialize();
+            var context = new ScopeContext<TScope>((e) => new SafeAERC(e));
 
-			InitScopeObserver(context);
-		}
+            InitScopeObserver(context);
+        }
 
-		[PublicAPI]
-		public ScopeContext<TScope> Get<TScope>()
-			where TScope : IScope
-			=> ScopeContext<TScope>.Instance;
+        [PublicAPI]
+        public void ResetScope<TScope>()
+            where TScope : IScope
+        {
+            ScopeContext<TScope>.Instance.Reset();
+        }
 
-		[PublicAPI]
-		public IGroup<Entity<TScope>> GetGroup<TScope>(IMatcher<Entity<TScope>> matcher)
-			where TScope : IScope
-			=> Get<TScope>().GetGroup(matcher);
+        [PublicAPI]
+        public ScopeContext<TScope> Get<TScope>()
+            where TScope : IScope
+            => ScopeContext<TScope>.Instance;
 
-		[PublicAPI]
-		public Entity<TScope> SingleOrDefault<TScope>(IMatcher<Entity<TScope>> matcher)
-			where TScope : IScope
-			=> GetGroup(matcher).GetSingleEntity();
+        [PublicAPI]
+        public IGroup<Entity<TScope>> GetGroup<TScope>(IMatcher<Entity<TScope>> matcher)
+            where TScope : IScope
+            => Get<TScope>().GetGroup(matcher);
 
-		[UsedImplicitly]
-		private void InitScopeObserver(IContext context)
-		{
+        [PublicAPI]
+        public Entity<TScope> SingleOrDefault<TScope>(IMatcher<Entity<TScope>> matcher)
+            where TScope : IScope
+            => GetGroup(matcher).GetSingleEntity();
+
+        [UsedImplicitly]
+        private void InitScopeObserver(IContext context)
+        {
 #if UNITY_EDITOR
-			if (UnityEngine.Application.isPlaying)
-			{
-				var observer = new ContextObserver(context);
-				UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
-			}
+            if (UnityEngine.Application.isPlaying)
+            {
+                var observer = new ContextObserver(context);
+                UnityEngine.Object.DontDestroyOnLoad(observer.gameObject);
+            }
 #endif
-		}
-	}
+        }
+    }
 }
