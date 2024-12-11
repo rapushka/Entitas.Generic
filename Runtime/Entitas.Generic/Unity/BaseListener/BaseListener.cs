@@ -39,6 +39,11 @@ namespace Entitas.Generic
 
             entity.AddListener(this);
 
+            OnRegistered(entity);
+        }
+
+        protected virtual void OnRegistered(Entity<TScope> entity)
+        {
             if (entity.Has<TComponent>())
                 OnValueChanged(entity, entity.Get<TComponent>());
         }
