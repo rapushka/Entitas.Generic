@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Debug = UnityEngine.Debug;
 
 namespace Entitas.Generic
 {
@@ -40,8 +38,7 @@ namespace Entitas.Generic
             if (_initialized)
                 return this;
 
-            using (new StopWatchScope("register all types WITH materializing after sorting"))
-                RegisterAllTypes();
+            RegisterAllTypes();
 
             ComponentTypes = _componentTypes.ToArray();
             ComponentNames = ComponentTypes.Select((x) => x.Name).ToArray();
@@ -75,27 +72,6 @@ namespace Entitas.Generic
                 _componentTypes.Add(componentType);
                 indexType.SetStaticField("Value", _lastComponentIndex++);
             }
-        }
-    }
-
-    public readonly struct StopWatchScope : IDisposable
-    {
-        private readonly Stopwatch _stopwatch;
-        private readonly string _message;
-
-        public StopWatchScope(string message)
-        {
-            _message = message;
-            _stopwatch = new();
-
-            _stopwatch.Start();
-        }
-
-        public void Dispose()
-        {
-            _stopwatch.Stop();
-
-            Debug.Log($"{_message} in: {_stopwatch.Elapsed} ({_stopwatch.ElapsedMilliseconds} ms)");
         }
     }
 }
