@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Debug = UnityEngine.Debug;
 
 namespace Entitas.Generic
 {
@@ -23,19 +25,23 @@ namespace Entitas.Generic
 
         public int TotalComponents => _componentTypes.Count;
 
-        private static IEnumerable<Type> AllTypes
-            => AppDomain.CurrentDomain.GetAssemblies().SelectMany((a) => a.GetTypes())
+        private static IEnumerable<Type> AllComponentTypes
+            => AllTypes.Where(t => t.IsDerivedFrom<IInScope<TScope>>())
 #if UNITY_EDITOR
-                        .OrderBy(t => t.Name)
+                .OrderBy(t => t.Name)
 #endif
         ;
+
+        private static IEnumerable<Type> AllTypes
+            => AppDomain.CurrentDomain.GetAssemblies().SelectMany((a) => a.GetTypes());
 
         public ComponentsLookup<TScope> Initialize()
         {
             if (_initialized)
                 return this;
 
-            RegisterAllTypes();
+            using (new StopWatchScope("register all types WITH materializing after sorting"))
+                RegisterAllTypes();
 
             ComponentTypes = _componentTypes.ToArray();
             ComponentNames = ComponentTypes.Select((x) => x.Name).ToArray();
@@ -47,11 +53,8 @@ namespace Entitas.Generic
 
         private void RegisterAllTypes()
         {
-            foreach (var type in AllTypes)
+            foreach (var type in AllComponentTypes)
             {
-                if (!type.IsDerivedFrom<IInScope<TScope>>())
-                    continue;
-
                 if (type.IsDerivedFrom<IComponent>())
                     Register(type);
 
@@ -72,6 +75,27 @@ namespace Entitas.Generic
                 _componentTypes.Add(componentType);
                 indexType.SetStaticField("Value", _lastComponentIndex++);
             }
+        }
+    }
+
+    public readonly struct StopWatchScope : IDisposable
+    {
+        private readonly Stopwatch _stopwatch;
+        private readonly string _message;
+
+        public StopWatchScope(string message)
+        {
+            _message = message;
+            _stopwatch = new();
+
+            _stopwatch.Start();
+        }
+
+        public void Dispose()
+        {
+            _stopwatch.Stop();
+
+            Debug.Log($"{_message} in: {_stopwatch.Elapsed} ({_stopwatch.ElapsedMilliseconds} ms)");
         }
     }
 }
