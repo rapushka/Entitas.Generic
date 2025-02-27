@@ -13,7 +13,7 @@ namespace Entitas.Generic
 
 		internal static class MenuItem
 		{
-			public const string Root = "+375/Entitas.Generic/";
+			public const string Root = "375/Entitas.Generic/";
 		}
 
 		internal static class Define
