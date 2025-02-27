@@ -5,7 +5,7 @@ namespace Entitas.Generic
 {
     public abstract class FeatureAdapterBase : MonoBehaviour
     {
-        public Systems Systems { get; private set; }
+        private Systems Systems { get; set; }
 
         protected abstract Systems CreateSystems();
 
@@ -26,14 +26,16 @@ namespace Entitas.Generic
             Systems.DeactivateReactiveSystems();
             Systems.ClearReactiveSystems();
 
-            MarkAllEntitiesAsDestroyed();
+            Dispose();
 
             Systems.Cleanup();
             Systems.TearDown();
         }
 
+        /// This method is called after the reactive system deactivation and before the last Cleanup and TearDown.
+        /// So you can override it if you need to mark all entities with your Destroy component or something.
         [PublicAPI]
-        protected abstract void MarkAllEntitiesAsDestroyed();
+        protected virtual void Dispose() { }
     }
 
     public abstract class FeatureAdapterBase<TSystems> : FeatureAdapterBase
