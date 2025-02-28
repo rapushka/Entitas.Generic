@@ -33,10 +33,10 @@ namespace Entitas.Generic
             target.RemoveSafely<TComponent>();
 
             if (theirComponent is not null)
-                Replace<TComponent, TValue>(theirValue);
+                Set<TComponent, TValue>(theirValue);
 
             if (ourComponent is not null)
-                target.Replace<TComponent, TValue>(ourValue);
+                target.Set<TComponent, TValue>(ourValue);
         }
     }
 }

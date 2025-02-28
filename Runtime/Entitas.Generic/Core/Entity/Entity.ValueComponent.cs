@@ -15,13 +15,13 @@ namespace Entitas.Generic
 		}
 
 		[PublicAPI]
-		public Entity<TScope> Replace<TComponent, TValue>(TValue value)
+		public Entity<TScope> Set<TComponent, TValue>(TValue value)
 			where TComponent : ValueComponent<TValue>, IInScope<TScope>, new()
 		{
 			var component = Create<TComponent>();
 			component.Value = value;
 
-			return Replace(component);
+			return Set(component);
 		}
 
 		[PublicAPI]

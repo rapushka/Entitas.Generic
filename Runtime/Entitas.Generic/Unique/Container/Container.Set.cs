@@ -20,6 +20,6 @@ namespace Entitas.Generic
 		[PublicAPI]
 		public void Set<TComponent, TValue>(TValue value)
 			where TComponent : ValueComponent<TValue>, IUnique, IInScope<TScope>, new()
-			=> EnsureEntity<TComponent>().Replace<TComponent, TValue>(value);
+			=> EnsureEntity<TComponent>().Set<TComponent, TValue>(value);
 	}
 }
